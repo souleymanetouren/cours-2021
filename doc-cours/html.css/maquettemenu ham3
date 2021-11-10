@@ -1,0 +1,1 @@
+<?php echo $_POST["search"]; ?> ne correspond à aucun résultat.

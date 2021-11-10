@@ -1,0 +1,19 @@
+p {
+    padding: 0.5em;
+    /* on rend la boite visible quelque soit son type*/
+    border: 1px solid green;
+    background-color: yellow;
+}
+
+.inline {
+    display: inline;
+}
+
+.block {
+    display: block;
+}
+
+
+.block-inline {
+    display: inline-block;
+}

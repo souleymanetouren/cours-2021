@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<!-- saved from url=(0056)https://www.washaweb.com/tutoriaux/responsive-bootstrap/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="./Responsive-Design-avec-Bootstrap-3_files/css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="./Responsive-Design-avec-Bootstrap-3_files/mkdown.css">
+<title>Responsive-Design-avec-Bootstrap-3</title></head><body><article class="markdown-body"><h1 id="responsive-design-avec-bootstrap-3">Responsive Design avec Bootstrap 3</h1>
+
+<h2 id="pr%C3%A9sentation">Présentation</h2>
+
+<h4 id="site-mobiles-">Site mobiles ?</h4>
+
+<ul>
+<li>L'usage des smartphones est en train d'exploser. De plus en plus de personnes visitent aujourd'hui des sites web depuis leur navigateur mobile. Voir ce <a href="http://fr.slideshare.net/wearesocialsg/social-digital-mobile-around-the-world-january-2014">slideshare</a> si vous en doutez encore !</li>
+</ul>
+
+<p><em>Quelques stats de 2014 :</em></p>
+
+<ul>
+<li>Plus de 72 millions de téléphones portables activés, soit plus d’un téléphone par personne.</li>
+<li>Un internaute français passe en moyenne 4h07 par jour sur Internet (via un ordinateur).</li>
+<li>Les mobinautes surfent en moyenne 58 minutes par jour sur leur smartphone.</li>
+</ul>
+
+<p>Il est donc important de proposer aux internautes une expérience optimale sur un site internet adapté aux mobiles.</p>
+
+<h4 id="responsive-design-qu%C3%A9saco-">responsive design quésaco ?</h4>
+
+<p><a href="./Responsive-Design-avec-Bootstrap-3_files/Content-is-like-water-1980.jpg" target="_blank"><img src="./Responsive-Design-avec-Bootstrap-3_files/Content-is-like-water-1980.jpg" alt="Content is like a water" style="max-width:100%;"></a></p>
+
+<p>Le terme <strong>responsive web design</strong> (RWD) - ou site web adaptatif - est une solution pour créer un seul site site web qui s'adapte à la taille de l'écran des différents supports d'affichages (Smartphone, tablette, TV, ordinateur) pour proposer une navigation confortable sur chaque support. </p>
+
+<blockquote>
+<p>note: D'autres solutions existent comme la création d'un site dédié aux mobiles séparé du site normal, mais cette solution est réputée moins "agile" car il faut ensuite maintenir 2 sites à jour et cela ne couvre pas la problématique des tablettes et grands smartphones.</p>
+</blockquote>
+
+<h4 id="css3-media-queries">CSS3 Media Queries</h4>
+
+<p>Le développement repose sur l'utilisation de la technologie <strong>CSS3 media queries</strong>, une extension de la règle <code>@media</code> pour adapter la mise en page à l'environnement de consultation grâce à une grille fluide dans laquelle se casent les différents contenus de la page.</p>
+
+<p>Exemple d'une règle CSS <code>@media</code> :</p>
+
+<div class="highlight highlight-css"><pre>    <span class="pl-c">/* css */</span>
+
+    <span class="pl-e">.text</span> {
+        <span class="pl-c1"><span class="pl-c1">font-size</span></span>: <span class="pl-c1">14<span class="pl-k">px</span></span>;
+    }
+    <span class="pl-c">/* affiche le texte en corps 16px lorsque le média dispose d'une largeur d'affichage au minimum de 780px */</span>
+    <span class="pl-k">@media</span> (<span class="pl-c1">min-width</span>: <span class="pl-c1">780<span class="pl-k">px</span></span>) {
+      <span class="pl-e">.text</span> {
+        <span class="pl-c1"><span class="pl-c1">font-size</span></span>: <span class="pl-c1">16<span class="pl-k">px</span></span>;
+      }
+    }
+
+    <span class="pl-c">/* scss / less */</span>
+
+    <span class="pl-e">.text</span> {
+        <span class="pl-c">/* affiche le texte en corps 14px */</span>
+        <span class="pl-c1"><span class="pl-c1">font-size</span></span>: <span class="pl-c1">14<span class="pl-k">px</span></span>;
+
+        <span class="pl-c">/* affiche le texte en corps 16px lorsque le média dispose d'une largeur d'affichage au minimum de 780px */</span>
+        @<span class="pl-c1">media</span> (<span class="pl-c1"><span class="pl-c1">min-width</span></span>: <span class="pl-c1">780<span class="pl-k">px</span></span>) {
+            font-size: <span class="pl-c1">16<span class="pl-k">px</span></span>;
+        }
+    }
+</pre></div>
+
+<h4 id="quelques-bases-%C3%A0-conna%C3%AEtre">Quelques bases à connaître</h4>
+
+<ul>
+<li>Le viewport sur les mobiles</li>
+</ul>
+
+<p>Sur mobile, pour une question de compatibilité avec les anciens site non-responsive, le zoom est activé par défaut, il faut donc spécifier manuellement le viewport :</p>
+
+<div class="highlight highlight-html"><pre>    <span class="pl-c">&lt;!-- le minimum syndical --&gt;</span>
+    &lt;<span class="pl-ent">meta</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>viewport<span class="pl-pds">"</span></span> <span class="pl-e">content</span>=<span class="pl-s"><span class="pl-pds">"</span>width=device-width<span class="pl-pds">"</span></span> /&gt;
+
+    <span class="pl-c">&lt;!-- ce que j'utilise --&gt;</span>
+    &lt;<span class="pl-ent">meta</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>viewport<span class="pl-pds">"</span></span> <span class="pl-e">content</span>=<span class="pl-s"><span class="pl-pds">"</span>width=device-width, initial-scale=1, minimum-scale=1, user-scalable=no<span class="pl-pds">"</span></span>&gt;</pre></div>
+
+<ul>
+<li>Penser ses CSS en 'mobile first'</li>
+<li>Attention au poids des images (Penser vecteur / polices d'icônes plutôt que des images bitmap à l'ancienne)</li>
+<li>Penser Retina / HDPI et multi format d'images pour les Écran HiDPI</li>
+</ul>
+
+<h2 id="tour-dhorizon-de-bootstrap-30">Tour d’horizon de Bootstrap 3.0</h2>
+
+<h4 id="bootstrap-cest-quoi-">Bootstrap c'est quoi ?</h4>
+
+<p>Bootstrap (de Twitter) est un framework css/html qui facilite la création d'un site web en responsive design. Il est composé de code HTML formalisé, de code Javascript et d'une CSS. Il permet de coder dans un standard et facilite la réutilisation du code.<br>
+De plus Bootstrap propose des helper-class pour faciliter la création de sites adaptés aux mobiles et tablettes.</p>
+
+<h4 id="t%C3%A9l%C3%A9charger-et-installer-bootstrap">Télécharger et installer bootstrap</h4>
+
+<p>rendez-vous sur <a href="http://getbootstrap.com/getting-started/">http://getbootstrap.com/getting-started/</a> pour choisir une option de déploiement.</p>
+
+<p>Voici la base (CDN) :</p>
+
+<div class="highlight highlight-html"><pre>    <span class="pl-c">&lt;!-- Latest compiled and minified CSS --&gt;</span>
+    &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css<span class="pl-pds">"</span></span>&gt;
+
+    <span class="pl-c">&lt;!-- Optional theme --&gt;</span>
+    &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css<span class="pl-pds">"</span></span>&gt;
+
+    <span class="pl-c">&lt;!-- Latest compiled and minified JavaScript --&gt;</span>
+<span class="pl-s1">    &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span></pre></div>
+
+<p>À placer comme ceci dans un fichier HTML comme celui de base proposé :</p>
+
+<div class="highlight highlight-html"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>en<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">meta</span> <span class="pl-e">http-equiv</span>=<span class="pl-s"><span class="pl-pds">"</span>X-UA-Compatible<span class="pl-pds">"</span></span> <span class="pl-e">content</span>=<span class="pl-s"><span class="pl-pds">"</span>IE=edge<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">meta</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>viewport<span class="pl-pds">"</span></span> <span class="pl-e">content</span>=<span class="pl-s"><span class="pl-pds">"</span>width=device-width, initial-scale=1<span class="pl-pds">"</span></span>&gt;
+    <span class="pl-c">&lt;!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags --&gt;</span>
+    &lt;<span class="pl-ent">title</span>&gt;Bootstrap 101 Template&lt;/<span class="pl-ent">title</span>&gt;
+
+    <span class="pl-c">&lt;!-- Bootstrap --&gt;</span>
+    &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css<span class="pl-pds">"</span></span>&gt;
+    <span class="pl-c">&lt;!-- Optional theme --&gt;</span>
+    &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css<span class="pl-pds">"</span></span>&gt;
+
+    <span class="pl-c">&lt;!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries --&gt;</span>
+    <span class="pl-c">&lt;!-- WARNING: Respond.js doesn't work if you view the page via file:// --&gt;</span>
+    <span class="pl-c">&lt;!--[if lt IE 9]&gt;</span>
+<span class="pl-c">      &lt;script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"&gt;&lt;/script&gt;</span>
+<span class="pl-c">      &lt;script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"&gt;&lt;/script&gt;</span>
+<span class="pl-c">    &lt;![endif]--&gt;</span>
+  &lt;/<span class="pl-ent">head</span>&gt;
+  &lt;<span class="pl-ent">body</span>&gt;
+    &lt;<span class="pl-ent">h1</span>&gt;Hello, world!&lt;/<span class="pl-ent">h1</span>&gt;
+
+    <span class="pl-c">&lt;!-- jQuery (necessary for Bootstrap's JavaScript plugins) --&gt;</span>
+<span class="pl-s1">    &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+    <span class="pl-c">&lt;!-- Include all compiled plugins (below), or include individual files as needed --&gt;</span>
+<span class="pl-s1">    &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+  &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<blockquote>
+<p>Afficher <a href="https://www.washaweb.com/tutoriaux/responsive-bootstrap/exemples/etape1.html">la démo</a></p>
+</blockquote>
+
+<h2 id="mise-en-place-dune-navigation-responsive">Mise en place d’une navigation responsive</h2>
+
+<p>Dans le document créé ajouter ce code à l'intérieur de la balise <code>body</code> pour obtenir une navbar standard:</p>
+
+<div class="highlight highlight-html"><pre>    &lt;<span class="pl-ent">nav</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>navbar navbar-default navbar-fixed-top<span class="pl-pds">"</span></span>&gt;
+      &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>container<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>navbar-header<span class="pl-pds">"</span></span>&gt;
+          &lt;<span class="pl-ent">button</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>button<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>navbar-toggle collapsed<span class="pl-pds">"</span></span> <span class="pl-e">data-toggle</span>=<span class="pl-s"><span class="pl-pds">"</span>collapse<span class="pl-pds">"</span></span> <span class="pl-e">data-target</span>=<span class="pl-s"><span class="pl-pds">"</span>#navbar<span class="pl-pds">"</span></span> <span class="pl-e">aria-expanded</span>=<span class="pl-s"><span class="pl-pds">"</span>false<span class="pl-pds">"</span></span> <span class="pl-e">aria-controls</span>=<span class="pl-s"><span class="pl-pds">"</span>navbar<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">span</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>sr-only<span class="pl-pds">"</span></span>&gt;Toggle navigation&lt;/<span class="pl-ent">span</span>&gt;
+            &lt;<span class="pl-ent">span</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>icon-bar<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">span</span>&gt;
+            &lt;<span class="pl-ent">span</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>icon-bar<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">span</span>&gt;
+            &lt;<span class="pl-ent">span</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>icon-bar<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">span</span>&gt;
+          &lt;/<span class="pl-ent">button</span>&gt;
+          &lt;<span class="pl-ent">a</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>navbar-brand<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>#<span class="pl-pds">"</span></span>&gt;Project name&lt;/<span class="pl-ent">a</span>&gt;
+        &lt;/<span class="pl-ent">div</span>&gt;
+        &lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>navbar<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>collapse navbar-collapse<span class="pl-pds">"</span></span>&gt;
+          &lt;<span class="pl-ent">ul</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>nav navbar-nav<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">li</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>active<span class="pl-pds">"</span></span>&gt;&lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>#<span class="pl-pds">"</span></span>&gt;Home&lt;/<span class="pl-ent">a</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+            &lt;<span class="pl-ent">li</span>&gt;&lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>#about<span class="pl-pds">"</span></span>&gt;About&lt;/<span class="pl-ent">a</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+            &lt;<span class="pl-ent">li</span>&gt;&lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>#contact<span class="pl-pds">"</span></span>&gt;Contact&lt;/<span class="pl-ent">a</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+          &lt;/<span class="pl-ent">ul</span>&gt;
+        &lt;/<span class="pl-ent">div</span>&gt;<span class="pl-c">&lt;!--/.nav-collapse --&gt;</span>
+      &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;/<span class="pl-ent">nav</span>&gt;</pre></div>
+
+<p>Il est possible d'avoir une variation en remplaçant la class <code>navbar-default</code> par <code>navbar-inverse</code>, et de varier la position :</p>
+
+<ul>
+<li><code>navbar-fixed-top</code></li>
+<li><code>navbar-static-top</code></li>
+<li><code>navbar-fixed-bottom</code></li>
+<li><code>navbar-static-bottom</code></li>
+</ul>
+
+<p>Lorsqu'on utilise une <code>navbar-fixed-*</code> il est important de noter qu'il faut ajouter une marge au body pour éviter le recouvrement du contenu par la barre de navigation.</p>
+
+<div class="highlight highlight-css"><pre>    <span class="pl-ent">body</span>&nbsp;{
+        <span class="pl-c1"><span class="pl-c1">margin-top</span></span>: <span class="pl-c1">50<span class="pl-k">px</span></span>;
+        <span class="pl-c">/*uniquement dans le cas d'une navbar-fixed-bottom */</span>
+        <span class="pl-c">/* margin-bottom: 50px; */</span> 
+    }</pre></div>
+
+<blockquote>
+<p>Afficher <a href="https://www.washaweb.com/tutoriaux/responsive-bootstrap/exemples/etape2.html">la démo</a></p>
+</blockquote>
+
+<h2 id="le-responsive-grid--bien-contr%C3%B4ler-ses-colonages-en-fonction-des-supports">Le responsive grid : bien contrôler ses colonages en fonction des supports</h2>
+
+<p><a href="./Responsive-Design-avec-Bootstrap-3_files/wireframe-template.gif" target="_blank"><img src="./Responsive-Design-avec-Bootstrap-3_files/wireframe-template.gif" alt="Illustration" style="max-width:100%;"></a></p>
+
+<p>Voyons maintenant les bases de la mise en page : deux systèmes de grille de mise en page à notre disposition:</p>
+
+<ul>
+<li>
+<code>.container-fluid</code> pour une mise en page fluide qui utilise 100% de l'espace de la fenêtre et se redimensionne en suivant le cadre de la fenêtre.</li>
+</ul>
+
+<div class="highlight highlight-html"><pre>    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>container-fluid<span class="pl-pds">"</span></span>&gt;
+      &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>row<span class="pl-pds">"</span></span>&gt;
+        ...
+      &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<ul>
+<li>
+<code>.container</code> pour une mise en page largeur fixe (1170px) mais qui se rétrécit avec la diminution de la taille de la fenêtre : (auto) -&gt; 750px -&gt; 970px -&gt; 1170px</li>
+</ul>
+
+<div class="highlight highlight-html"><pre>    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>container<span class="pl-pds">"</span></span>&gt;
+      &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>row<span class="pl-pds">"</span></span>&gt;
+        ...
+      &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<p>Dans ces conteneurs, nous devons utiliser des lignes (<code>.row</code>) pour pouvoir ajouter ensuite des colonnes (<code>.col-sm-*</code>).</p>
+
+<p>Le system de colonnage de Bootstrap est très bien étudié, la grille de base est de 12 colonnes divisible en unités, préfixé d'un identifiant de largeur géré avec des breakpoints définis par des media-queries :</p>
+
+<div class="highlight highlight-css"><pre>    <span class="pl-c">/* Small devices (tablets, 768px and up) */</span>
+    <span class="pl-k">@media</span> (<span class="pl-c1">min-width</span>: @screen-sm-min) { }
+    <span class="pl-c">/* Medium devices (desktops, 992px and up) */</span>
+    <span class="pl-k">@media</span> (<span class="pl-c1">min-width</span>: @screen-md-min) { }
+    <span class="pl-c">/* Large devices (large desktops, 1200px and up) */</span>
+    <span class="pl-k">@media</span> (<span class="pl-c1">min-width</span>: @screen-lg-min) { }</pre></div>
+
+<p>Donc pour obtenir deux colonnes, je dois faire un calcul simple : <code>12/2 = 6</code>, j'aurai donc 2 colonnes de classe 6, je décide que le breakpoint de ces colonnes sera les <code>small devices (sm)</code>, mes colonnes ressembleront donc à ce code :</p>
+
+<div class="highlight highlight-html"><pre>    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-sm-6<span class="pl-pds">"</span></span>&gt;contenu colonne 1&lt;/<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-sm-6<span class="pl-pds">"</span></span>&gt;contenu colonne 2&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<p>Il faut bien entendu placé de code dans le conteneur et la ligne :</p>
+
+<div class="highlight highlight-html"><pre>    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>container<span class="pl-pds">"</span></span>&gt;
+      &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>row<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-sm-6<span class="pl-pds">"</span></span>&gt;contenu colonne 1&lt;/<span class="pl-ent">div</span>&gt;
+        &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-sm-6<span class="pl-pds">"</span></span>&gt;contenu colonne 2&lt;/<span class="pl-ent">div</span>&gt;
+      &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<p>On peut également assigner plusieurs class de colonnage pour gérer des colonnages différents à chaque breakpoints :</p>
+
+<div class="highlight highlight-html"><pre><span class="pl-c">&lt;!-- Stack the columns on mobile by making one full-width and the other half-width --&gt;</span>
+&lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>row<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-xs-12 col-md-8<span class="pl-pds">"</span></span>&gt;.col-xs-12 .col-md-8&lt;/<span class="pl-ent">div</span>&gt;
+  &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-xs-6 col-md-4<span class="pl-pds">"</span></span>&gt;.col-xs-6 .col-md-4&lt;/<span class="pl-ent">div</span>&gt;
+&lt;/<span class="pl-ent">div</span>&gt;
+
+<span class="pl-c">&lt;!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop --&gt;</span>
+&lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>row<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-xs-6 col-md-4<span class="pl-pds">"</span></span>&gt;.col-xs-6 .col-md-4&lt;/<span class="pl-ent">div</span>&gt;
+  &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-xs-6 col-md-4<span class="pl-pds">"</span></span>&gt;.col-xs-6 .col-md-4&lt;/<span class="pl-ent">div</span>&gt;
+  &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-xs-6 col-md-4<span class="pl-pds">"</span></span>&gt;.col-xs-6 .col-md-4&lt;/<span class="pl-ent">div</span>&gt;
+&lt;/<span class="pl-ent">div</span>&gt;
+
+<span class="pl-c">&lt;!-- Columns are always 50% wide, on mobile and desktop --&gt;</span>
+&lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>row<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-xs-6<span class="pl-pds">"</span></span>&gt;.col-xs-6&lt;/<span class="pl-ent">div</span>&gt;
+  &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-xs-6<span class="pl-pds">"</span></span>&gt;.col-xs-6&lt;/<span class="pl-ent">div</span>&gt;
+&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<p>Il est aussi possible d'utiliser des <code>offset</code> pour décaler des colonnes avec des marges :</p>
+
+<div class="highlight highlight-html"><pre>    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>row<span class="pl-pds">"</span></span>&gt;
+      &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-md-4<span class="pl-pds">"</span></span>&gt;.col-md-4&lt;/<span class="pl-ent">div</span>&gt;
+      &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-md-4 col-md-offset-4<span class="pl-pds">"</span></span>&gt;.col-md-4 .col-md-offset-4&lt;/<span class="pl-ent">div</span>&gt;
+    &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>row<span class="pl-pds">"</span></span>&gt;
+      &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-md-3 col-md-offset-3<span class="pl-pds">"</span></span>&gt;.col-md-3 .col-md-offset-3&lt;/<span class="pl-ent">div</span>&gt;
+      &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-md-3 col-md-offset-3<span class="pl-pds">"</span></span>&gt;.col-md-3 .col-md-offset-3&lt;/<span class="pl-ent">div</span>&gt;
+    &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>row<span class="pl-pds">"</span></span>&gt;
+      &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-md-6 col-md-offset-3<span class="pl-pds">"</span></span>&gt;.col-md-6 .col-md-offset-3&lt;/<span class="pl-ent">div</span>&gt;
+    &lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<p>Les colonnes sont imbriquables :</p>
+
+<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>row<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-sm-9<span class="pl-pds">"</span></span>&gt;
+    Level 1: .col-sm-9
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>row<span class="pl-pds">"</span></span>&gt;
+      &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-xs-8 col-sm-6<span class="pl-pds">"</span></span>&gt;
+        Level 2: .col-xs-8 .col-sm-6
+      &lt;/<span class="pl-ent">div</span>&gt;
+      &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-xs-4 col-sm-6<span class="pl-pds">"</span></span>&gt;
+        Level 2: .col-xs-4 .col-sm-6
+      &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;/<span class="pl-ent">div</span>&gt;
+  &lt;/<span class="pl-ent">div</span>&gt;
+&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<blockquote>
+<p>Afficher <a href="https://www.washaweb.com/tutoriaux/responsive-bootstrap/exemples/etape4.html">la démo</a></p>
+</blockquote>
+
+<p>En utilisant la version Less ou Sass, il est également possible de créer facilement des colonnes personnalisées.</p>
+
+<div class="highlight highlight-less"><pre>  <span class="pl-c">//less</span>
+
+  <span class="pl-e">.wrapper</span> {
+    <span class="pl-e">.make-row</span>();
+  }
+  <span class="pl-e">.content-main</span> {
+    <span class="pl-e">.make-lg-column</span>(<span class="pl-c1">8</span>);
+  }
+  <span class="pl-e">.content-secondary</span> {
+    <span class="pl-e">.make-lg-column</span>(<span class="pl-c1">3</span>);
+    <span class="pl-e">.make-lg-column-offset</span>(<span class="pl-c1">1</span>);
+  }</pre></div>
+
+<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>wrapper<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>content-main<span class="pl-pds">"</span></span>&gt;...&lt;/<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>content-secondary<span class="pl-pds">"</span></span>&gt;...&lt;/<span class="pl-ent">div</span>&gt;
+  &lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<h3 id="bonus">BONUS</h3>
+
+<p>Astuce pour créer 5 colonnes</p>
+
+<div class="highlight highlight-css"><pre>  <span class="pl-c">/* bootstrap 5 cols</span>
+<span class="pl-c">  // ----------------- */</span>
+  <span class="pl-e">.col-xs-5ths</span>,
+  <span class="pl-e">.col-sm-5ths</span>,
+  <span class="pl-e">.col-md-5ths</span>,
+  <span class="pl-e">.col-lg-5ths</span> {
+    <span class="pl-c1"><span class="pl-c1">position</span></span>: <span class="pl-c1">relative</span>;
+    <span class="pl-c1"><span class="pl-c1">min-height</span></span>: <span class="pl-c1">1<span class="pl-k">px</span></span>;
+    <span class="pl-c1"><span class="pl-c1">padding-right</span></span>: <span class="pl-c1">10<span class="pl-k">px</span></span>;
+    <span class="pl-c1"><span class="pl-c1">padding-left</span></span>: <span class="pl-c1">10<span class="pl-k">px</span></span>;
+  }
+
+  <span class="pl-e">.col-xs-5ths</span> {
+    <span class="pl-c1"><span class="pl-c1">width</span></span>: <span class="pl-c1">20<span class="pl-k">%</span></span>;
+    <span class="pl-c1"><span class="pl-c1">float</span></span>: <span class="pl-c1">left</span>;
+  }
+
+  <span class="pl-k">@media</span> (<span class="pl-c1">min-width</span>: <span class="pl-c1">768<span class="pl-k">px</span></span>) {
+    <span class="pl-e">.col-sm-5ths</span> {
+      <span class="pl-c1"><span class="pl-c1">width</span></span>: <span class="pl-c1">20<span class="pl-k">%</span></span>;
+      <span class="pl-c1"><span class="pl-c1">float</span></span>: <span class="pl-c1">left</span>;
+    }
+  }
+
+  <span class="pl-k">@media</span> (<span class="pl-c1">min-width</span>: <span class="pl-c1">992<span class="pl-k">px</span></span>) {
+    <span class="pl-e">.col-md-5ths</span> {
+      <span class="pl-c1"><span class="pl-c1">width</span></span>: <span class="pl-c1">20<span class="pl-k">%</span></span>;
+      <span class="pl-c1"><span class="pl-c1">float</span></span>: <span class="pl-c1">left</span>;
+    }
+  }
+
+  <span class="pl-k">@media</span> (<span class="pl-c1">min-width</span>: <span class="pl-c1">1200<span class="pl-k">px</span></span>) {
+    <span class="pl-e">.col-lg-5ths</span> {
+      <span class="pl-c1"><span class="pl-c1">width</span></span>: <span class="pl-c1">20<span class="pl-k">%</span></span>;
+      <span class="pl-c1"><span class="pl-c1">float</span></span>: <span class="pl-c1">left</span>;
+    }
+  }</pre></div>
+
+<h2 id="les-diff%C3%A9rents-composants-de-bootstrap">Les différents composants de Bootstrap</h2>
+
+<p><a href="./Responsive-Design-avec-Bootstrap-3_files/components.png" target="_blank"><img src="./Responsive-Design-avec-Bootstrap-3_files/components.png" alt="Illustration" style="max-width:100%;"></a></p>
+
+<p>Bootstrap va plus loin que de proposer une feuille de style responsive, nous avons à notre disposition tout un framework de composants HTML/CSS pour créer des mise en pages :</p>
+
+<ul>
+<li>Grille de colonnage</li>
+<li>Styles Typographiques proportionnels à la grille</li>
+<li>Classes d'alignement (gauche, droite, centré) pour le texte et les blocs</li>
+<li>Classes de transformation de texte (lowercase, UPPERCASE, Capitalized Text)</li>
+<li>Prise en charge des balises abbr, address...</li>
+<li>Blockquotes, paragraphes, listes ul, ol, dl, code, kbd, pre, var, samp</li>
+<li>Wells</li>
+<li>Tables, Responsive tables</li>
+<li>Formulaires</li>
+<li>Boutons, groupes de boutons</li>
+<li>Images</li>
+<li>Classes helpers</li>
+<li>Utilitaires responsive</li>
+<li>Icones</li>
+<li>Navigations</li>
+<li>Breadcrumbs</li>
+<li>Pagination</li>
+<li>Labels, Badges</li>
+<li>Jumbotron</li>
+<li>Page Header</li>
+<li>Thumbnails</li>
+<li>Progress bars</li>
+<li>Media object</li>
+<li>List group</li>
+</ul>
+
+<p>Et des composants qui font appel au javascript :</p>
+
+<ul>
+<li>Modal</li>
+<li>Scrollspy</li>
+<li>Dropdown</li>
+<li>tabs</li>
+<li>Tooltip, Popover</li>
+<li>Alerts</li>
+<li>Buttons toggle, Button loading state, Button checkbox/radio</li>
+<li>Collapse / Accordion</li>
+<li>Panels</li>
+<li>Carousel</li>
+<li>Affix</li>
+</ul>
+
+<blockquote>
+<p>Tous ces composants sont explicitement documenté sur le site <a href="http://www.getbootstrap.com/">http://www.getbootstrap.com</a></p>
+
+<p>Afficher <a href="https://www.washaweb.com/tutoriaux/responsive-bootstrap/exemples/etape3.html">la démo</a></p>
+</blockquote>
+
+<h2 id="le-cas-particulier-des-tableaux">Le cas particulier des tableaux</h2>
+
+<p>Il arrive que les tableaux contiennent beaucoup de données, la nature même d'un tableau ne permet pas de varier les colonnes comme avec les balises <code>div</code>.<br>
+Toutefois, l'emploi d'un div englobant avec la class <code>.table-responsive</code> permet de palier au problème, en ajoutant une scrollbar horizontale sur tableaux affichés sur les plus petits écrans (moins de 768px) :</p>
+
+<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>table-responsive<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">table</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>table<span class="pl-pds">"</span></span>&gt;
+    ...
+  &lt;/<span class="pl-ent">table</span>&gt;
+&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<blockquote>
+<p>Afficher <a href="https://www.washaweb.com/tutoriaux/responsive-bootstrap/exemples/etape4.html">la démo</a></p>
+</blockquote>
+
+<p>Cependant dans certains cas cette solution ne suffit pas.</p>
+
+<p><a href="./Responsive-Design-avec-Bootstrap-3_files/doublesuck.png" target="_blank"><img src="./Responsive-Design-avec-Bootstrap-3_files/doublesuck.png" alt="Illustration" style="max-width:100%;"></a></p>
+
+<p>Mais il existe des solutions :</p>
+
+<ul>
+<li><a href="http://elvery.net/demo/responsive-tables/">http://elvery.net/demo/responsive-tables/</a></li>
+<li><a href="http://zurb.com/playground/projects/responsive-tables/index.html">http://zurb.com/playground/projects/responsive-tables/index.html</a></li>
+<li>
+<a href="https://css-tricks.com/responsive-data-tables/">https://css-tricks.com/responsive-data-tables/</a> <a href="https://css-tricks.com/examples/ResponsiveTables/responsive.php">example ici</a>
+</li>
+</ul>
+
+<h2 id="les-helpers-class-de-bootstrap">Les helpers class de Bootstrap</h2>
+
+<p>Le but de ce tutorial n'est pas de refaire la doc de Bootstrap, mais de parcourir les éléments essentiels qui peuvent rapidement aider un intégrateur à faire une mise en page responsive.<br>
+Les <strong>helper-class</strong> sont des classes essentielles pour aider à la mise en page.</p>
+
+<div class="highlight highlight-html"><pre>    &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>sr-only<span class="pl-pds">"</span></span>&gt;Visible uniquement pour les lecteurs d'écran.&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>lead<span class="pl-pds">"</span></span>&gt;Paragraphe d'introduction.&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>text-left<span class="pl-pds">"</span></span>&gt;Aligné à gauche&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>text-center<span class="pl-pds">"</span></span>&gt;Aligné au centre&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>text-right<span class="pl-pds">"</span></span>&gt;Aligné à droite&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>text-justify<span class="pl-pds">"</span></span>&gt;Justifié : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla id diam felis. Duis ac viverra erat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>text-nowrap<span class="pl-pds">"</span></span>&gt;Sans saut de ligne (nowrap)&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>text-lowercase<span class="pl-pds">"</span></span>&gt;Lowercased text.&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>text-uppercase<span class="pl-pds">"</span></span>&gt;Uppercased text.&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>text-capitalize<span class="pl-pds">"</span></span>&gt;Capitalized text.&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">ul</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>list-unstyled<span class="pl-pds">"</span></span>&gt;
+      &lt;<span class="pl-ent">li</span>&gt;element 1&lt;/<span class="pl-ent">li</span>&gt;
+      &lt;<span class="pl-ent">li</span>&gt;element 2&lt;/<span class="pl-ent">li</span>&gt;
+    &lt;/<span class="pl-ent">ul</span>&gt;
+    &lt;<span class="pl-ent">ul</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>list-inline<span class="pl-pds">"</span></span>&gt;
+      &lt;<span class="pl-ent">li</span>&gt;element 1&lt;/<span class="pl-ent">li</span>&gt;
+      &lt;<span class="pl-ent">li</span>&gt;element 2&lt;/<span class="pl-ent">li</span>&gt;
+    &lt;/<span class="pl-ent">ul</span>&gt;
+    &lt;<span class="pl-ent">ul</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>list-inline list-unstyled<span class="pl-pds">"</span></span>&gt;
+      &lt;<span class="pl-ent">li</span>&gt;element 1&lt;/<span class="pl-ent">li</span>&gt;
+      &lt;<span class="pl-ent">li</span>&gt;element 2&lt;/<span class="pl-ent">li</span>&gt;
+    &lt;/<span class="pl-ent">ul</span>&gt;
+    &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>text-muted<span class="pl-pds">"</span></span>&gt;texte exemple&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>text-primary<span class="pl-pds">"</span></span>&gt;texte couleur primaire&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>text-success<span class="pl-pds">"</span></span>&gt;texte couleur success&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>text-info<span class="pl-pds">"</span></span>&gt;texte couleur info&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>text-warning<span class="pl-pds">"</span></span>&gt;texte couleur warning&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>text-danger<span class="pl-pds">"</span></span>&gt;texte couleur danger&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>bg-primary<span class="pl-pds">"</span></span>&gt;...&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>bg-success<span class="pl-pds">"</span></span>&gt;...&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>bg-info<span class="pl-pds">"</span></span>&gt;...&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>bg-warning<span class="pl-pds">"</span></span>&gt;...&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>bg-danger<span class="pl-pds">"</span></span>&gt;...&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>pull-left<span class="pl-pds">"</span></span>&gt;...&lt;/<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>pull-right<span class="pl-pds">"</span></span>&gt;...&lt;/<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>center-block<span class="pl-pds">"</span></span>&gt;...&lt;/<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>clearfix<span class="pl-pds">"</span></span>&gt;...&lt;/<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>show<span class="pl-pds">"</span></span>&gt;...&lt;/<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>hidden<span class="pl-pds">"</span></span>&gt;...&lt;/<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">h1</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>text-hide<span class="pl-pds">"</span></span>&gt;text-hide pour styler une image de remplacement&lt;/<span class="pl-ent">h1</span>&gt;</pre></div>
+
+<p>Les classes de visibilité :</p>
+
+<pre><code>    /* Visible en fonction du breakpoint */
+    .visible-xs-*
+    .visible-sm-*
+    .visible-md-*
+    .visible-lg-*
+
+    /* Chaché en fonction du breakpoint */
+    .hidden-xs-*
+    .hidden-sm-*
+    .hidden-md-*
+    .hidden-lg-*
+
+    /* Choisir le style de rendu visible : */
+    .visible-*-block /* display: block; */
+    .visible-*-inline /* display: inline; */
+    .visible-*-inline-block /* display: inline-block; */
+</code></pre>
+
+<blockquote>
+<p>Afficher <a href="https://www.washaweb.com/tutoriaux/responsive-bootstrap/exemples/etape5.html">la démo</a></p>
+</blockquote>
+
+<h2 id="personnaliser-les-styles">Personnaliser les styles</h2>
+
+<p>Bootstrap existe aussi en version LESS et SASS. Pour plus de souplesse d'utilisation dans vos projets je vous recommande d'utiliser ce type d'intégration.<br>
+Bootstrap fourni un grand nombre de variables personnalisables. Elle permetten une personnalisation rapide du thème, sans avoir à aller chercher trop loin dans le code de Bootstrap.</p>
+
+<p>Cela permet de personnaliser très rapidement tous les composants de bootstrap et d'utiliser les mixins fournis.</p>
+
+<p>Quelques exemples de styles pré-existants touvés sur <a href="http://bootswatch.com/">http://bootswatch.com</a> :</p>
+
+<p><a href="./Responsive-Design-avec-Bootstrap-3_files/bootstrap-sample.jpg" target="_blank"><img src="./Responsive-Design-avec-Bootstrap-3_files/bootstrap-sample.jpg" alt="Illustration" style="max-width:100%;"></a></p>
+
+<ul>
+<li>Voir les variables disponibles <a href="https://github.com/twbs/bootstrap/blob/master/less/variables.less">ici</a>
+</li>
+</ul>
+
+<h2 id="cr%C3%A9er-des-r%C3%A8gles-css-en-mfrd-mobile-first-responsive-design">Créer des règles CSS en MFRD (Mobile First Responsive Design)</h2>
+
+<p>Lors de la création des règles CSS, une erreur commune est de vouloir commencer à styler pour les écrans larges en premier. C'est sans doute du fait que nous réalisons l'intégration sur un écran d'ordinateur : il nous parraît logique de commencer ainsi.<br>
+Le fait est que le code CSS engendré est souvent beaucoup plus verbeux et difficile à relire avec cette méthode.<br>
+Le design MFRD (Mobile First Responsive Design) utilisé par Bootstrap, propose quant à lui de commencer à coder ses CSS en commençant par le plus petit dénominateur commun, à savoir le mobile.</p>
+
+<h4 id="exemple-de-css-wide-screen-first-responsive-design-ce-quil-ne-faut-pas-faire-">Exemple de CSS Wide Screen First Responsive Design (ce qu'il ne faut pas faire!) :</h4>
+
+<div class="highlight highlight-scss"><pre>    <span class="pl-e">.logo</span> {
+        <span class="pl-c1"><span class="pl-c1">float</span></span>: <span class="pl-c1">left</span>;
+        <span class="pl-c1"><span class="pl-c1">margin</span></span>: <span class="pl-c1">10</span><span class="pl-k">px</span><span class="pl-c1"> 20</span><span class="pl-k">px</span>;
+        <span class="pl-c1"><span class="pl-c1">width</span></span>: <span class="pl-c1">600</span><span class="pl-k">px</span>;
+        <span class="pl-c1"><span class="pl-c1">height</span></span>: <span class="pl-c1">auto</span>;
+
+        <span class="pl-ii">@</span><span class="pl-c1">media</span> (<span class="pl-v">max-width:</span> <span class="pl-smi">$screen-md-min</span>) {
+            <span class="pl-c1"><span class="pl-c1">width</span></span>: <span class="pl-c1">400</span><span class="pl-k">px</span>;
+        }
+
+        <span class="pl-ii">@</span><span class="pl-c1">media</span> (<span class="pl-v">max-width:</span> <span class="pl-smi">$screen-sm-min</span>) {
+            <span class="pl-c1"><span class="pl-c1">width</span></span>: <span class="pl-c1">300</span><span class="pl-k">px</span>;
+            <span class="pl-c1"><span class="pl-c1">float</span></span>: <span class="pl-c1">none</span>;
+            <span class="pl-c1"><span class="pl-c1">margin</span></span>: <span class="pl-c1">5</span><span class="pl-k">px</span><span class="pl-c1"> 10</span><span class="pl-k">px</span>;
+        }
+
+        <span class="pl-ii">@</span><span class="pl-c1">media</span> (<span class="pl-v">max-width:</span> <span class="pl-smi">$screen-xs-min</span>) {
+            <span class="pl-c1"><span class="pl-c1">width</span></span>: <span class="pl-c1">200</span><span class="pl-k">px</span>;
+            <span class="pl-c1"><span class="pl-c1">float</span></span>: <span class="pl-c1">none</span>;
+            <span class="pl-c1"><span class="pl-c1">margin</span></span>: <span class="pl-c1">5</span><span class="pl-k">px</span><span class="pl-c1"> 10</span><span class="pl-k">px</span>;
+        }
+
+        <span class="pl-ii">@</span><span class="pl-c1">media</span> (<span class="pl-v">max-width:</span> <span class="pl-smi">$screen-lg-min</span>) {
+            <span class="pl-c1"><span class="pl-c1">width</span></span>: <span class="pl-c1">600</span><span class="pl-k">px</span>;
+        }
+    }
+</pre></div>
+
+<h4 id="version-mobile-first-responsive-design-">Version Mobile First Responsive Design :</h4>
+
+<div class="highlight highlight-less"><pre>    <span class="pl-c">//less</span>
+
+    <span class="pl-e">.logo</span> {
+        <span class="pl-c1">margin</span>:<span class="pl-c1"> 5</span><span class="pl-k">px</span><span class="pl-c1"> 10</span><span class="pl-k">px</span>;
+        <span class="pl-c1">width</span>:<span class="pl-c1"> 200</span><span class="pl-k">px</span>;
+        <span class="pl-c1">height</span>: <span class="pl-c1">auto</span>;
+
+        <span class="pl-smi">@media</span> (<span class="pl-c1">max-width</span>: <span class="pl-smi">@screen-sm-min</span>) {
+            <span class="pl-c1">width</span>:<span class="pl-c1"> 300</span><span class="pl-k">px</span>;
+        }
+
+        <span class="pl-smi">@media</span> (<span class="pl-c1">max-width</span>: <span class="pl-smi">@screen-md-min</span>) {
+            <span class="pl-c1">width</span>:<span class="pl-c1"> 400</span><span class="pl-k">px</span>;
+            <span class="pl-c1">float</span>: <span class="pl-c1">left</span>;
+            <span class="pl-c1">margin</span>:<span class="pl-c1"> 10</span><span class="pl-k">px</span><span class="pl-c1"> 20</span><span class="pl-k">px</span>;
+        }
+
+        <span class="pl-smi">@media</span> (<span class="pl-c1">max-width</span>: <span class="pl-smi">@screen-lg-min</span>) {
+            <span class="pl-c1">width</span>:<span class="pl-c1"> 600</span><span class="pl-k">px</span>;
+        }
+    }
+</pre></div>
+
+<p>Cette méthode parraît peut de chose, mais croyez-moi, sur de gros projets, elle vous fait gagner en clarté et en ligne de code!</p>
+
+<h2 id="images-retina-media-queries-et-srcset">Images Retina, media queries et SRCSET</h2>
+
+<p><a href="https://player.vimeo.com/video/106273312"><img src="./Responsive-Design-avec-Bootstrap-3_files/video.png" alt="video" style="max-width:100%;"></a></p>
+
+<ul>
+<li><a href="http://www.paintcodeapp.com/news/iphone-6-screens-demystified">Guide des résolutions pour iPhone</a></li>
+</ul>
+
+<p>Le Responsive Design, c'est aussi d'adapter les images aux nouvelles résolutions d'écrans HiDPI et Retina. Il est donc important de prendre en compte les formats d'images adaptés.</p>
+
+<p>dans la css :</p>
+
+<div class="highlight highlight-css"><pre>    <span class="pl-e">.logo</span> {
+        <span class="pl-c1"><span class="pl-c1">background-image</span></span>: <span class="pl-c1">url</span>(<span class="pl-v">/images/logo.png</span>); <span class="pl-c">/* size 80x40px */</span>
+    }
+    @media only screen and (-webkit-min-device-pixel-ratio:2),
+    only screen and (min--moz-device-pixel-ratio:2),
+    only screen and (-o-min-device-pixel-ratio:2 / 1),
+    only screen and (min-device-pixel-ratio:2),
+    only screen and (min-resolution:192dpi),
+    only screen and (min-resolution:2dppx) {
+        .<span class="pl-c1">logo</span> {
+            <span class="pl-c1"><span class="pl-c1">background-image</span></span>: <span class="pl-c1">url</span>(<span class="pl-v">/images/logo@2x.png</span>);
+            <span class="pl-c1"><span class="pl-c1">background-size</span></span>: <span class="pl-c1">80<span class="pl-k">px</span></span> <span class="pl-c1">40<span class="pl-k">px</span></span>;
+        }
+    }</pre></div>
+
+<p>Mixin scss :</p>
+
+<div class="highlight highlight-scss"><pre><span class="pl-c">    //scss</span>
+
+    <span class="pl-k">@mixin</span> <span class="pl-en">img-retina</span>(<span class="pl-smi">$file-1x</span>, <span class="pl-smi">$file-2x</span>, <span class="pl-smi">$width-1x</span>, <span class="pl-smi">$height-1x</span>) {
+        <span class="pl-c1"><span class="pl-c1">background-image</span></span>: <span class="pl-c1">image-url</span>(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">#{<span class="pl-smi">$file-1x</span>}</span><span class="pl-pds">"</span></span>);
+
+        @<span class="pl-c1"><span class="pl-ii">media</span></span>
+        <span class="pl-c1"><span class="pl-ii">only</span></span> <span class="pl-c1"><span class="pl-ii">screen</span></span> <span class="pl-c1"><span class="pl-ii">and</span></span> (<span class="pl-c1">-webkit-<span class="pl-c1">min</span>-device-pixel-ratio</span>: <span class="pl-c1">2</span>),
+        only screen <span class="pl-c1">and</span> (   <span class="pl-v">min--moz-device-pixel-ratio:</span><span class="pl-c1"> 2</span>),
+        only screen <span class="pl-c1">and</span> (     <span class="pl-v">-o-min-device-pixel-ratio:</span><span class="pl-c1"> 2</span><span class="pl-c1">/</span><span class="pl-c1">1</span>),
+        only screen <span class="pl-c1">and</span> (        <span class="pl-v">min-device-pixel-ratio:</span><span class="pl-c1"> 2</span>),
+        only screen <span class="pl-c1">and</span> (                <span class="pl-v">min-resolution:</span><span class="pl-c1"> 192</span><span class="pl-k">dpi</span>),
+        only screen <span class="pl-c1">and</span> (                <span class="pl-v">min-resolution:</span><span class="pl-c1"> 2</span><span class="pl-k">dppx</span>) {
+            background<span class="pl-c1">-</span>image: <span class="pl-c1">image-url</span>(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">#{<span class="pl-smi">$file-2x</span>}</span><span class="pl-pds">"</span></span>);
+            <span class="pl-c1"><span class="pl-c1">background-size</span></span>: <span class="pl-smi">$width-1x</span> <span class="pl-smi">$height-1x</span>;
+      }
+    }
+
+<span class="pl-c">    //usage</span>
+    <span class="pl-e">.logo</span> {
+        <span class="pl-k">@include</span> <span class="pl-c1">img-retina</span>(<span class="pl-s"><span class="pl-pds">'</span>logo.png<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>logo@2x.png<span class="pl-pds">'</span></span>,<span class="pl-c1"> 80</span><span class="pl-k">px</span>,<span class="pl-c1"> 40</span><span class="pl-k">px</span>);
+    }
+</pre></div>
+
+<p>Cette méthode est avantageuse, mais attention au poid des images en plus ! car le navigateur va charger toutes les images présentes dans la CSS.<br>
+Il est donc recommandé des formats d'images scalables, en svg ou d'utiliser lorsque c'est possible l'emploi d'icônes typographiques.</p>
+
+<ul>
+<li><a href="https://icomoon.io/">icomoon</a></li>
+</ul>
+
+<p>Dans un document HTML, il est également possible de définir différent sets de tailles d'images qui seront utilisés sur les navigateurs supportant la déclaration (les plus récentes versions le supportement):</p>
+
+<div class="highlight highlight-html"><pre>    <span class="pl-c">&lt;!-- SRCSET Method --&gt;</span>
+    &lt;<span class="pl-ent">img</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>mon-image.jpg<span class="pl-pds">"</span></span>
+     <span class="pl-e">srcset</span>=<span class="pl-s"><span class="pl-pds">"</span>mon-image.jpg 1x,</span>
+<span class="pl-s">             mon-image-320.jpg 320w 1x,</span>
+<span class="pl-s">             mon-image-640.jpg 320w 2x<span class="pl-pds">"</span></span>
+     <span class="pl-e">width</span>=<span class="pl-s"><span class="pl-pds">"</span>850<span class="pl-pds">"</span></span> <span class="pl-e">height</span>=<span class="pl-s"><span class="pl-pds">"</span>475<span class="pl-pds">"</span></span> <span class="pl-e">alt</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>&gt;</pre></div>
+
+<p>La syntaxe de la valeur d'attribut est la suivante :</p>
+
+<pre><code>&lt;adresse-de-l-image&gt; [critère( critère)](, &lt;adresse-de-l-image&gt; [critère( critère)])
+</code></pre>
+
+<ul>
+<li>1x : cas d'une densité de pixels égale à 1 (correspondant en fait à notre valeur de src ici)</li>
+<li>320w 1x : propose une image dont la largeur est égale à 320px (iPhone 3 pourrait l'apprécier par exemple)</li>
+<li><p>320w 2x : propose une image dont la largeur est égale à 320px et où la densité de pixels est inférieure ou égale à 2 (iPhone 4 par exemple)</p></li>
+<li><p>Voir cet <a href="http://codepen.io/raphaelgoetter/pen/dcKHG">exemple</a> d'alsacréation. et un article qui en parle <a href="http://www.alsacreations.com/article/lire/1621-responsive-images-srcset.html">ici</a></p></li>
+<li>Voir les navigateur supportant <code>srcset</code> <a href="http://caniuse.com/#search=srcset">ici</a>
+</li>
+</ul>
+
+<h2 id="questions-diverses-et-ressources">Questions diverses et ressources</h2>
+
+<h4 id="quelques-ressource-externes">Quelques ressource externes</h4>
+
+<ul>
+<li>Il existe de nombreux thèmes développés sur la base de bootstrap : 
+
+<ul>
+<li><a href="http://startbootstrap.com/">http://startbootstrap.com</a></li>
+<li><a href="https://wrapbootstrap.com/">https://wrapbootstrap.com</a></li>
+<li><a href="http://bootswatch.com/">http://bootswatch.com</a></li>
+<li><a href="http://bootstrapmaster.com/">http://bootstrapmaster.com</a></li>
+<li><a href="http://kristopolous.github.io/BOOTSTRA.386/">http://kristopolous.github.io/BOOTSTRA.386/</a></li>
+<li><a href="http://prepbootstrap.com/">http://prepbootstrap.com</a></li>
+<li>...</li>
+</ul>
+</li>
+<li>Il existe aussi des outils de personnalisation de css comme :
+
+<ul>
+<li><a href="http://pikock.github.io/bootstrap-magic/">http://pikock.github.io/bootstrap-magic/</a></li>
+<li><a href="http://paintstrap.com/">http://paintstrap.com</a></li>
+<li><a href="http://bootswatchr.com/">http://bootswatchr.com</a></li>
+<li><a href="http://designmodo.github.io/Flat-UI/">http://designmodo.github.io/Flat-UI/</a></li>
+</ul>
+</li>
+<li>Des outils de bootstraping avec éditeur visuel :
+
+<ul>
+<li><a href="https://jetstrap.com/">https://jetstrap.com</a></li>
+<li><a href="https://divshot.com/">https://divshot.com</a></li>
+<li><a href="http://pingendo.com/">http://pingendo.com</a></li>
+<li><a href="https://www.boottheme.com/app/">https://www.boottheme.com/app/</a></li>
+<li>...</li>
+</ul>
+</li>
+<li>Des snippets de code :
+
+<ul>
+<li><a href="http://bootsnipp.com/">http://bootsnipp.com</a></li>
+<li><a href="http://getfuelux.com/">http://getfuelux.com</a></li>
+<li><a href="http://bootstrap-table.wenzhixin.net.cn/">http://bootstrap-table.wenzhixin.net.cn</a></li>
+<li><a href="http://bootboxjs.com/">http://bootboxjs.com</a></li>
+<li>...</li>
+</ul>
+</li>
+<li>Thèmes Wordpress basés sur Bootstrap :
+
+<ul>
+<li><a href="https://roots.io/">https://roots.io</a></li>
+<li><a href="http://strappress.com/">http://strappress.com</a></li>
+</ul>
+</li>
+<li>Thème Drupal basé sur Bootstrap :
+
+<ul>
+<li><a href="https://www.drupal.org/project/bootstrap">https://www.drupal.org/project/bootstrap</a></li>
+</ul>
+</li>
+</ul>
+
+<h4 id="quelques-questions-souvent-pos%C3%A9es-">Quelques questions souvent posées :</h4>
+
+<p><a href="./Responsive-Design-avec-Bootstrap-3_files/anyquestion.jpg" target="_blank"><img src="./Responsive-Design-avec-Bootstrap-3_files/anyquestion.jpg" alt="questions" title="Any Questions ?" style="max-width:100%;"></a></p>
+
+<ul>
+<li>Peux-t-on facilement convertir un site existant en responsive ?</li>
+<li>Le responsive design, est-ce facile ?</li>
+<li>Vos questions...</li>
+</ul></article></body></html>

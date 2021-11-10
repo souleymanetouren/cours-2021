@@ -1,0 +1,68 @@
+#main {
+    background-color: lightgrey;
+    width: 900px;
+    height: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#ban {
+    height: 70px;
+    width: 700px;
+    background-color: magenta;
+    float: left;
+    font-size: 50px;
+}
+li {
+    height: 50px;
+    width: 140px;
+    display: inline;
+    float: left;
+    line-height: 45px;
+    text-align: center;
+    background-color: seashell;
+}    
+#logo {
+    width: 200px;
+    height: 120px;
+    float: left;
+    background-color: red;
+}
+#left {
+    height: 880px;
+    width: 200px;
+    float: left;
+    background-color: mediumorchid;
+}
+#mid {
+    height: 780px;
+    width: 700px;
+    background-color: tomato;
+    float: left;
+}
+li:hover {
+    background-color: slategray;
+}
+input {
+    width: 120px;
+    margin: 10px;
+    float: left;
+}
+input[type=image] {
+    width: 20px;
+    float: left;
+}
+img {
+    width: 20px;
+    float: left;
+    padding-top: 10px;
+}
+@media screen and (max-width: 768px) {
+    #ban {
+        font-size: 30px;
+    }
+}
+@media screen and (max-width: 576px) {
+    #ban {
+        font-size: 10px;
+    }
+}

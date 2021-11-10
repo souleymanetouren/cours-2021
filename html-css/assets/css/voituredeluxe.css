@@ -1,0 +1,44 @@
+p {
+    /*ils auront exactement une largeur de 100px*/
+    width: 500px;
+    /* hauteur defninie automatiquement en fonction de la taille du contenu*/
+    height: 400px;
+    /*la distance entre le contenu et la bordure est 20px a droite et a gauche et est 10px en haut et en bas*/
+    padding: 10px
+        /* haut */
+        20px
+        /* apres p */
+        10px
+        /* bas */
+        20px
+        /* avant p */
+    ;
+    /*on definit une bordure noire large de 5px*/
+    /*la distance minimale entre un paragraphe et une boite au dessus ou en dessous sera de 20px*/
+    margin: 20px 0 20px 0;
+    float: left;
+    text-align: justify;
+}
+
+/* pour un seul paragraphe a la fois mettre <div id="blabla">/div> */
+h1 {
+    color: blue;
+}
+
+body {
+    background-image: url("../image/bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+img {
+    border: 30px solid;
+    padding: 0px 5px 5px 0px;
+    border-image: linear-gradient(green, yellow) 50;
+    float: left;
+    width: 100px;
+    margin-right: 15px; }

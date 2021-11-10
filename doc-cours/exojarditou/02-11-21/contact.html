@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="css/pc.css">
+    <link rel="stylesheet" href="css/tablette.css">
+</head>
+
+<body>
+    <div id="cadre">
+        <div id="header">
+            <img style="float: left;" src="img/jarditouLogo.jpg" alt="" width="120px">
+            <h1>La qualité depuis 70 ans</h1>
+        </div>
+        <div id="banniere">
+            <ul id="navigation">
+                <li>Jarditou.com</li>
+                <li><a href="Jarditou.html"> Acceuil</a></li>
+                <li><a href="tableau.html"> Tableau</a></li>
+                <li><a href="contact.html"> Contact</a></li>
+            </ul>
+            <form style="float: right;" action="search.php" method="post">
+                <input type="text" id="name" name="search" placeholder="Votre promotion">
+                <input type="button" id="name" name="search" value="Rechercher">
+            </form>
+        </div>
+        <div id="imglarge">
+            <img src="img/jarditouPromotion.jpg" alt="" width="100%">
+        </div>
+        <div id="formgroup">
+            <p>*Ces zones sont obligatoires</p>
+            <h1>Vos coordonnées</h1>
+            <label for="fname">Nom*</label><br>
+            <input type="text" class="formstyle" id="fname" name="prenom" placeholder="Veuillez saisir votre nom"
+                required><br><br>
+            <label for="fname">Pr&eacutenom*</label><br>
+            <input type="text" class="formstyle" id="fname" name="prenom" placeholder="Veuillez saisir votre prénom"
+                required><br><br>
+            <label for="fname">Sexe*</label><br>
+            <input type="radio" id="sexe 1" name="prenom" placeholder="Votre Prenom" required>
+            <label for="sexe 1">Femme</label>
+            <input type="radio" id="sexe 2" name="prenom" placeholder="Votre Prenom" required>
+            <label for="sexe 2">Homme</label> <br><br>
+            <label for="fname">Date de Naissance*</label><br>
+            <input type="date" class="formstyle" id="fname" name="prenom" placeholder="jj/mm/aaaa" required><br><br>
+            <label for="fname">Code Postal*</label><br>
+            <input type="text" class="formstyle" id="fname" name="prenom" required><br><br>
+            <label for="fname">Adresse</label><br>
+            <input type="text" class="formstyle" id="fname" name="prenom"><br><br>
+            <label for="fname">Ville</label><br>
+            <input type="text" class="formstyle" id="fname" name="prenom"><br><br>
+            <label for="fname">Email*</label><br>
+            <input type="text" class="formstyle" id="fname" name="prenom" placeholder="dave.loper@afpa.fr" required><br><br>
+            <h1>Votre demande</h1>
+            <label for="fname">Sujet*</label><br>
+            <select class="formstyle" id="country" name="pays">
+                <option value="australia">Blank</option>
+                <option value="canada">Blank</option>
+                <option value="usa">Blank</option>
+            </select><br><br>
+            <label for="fname">Votre question*</label><br>
+            <textarea class="formstyle" name="prenom" required></textarea><br>
+            <input type="checkbox" name="Nom" id="identifiant" value="Valeur">J'accepte le traitement informatique de ce
+            formulaire<br>
+            <input type="submit" name="Nom" id="identifiant" value="Envoyer">
+            <input type="reset" name="Nom" id="identifiant" value="Annuler">
+        </div>
+        <br>
+        <br>
+        <div id="footer">
+            <ul id="navigation">
+                <li>mention l&eacutegales</li>
+                <li>horaires</li>
+                <li>plan du site</li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+#paragraphe {width: 100px;
+             height:auto ;
+             padding:10px 20px 10px 20px ;
+             border: 5px solid black ;
+             margin: 20px 0 20px 0 ;
+             background-color: khaki;}
+
+#autreparagraphe {width: 200px; 
+                  height:auto ;
+                  padding: 10px 20px 10px 20px;
+                  border: 5px solid black ;
+                  margin:20px 0 20px 0 ;
+                  background-color: brown;}            
