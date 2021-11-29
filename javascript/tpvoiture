@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>JavaScript Objects</h2>
+<p>Une methode dans un objet est une fonction, elle est alignee avec ses proprietes.</p>
+
+<p id="personne"></p>
+<p id="voiture"></p>
+<p id="caracter"></p>
+
+<script>
+// Creation de l'objet:
+const personne = {
+  firstName: "John",
+  lastName: "Doe",
+  id: 5566,
+  fullName: function() {//le detail de la methode
+    return this.firstName + " " + this.lastName;
+  }
+};
+
+// Creation d'un objet:
+const voiture = {
+  marque: "dacia",
+  couleur: "rouge",
+  puissance:"110ch",
+  
+  caracteristique: function() {//le detail de la methode
+    return this.marque +" " +this.couleur+" " + this.puissance;
+  }
+};
+
+// afficher l'objet:
+document.getElementById("personne").innerHTML = personne.fullName();//en passant par la methode
+document.getElementById("voiture").innerHTML = voiture.caracteristique();//en passant par la methode
+document.getElementById("caracter").innerHTML = voiture.couleur;//en passant par une propriété
+</script>
+
+</body>
+</html>

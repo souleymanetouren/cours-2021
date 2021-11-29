@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src='../asset/jquery.3.6.0.js'> </script>
+</head>
+<body>
+<button>Start Animation</button>
+<br> <p></p>
+<div id="carre1" style="background:#edca07;height:300px;width:300px;left:100px;top:100px;position:absolute;"></div>
+<div id="carre2" style="background:#4d81f2;height:200px;width:200px;left:150px;top:150px;position:absolute;"></div>
+<div id="carre4" style="background:#ffffff;height:50px;width:50px;left:225px;top:225px;position:absolute;"></div>
+<div id="carre3" style="background:#3aa704;opacity:0;height:50px;width:50px;left:225px;top:225px;position:absolute;"></div>
+
+
+<script> 
+    var abscisse = 100;
+    var ordonnee = 100;
+    $("#carre1").animate({left: abcisse+'px',top: ordonnee+'px'});
+    $("#carre2").animate({left: abcisse+50+'px',top: ordonnee+50+'px'});
+    $("#carre4").animate({left: abcisse+125+'px',top: ordonnee+125+'px'});
+    $("#carre3").animate({left: abcisse+125+'px',top: ordonnee+125+'px'});
+    $(document).ready(function(){
+        $("button").click(function(){
+            // fadeIn(durée,fonction())
+            $("#carre3").fadeIn(400,);
+            $("#carre3").animate({top: ordonnee+25+'px',opacity: '0.7',height: '150px',width: '50px'});
+            $("#carre3").animate({top: ordonnee+25+'px',height: '50px'});
+            $("#carre3").animate({left: abcisse+225+'px'});
+            $("#carre3").animate({top: ordonnee+225+'px'});
+            $("#carre3").animate({left: abcisse+25+'px'});
+            $("#carre3").animate({top: ordonnee+25+'px'});
+            $("#carre3").animate({left: abcisse+125+'px'});
+            $("#carre3").animate({height: '150px'});
+            $("#carre3").animate({top: ordonnee+125+'px',height: '50px'});
+            // fadeOut(durée,fonction())
+            $("#carre3").fadeOut(400,);
+        });
+    });
+    
+</script> 
+</body>
+</html>

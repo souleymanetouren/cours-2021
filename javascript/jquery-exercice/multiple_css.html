@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <h1>Manip du dom</h1>
+    <p>premier</p>
+    <p>second</p>
+    <p>troisieme</p> 
+    <p>quatrieme</p>
+
+    <ul>
+        <li id="li1">Lorem Ipsum</li>
+        <li>Lorem Ipsum</li>
+        <li>Lorem Ipsum</li>
+        <li>Lorem Ipsum</li>
+        <li>Lorem Ipsum</li>
+        <li>Lorem Ipsum</li>
+        <li>Lorem Ipsum</li>
+        <li>Lorem Ipsum</li>
+        <li>Lorem Ipsum</li>
+    </ul>
+
+    <table>
+        <tr><th>Grigroux</th><th>Wawax</th></tr>
+        <tr><td>Grigroux</th><td>Wawax</td></tr>
+        <tr><td>Grigroux</th><td>Wawax</td></tr>
+        <tr><td>Grigroux</th><td>Wawax</td></tr>
+    </table>
+
+    <p id='p1'>para 1</p>
+    <p id="p2">para 2</p>
+
+    <button id="b1">append</button>
+    <button id="b2">prepend</button>
+    <button id="b3">append liste</button>
+
+    <script src="../asset/jquery.3.6.0.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#b1').click(function(){
+                $('#p1').append(' trop marrant de ouf');
+            });
+            $('#b2').click(function(){
+                $('#p2').prepend('ouf de marranterie ');
+            });
+            $('#b3').click(function(){
+                $('#li1').append('<li style="color:green;font-size:50px">vruxer</li>');
+                //$('li#lol').css({"color":"green", "font-size":"50px"});
+            });
+            $('p').first().css('color', 'red');
+            $('p').last().css('color', 'blue');
+            $('li').filter(':nth-child(odd)').css('background-color', 'blue').css('width', '90px');
+            $('h1').css('color', 'green');
+            $('li').eq(1).css('color', 'red');
+            $('li').eq(-2).css('color', 'red');
+            $('th').css('background-color', 'black').css('border', 'solid').css('color','white');
+            $('table').css('border-collapse', 'collapse');
+        });
+
+    </script>
+    
+</body>
+</html>

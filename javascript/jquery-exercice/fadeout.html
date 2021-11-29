@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation</title>
+
+</head>
+<body>
+
+    <script src="../asset/jquery.3.6.0.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("button").click(function(){
+                var div = $("div");
+                // debut d'animation
+                div.animate({
+                    height: '300px', opacity: '0.4'
+                } ,1000); // 1000 milliseconde
+                div.animate({
+                    width: '300px', opacity: '0.8'
+                } ,1000);
+                // deplacement de gauche à droite de 500px
+                div.animate({
+                    left: '500px', opacity: '0.4'
+                } ,1000);
+                div.animate({
+                    top: '500px', opacity: '0.4'
+                } ,1000);
+                /* $( this ).fadeOut( 1000, function() {
+                    $( "div" ).text( "'" + $( this ).text() + "' has faded!" );
+                    $( this ).remove();
+                }); */
+                div.fadeOut(2000);
+                /* div.animate({
+                    height: '0', width: "0"
+                } ,1000); */
+            });
+        });
+    </script>
+
+    <button>Animance</button>
+
+    <div style="background-color:blue; height:100px; width:100px; position:absolute;"></div>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>carte</title>
+</head>
+
+<body>
+    <h3>bonne fete</h3>
+    <div id="step1">
+        Lorem ipsum dolor sit amet
+        Ut vitae sodales eros, non volutpat sapien.
+        Cras dictum odio non erat ullamcorper porttitor.
+    </div>
+    <div id="step2" hidden>
+        In laoreet dui non orci rhoncus congue.
+        Cras dictum odio non erat ullamcorper porttitor.
+        Etiam ut efficitur velit, vel imperdiet tellus.
+    </div>
+    <div id="step3" hidden>
+        Cras quam turpis, iaculis sit amet dignissim vel, convallis ut ex.
+        Nam et arcu aliquet sem tristique lacinia at sit amet orci.
+        Mauris accumsan sollicitudin ex, ut blandit ve
+    </div>
+    <H1 id="anniv" hidden>Bonne anniv</H1>
+    <script src="../asset/jquery.3.6.0.js"></script>
+    <script>
+        $(document).ready (function () {
+            $('#step1').click(function () {
+               $('#step2').toggle();
+                   // console.log  ('clic ok')  ;        
+            });
+            $('#step2').click(function () {
+                $('#step3').toggle();
+            });
+            $('#step3').click(function () {
+                $('#anniv').show();
+            });
+         var obj= document.createElement ('audio');
+         obj.src = "../";
+            obj.volume = 1;
+            obj.autoplay = false;
+            obj.preLoad = true;
+            obj.control = false;
+            $('#step3').on('click', function(){
+                obj.play();
+ })
+        });
+    </script>
+</body>
+
+</html>

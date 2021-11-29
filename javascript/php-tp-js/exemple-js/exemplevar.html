@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Les Variables</title>
+    </head>
+    <body>
+        <script>
+            //utilisation de let
+            let age;
+            age = 45;
+            console.log(age);
+            // utilisation de const function fn() {     const foo = "bar" console.log(foo);
+            // if (true) {         const foo  SyntaxError, la variable a besoin d'être
+            // assignée         const foo = "qux"         foo = "norf" SyntaxError, la
+            // variable ne peut pas être réassignée         console.log(foo) "qux", la
+            // variable appartient au scope de son bloc (le "if")     } console.log(foo)
+            // "bar", la variable appartient au scope de la fonction "fn" }
+
+            var a;
+            a = 1;
+            a = 2; //re-initialize possible
+            var a = 3; //re-declare
+            console.log(a); //3
+
+            let b;
+            b = 5;
+            b = 6; //re-initiliaze possible
+            // let b = 7; re-declare not possible
+            console.log(b);
+
+            // const c; c = 9;   initialization and declaration at same place
+            const c = 9;
+            //const c = 9;// re-declare and initialization is not possible
+            console.log(c); //9
+            // NOTE: Constants can be declared with uppercase or lowercase, but a common
+            // convention is to use all-uppercase letters. un peu de chinois Donia Kaouach
+            function fn() {
+                let foo = "bar";
+                var foo2 = "bar";
+                if (true) {
+                    let foo; // pas d'erreur, foo === undefined
+                    var foo2;
+                    // Attention, les déclarations "var" ne sont pas scopées au niveau bloc foo2 est
+                    // en réalité écrasé !
+                    foo = "qux";
+                    foo2 = "qux";
+                    console.log(foo);
+                    // "qux", la variable appartient au scope de son blocs (le "if")
+                    console.log(foo2);
+                    // "qux"
+                }
+                console.log(foo);
+                // "bar", la variable appartient au scope de son bloc (la fonction "fn")
+                console.log(foo2);
+                // "qux" 
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://www.atlassian.com/fr/git/tutorials/undoing-changes/git-revert -->
+<html id="magnolia" lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="fb:pages" content="115407078489594">
+<meta name="description" content="Découvrez comment utiliser git revert pour annuler les changements dans Git. Ce tutoriel explique l&amp;#039;utilisation classique de git revert et les pièges courants à éviter. ">
+<meta name="author" content="Atlassian">
+<link rel="canonical" href="https://www.atlassian.com/fr/git/tutorials/undoing-changes/git-revert">
+<title>Git revert | Atlassian Git Tutorial</title>
+<style>body { display: none; }</style>
+<link href="https://wac-cdn.atlassian.com/" rel="preconnect">
+<link rel="alternate" href="https://www.atlassian.com/git/tutorials/undoing-changes/git-revert" hreflang="x-default">
+<link rel="alternate" href="https://www.atlassian.com/git/tutorials/undoing-changes/git-revert" hreflang="en">
+<link rel="alternate" href="https://www.atlassian.com/ja/git/tutorials/undoing-changes/git-revert" hreflang="ja">
+<link rel="alternate" href="https://www.atlassian.com/fr/git/tutorials/undoing-changes/git-revert" hreflang="fr">
+<link rel="alternate" href="https://www.atlassian.com/de/git/tutorials/undoing-changes/git-revert" hreflang="de">
+<link rel="alternate" href="https://www.atlassian.com/es/git/tutorials/undoing-changes/git-revert" hreflang="es">
+<link rel="alternate" href="https://www.atlassian.com/br/git/tutorials/undoing-changes/git-revert" hreflang="pt-BR">
+<link rel="alternate" href="https://www.atlassian.com/zh/git/tutorials/undoing-changes/git-revert" hreflang="zh-Hans">
+<link rel="alternate" href="https://www.atlassian.com/ko/git/tutorials/undoing-changes/git-revert" hreflang="ko">
+<link rel="alternate" href="https://www.atlassian.com/ru/git/tutorials/undoing-changes/git-revert" hreflang="ru">
+<link rel="alternate" href="https://www.atlassian.com/pl/git/tutorials/undoing-changes/git-revert" hreflang="pl">
+<link rel="alternate" href="https://www.atlassian.com/it/git/tutorials/undoing-changes/git-revert" hreflang="it">
+<link rel="alternate" href="https://www.atlassian.com/nl/git/tutorials/undoing-changes/git-revert" hreflang="nl">
+<link rel="alternate" href="https://www.atlassian.com/hu/git/tutorials/undoing-changes/git-revert" hreflang="hu">
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/apple-touch-icon-152x152.png">
+<link rel="icon" type="image/png" href="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/favicon.png" sizes="32x32">
+<link rel="mask-icon" href="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/safari-pinned-tab.svg" color="#59afe1">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/mstile-144x144.png">
+<meta name="theme-color" content="#205081">
+<meta property="og:title" content="Git revert | Atlassian Git Tutorial">
+<meta property="og:description" content="Découvrez comment utiliser git revert pour annuler les changements dans Git. Ce tutoriel explique l&amp;#039;utilisation classique de git revert et les pièges courants à éviter. ">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.atlassian.com/fr/git/tutorials/undoing-changes/git-revert">
+<meta property="og:site_name" content="Atlassian">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@Atlassian">
+<script type="text/javascript" async="" src="./Git revert _ Atlassian Git Tutorial_files/analytics.js.téléchargement"></script><script async="" src="./Git revert _ Atlassian Git Tutorial_files/gtm.js.téléchargement"></script><script src="./Git revert _ Atlassian Git Tutorial_files/jquery.js.téléchargement"></script>
+<!-- OneTrust Cookies Consent Notice start for atlassian.com -->
+<script src="./Git revert _ Atlassian Git Tutorial_files/otSDKStub.js.téléchargement" type="text/javascript" charset="UTF-8" data-domain-script="ed42d30f-c9f0-408c-b65a-cd77205ecdf5"></script>
+<script type="text/javascript">
+function OptanonWrapper() { }
+</script>
+<!-- OneTrust Cookies Consent Notice end for atlassian.com -->
+<script type="text/javascript">
+var LOCALIZED_PRICING_CONTENTFUL_SPACE = "3s3v3nq72la0";
+var LOCALIZED_PRICING_CONTENTFUL_ENVIRONMENT = "master";
+var LOCALIZED_PRICING_CONTENTFUL_ACCESS_TOKEN = "b9c3ea8d9c664146e9c7dd136a1d40ff8415715c3ef8ee222536f36fb2056613";
+var LOCALIZED_CCP_PRICING_CONTENTFUL_ENVIRONMENT = "ccp_dev";
+var LOCALIZED_CCP_PRICING_CONTENTFUL_ACCESS_TOKEN = "3SWtzulQjrRd4OdxZm8zhe_ohy5J2-Jafj0Zkr5grS4";
+var LOCALIZED_PRICING_USE_GEO_CURRENCY = true;
+</script>
+<script src="./Git revert _ Atlassian Git Tutorial_files/location" async="" type="text/javascript"></script><script src="./Git revert _ Atlassian Git Tutorial_files/otBannerSdk.js.téléchargement" async="" type="text/javascript"></script><style id="onetrust-style">#onetrust-banner-sdk{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}#onetrust-banner-sdk .onetrust-vendors-list-handler{cursor:pointer;color:#1f96db;font-size:inherit;font-weight:bold;text-decoration:none;margin-left:5px}#onetrust-banner-sdk .onetrust-vendors-list-handler:hover{color:#1f96db}#onetrust-banner-sdk:focus{outline:2px solid #000;outline-offset:-2px}#onetrust-banner-sdk a:focus{outline:2px solid #000}#onetrust-banner-sdk .ot-close-icon,#onetrust-pc-sdk .ot-close-icon,#ot-sync-ntfy .ot-close-icon{background-image:url("data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMzQ4LjMzM3B4IiBoZWlnaHQ9IjM0OC4zMzNweCIgdmlld0JveD0iMCAwIDM0OC4zMzMgMzQ4LjMzNCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMzQ4LjMzMyAzNDguMzM0OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PGc+PHBhdGggZmlsbD0iIzU2NTY1NiIgZD0iTTMzNi41NTksNjguNjExTDIzMS4wMTYsMTc0LjE2NWwxMDUuNTQzLDEwNS41NDljMTUuNjk5LDE1LjcwNSwxNS42OTksNDEuMTQ1LDAsNTYuODVjLTcuODQ0LDcuODQ0LTE4LjEyOCwxMS43NjktMjguNDA3LDExLjc2OWMtMTAuMjk2LDAtMjAuNTgxLTMuOTE5LTI4LjQxOS0xMS43NjlMMTc0LjE2NywyMzEuMDAzTDY4LjYwOSwzMzYuNTYzYy03Ljg0Myw3Ljg0NC0xOC4xMjgsMTEuNzY5LTI4LjQxNiwxMS43NjljLTEwLjI4NSwwLTIwLjU2My0zLjkxOS0yOC40MTMtMTEuNzY5Yy0xNS42OTktMTUuNjk4LTE1LjY5OS00MS4xMzksMC01Ni44NWwxMDUuNTQtMTA1LjU0OUwxMS43NzQsNjguNjExYy0xNS42OTktMTUuNjk5LTE1LjY5OS00MS4xNDUsMC01Ni44NDRjMTUuNjk2LTE1LjY4Nyw0MS4xMjctMTUuNjg3LDU2LjgyOSwwbDEwNS41NjMsMTA1LjU1NEwyNzkuNzIxLDExLjc2N2MxNS43MDUtMTUuNjg3LDQxLjEzOS0xNS42ODcsNTYuODMyLDBDMzUyLjI1OCwyNy40NjYsMzUyLjI1OCw1Mi45MTIsMzM2LjU1OSw2OC42MTF6Ii8+PC9nPjwvc3ZnPg==");background-size:contain;background-repeat:no-repeat;background-position:center;height:12px;width:12px}#onetrust-banner-sdk .powered-by-logo,#onetrust-banner-sdk .ot-pc-footer-logo a,#onetrust-pc-sdk .powered-by-logo,#onetrust-pc-sdk .ot-pc-footer-logo a,#ot-sync-ntfy .powered-by-logo,#ot-sync-ntfy .ot-pc-footer-logo a{background-size:contain;background-repeat:no-repeat;background-position:center;height:25px;width:152px;display:block}#onetrust-banner-sdk h3 *,#onetrust-banner-sdk h4 *,#onetrust-banner-sdk h6 *,#onetrust-banner-sdk button *,#onetrust-banner-sdk a[data-parent-id] *,#onetrust-pc-sdk h3 *,#onetrust-pc-sdk h4 *,#onetrust-pc-sdk h6 *,#onetrust-pc-sdk button *,#onetrust-pc-sdk a[data-parent-id] *,#ot-sync-ntfy h3 *,#ot-sync-ntfy h4 *,#ot-sync-ntfy h6 *,#ot-sync-ntfy button *,#ot-sync-ntfy a[data-parent-id] *{font-size:inherit;font-weight:inherit;color:inherit}#onetrust-banner-sdk .ot-hide,#onetrust-pc-sdk .ot-hide,#ot-sync-ntfy .ot-hide{display:none !important}#onetrust-pc-sdk .ot-sdk-row .ot-sdk-column{padding:0}#onetrust-pc-sdk .ot-sdk-container{padding-right:0}#onetrust-pc-sdk .ot-sdk-row{flex-direction:initial;width:100%}#onetrust-pc-sdk [type="checkbox"]:checked,#onetrust-pc-sdk [type="checkbox"]:not(:checked){pointer-events:initial}#onetrust-pc-sdk [type="checkbox"]:disabled+label::before,#onetrust-pc-sdk [type="checkbox"]:disabled+label:after,#onetrust-pc-sdk [type="checkbox"]:disabled+label{pointer-events:none;opacity:0.7}#onetrust-pc-sdk #vendor-list-content{transform:translate3d(0, 0, 0)}#onetrust-pc-sdk li input[type="checkbox"]{z-index:1}#onetrust-pc-sdk li .ot-checkbox label{z-index:2}#onetrust-pc-sdk li .ot-checkbox input[type="checkbox"]{height:auto;width:auto}#onetrust-pc-sdk li .host-title a,#onetrust-pc-sdk li .ot-host-name a,#onetrust-pc-sdk li .accordion-text,#onetrust-pc-sdk li .ot-acc-txt{z-index:2;position:relative}#onetrust-pc-sdk input{margin:3px 0.1ex}#onetrust-pc-sdk .toggle-always-active{opacity:0.6;cursor:default}#onetrust-pc-sdk .pc-logo,#onetrust-pc-sdk .ot-pc-logo{height:60px;width:180px;background-position:center;background-size:contain;background-repeat:no-repeat}#onetrust-pc-sdk .ot-tooltip .ot-tooltiptext{visibility:hidden;width:120px;background-color:#555;color:#fff;text-align:center;padding:5px 0;border-radius:6px;position:absolute;z-index:1;bottom:125%;left:50%;margin-left:-60px;opacity:0;transition:opacity 0.3s}#onetrust-pc-sdk .ot-tooltip .ot-tooltiptext::after{content:"";position:absolute;top:100%;left:50%;margin-left:-5px;border-width:5px;border-style:solid;border-color:#555 transparent transparent transparent}#onetrust-pc-sdk .ot-tooltip:hover .ot-tooltiptext{visibility:visible;opacity:1}#onetrust-pc-sdk .ot-tooltip{position:relative;display:inline-block;z-index:3}#onetrust-pc-sdk .ot-tooltip svg{color:grey;height:20px;width:20px}#onetrust-pc-sdk .screen-reader-only,#onetrust-pc-sdk .ot-scrn-rdr,.ot-sdk-cookie-policy .screen-reader-only,.ot-sdk-cookie-policy .ot-scrn-rdr{border:0;clip:rect(0 0 0 0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px}#onetrust-pc-sdk.ot-fade-in,.onetrust-pc-dark-filter.ot-fade-in,#onetrust-banner-sdk.ot-fade-in{animation-name:onetrust-fade-in;animation-duration:400ms;animation-timing-function:ease-in-out}#onetrust-pc-sdk.ot-hide{display:none !important}.onetrust-pc-dark-filter.ot-hide{display:none !important}#ot-sdk-btn.ot-sdk-show-settings,#ot-sdk-btn.optanon-show-settings{color:#68b631;border:1px solid #68b631;height:auto;white-space:normal;word-wrap:break-word;padding:0.8em 2em;font-size:0.8em;line-height:1.2;cursor:pointer;-moz-transition:0.1s ease;-o-transition:0.1s ease;-webkit-transition:1s ease;transition:0.1s ease}#ot-sdk-btn.ot-sdk-show-settings:hover,#ot-sdk-btn.optanon-show-settings:hover{color:#fff;background-color:#68b631}.onetrust-pc-dark-filter{background:rgba(0,0,0,0.5);z-index:2147483646;width:100%;height:100%;overflow:hidden;position:fixed;top:0;bottom:0;left:0}@keyframes onetrust-fade-in{0%{opacity:0}100%{opacity:1}}@media only screen and (min-width: 426px) and (max-width: 896px) and (orientation: landscape){#onetrust-pc-sdk p{font-size:0.75em}}#onetrust-banner-sdk .banner-option-input:focus+label{outline:1px solid #000;outline-style:auto}
+#onetrust-banner-sdk,#onetrust-pc-sdk,#ot-sdk-cookie-policy,#ot-sync-ntfy{font-size:16px}#onetrust-banner-sdk *,#onetrust-banner-sdk ::after,#onetrust-banner-sdk ::before,#onetrust-pc-sdk *,#onetrust-pc-sdk ::after,#onetrust-pc-sdk ::before,#ot-sdk-cookie-policy *,#ot-sdk-cookie-policy ::after,#ot-sdk-cookie-policy ::before,#ot-sync-ntfy *,#ot-sync-ntfy ::after,#ot-sync-ntfy ::before{-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}#onetrust-banner-sdk div,#onetrust-banner-sdk span,#onetrust-banner-sdk h1,#onetrust-banner-sdk h2,#onetrust-banner-sdk h3,#onetrust-banner-sdk h4,#onetrust-banner-sdk h5,#onetrust-banner-sdk h6,#onetrust-banner-sdk p,#onetrust-banner-sdk img,#onetrust-banner-sdk svg,#onetrust-banner-sdk button,#onetrust-banner-sdk section,#onetrust-banner-sdk a,#onetrust-banner-sdk label,#onetrust-banner-sdk input,#onetrust-banner-sdk ul,#onetrust-banner-sdk li,#onetrust-banner-sdk nav,#onetrust-banner-sdk table,#onetrust-banner-sdk thead,#onetrust-banner-sdk tr,#onetrust-banner-sdk td,#onetrust-banner-sdk tbody,#onetrust-banner-sdk .ot-main-content,#onetrust-banner-sdk .ot-toggle,#onetrust-banner-sdk #ot-content,#onetrust-banner-sdk #ot-pc-content,#onetrust-banner-sdk .checkbox,#onetrust-pc-sdk div,#onetrust-pc-sdk span,#onetrust-pc-sdk h1,#onetrust-pc-sdk h2,#onetrust-pc-sdk h3,#onetrust-pc-sdk h4,#onetrust-pc-sdk h5,#onetrust-pc-sdk h6,#onetrust-pc-sdk p,#onetrust-pc-sdk img,#onetrust-pc-sdk svg,#onetrust-pc-sdk button,#onetrust-pc-sdk section,#onetrust-pc-sdk a,#onetrust-pc-sdk label,#onetrust-pc-sdk input,#onetrust-pc-sdk ul,#onetrust-pc-sdk li,#onetrust-pc-sdk nav,#onetrust-pc-sdk table,#onetrust-pc-sdk thead,#onetrust-pc-sdk tr,#onetrust-pc-sdk td,#onetrust-pc-sdk tbody,#onetrust-pc-sdk .ot-main-content,#onetrust-pc-sdk .ot-toggle,#onetrust-pc-sdk #ot-content,#onetrust-pc-sdk #ot-pc-content,#onetrust-pc-sdk .checkbox,#ot-sdk-cookie-policy div,#ot-sdk-cookie-policy span,#ot-sdk-cookie-policy h1,#ot-sdk-cookie-policy h2,#ot-sdk-cookie-policy h3,#ot-sdk-cookie-policy h4,#ot-sdk-cookie-policy h5,#ot-sdk-cookie-policy h6,#ot-sdk-cookie-policy p,#ot-sdk-cookie-policy img,#ot-sdk-cookie-policy svg,#ot-sdk-cookie-policy button,#ot-sdk-cookie-policy section,#ot-sdk-cookie-policy a,#ot-sdk-cookie-policy label,#ot-sdk-cookie-policy input,#ot-sdk-cookie-policy ul,#ot-sdk-cookie-policy li,#ot-sdk-cookie-policy nav,#ot-sdk-cookie-policy table,#ot-sdk-cookie-policy thead,#ot-sdk-cookie-policy tr,#ot-sdk-cookie-policy td,#ot-sdk-cookie-policy tbody,#ot-sdk-cookie-policy .ot-main-content,#ot-sdk-cookie-policy .ot-toggle,#ot-sdk-cookie-policy #ot-content,#ot-sdk-cookie-policy #ot-pc-content,#ot-sdk-cookie-policy .checkbox,#ot-sync-ntfy div,#ot-sync-ntfy span,#ot-sync-ntfy h1,#ot-sync-ntfy h2,#ot-sync-ntfy h3,#ot-sync-ntfy h4,#ot-sync-ntfy h5,#ot-sync-ntfy h6,#ot-sync-ntfy p,#ot-sync-ntfy img,#ot-sync-ntfy svg,#ot-sync-ntfy button,#ot-sync-ntfy section,#ot-sync-ntfy a,#ot-sync-ntfy label,#ot-sync-ntfy input,#ot-sync-ntfy ul,#ot-sync-ntfy li,#ot-sync-ntfy nav,#ot-sync-ntfy table,#ot-sync-ntfy thead,#ot-sync-ntfy tr,#ot-sync-ntfy td,#ot-sync-ntfy tbody,#ot-sync-ntfy .ot-main-content,#ot-sync-ntfy .ot-toggle,#ot-sync-ntfy #ot-content,#ot-sync-ntfy #ot-pc-content,#ot-sync-ntfy .checkbox{font-family:inherit;font-weight:normal;-webkit-font-smoothing:auto;letter-spacing:normal;line-height:normal;padding:0;margin:0;height:auto;min-height:0;max-height:none;width:auto;min-width:0;max-width:none;border-radius:0;border:none;clear:none;float:none;position:static;bottom:auto;left:auto;right:auto;top:auto;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;white-space:normal;background:none;overflow:visible;vertical-align:baseline;visibility:visible;z-index:auto;box-shadow:none}#onetrust-banner-sdk label:before,#onetrust-banner-sdk label:after,#onetrust-banner-sdk .checkbox:after,#onetrust-banner-sdk .checkbox:before,#onetrust-pc-sdk label:before,#onetrust-pc-sdk label:after,#onetrust-pc-sdk .checkbox:after,#onetrust-pc-sdk .checkbox:before,#ot-sdk-cookie-policy label:before,#ot-sdk-cookie-policy label:after,#ot-sdk-cookie-policy .checkbox:after,#ot-sdk-cookie-policy .checkbox:before,#ot-sync-ntfy label:before,#ot-sync-ntfy label:after,#ot-sync-ntfy .checkbox:after,#ot-sync-ntfy .checkbox:before{content:"";content:none}
+#onetrust-banner-sdk .ot-sdk-container,#onetrust-pc-sdk .ot-sdk-container,#ot-sdk-cookie-policy .ot-sdk-container{position:relative;width:100%;max-width:100%;margin:0 auto;padding:0 20px;box-sizing:border-box}#onetrust-banner-sdk .ot-sdk-column,#onetrust-banner-sdk .ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-column,#onetrust-pc-sdk .ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-column,#ot-sdk-cookie-policy .ot-sdk-columns{width:100%;float:left;box-sizing:border-box;padding:0;display:initial}@media (min-width: 400px){#onetrust-banner-sdk .ot-sdk-container,#onetrust-pc-sdk .ot-sdk-container,#ot-sdk-cookie-policy .ot-sdk-container{width:90%;padding:0}}@media (min-width: 550px){#onetrust-banner-sdk .ot-sdk-container,#onetrust-pc-sdk .ot-sdk-container,#ot-sdk-cookie-policy .ot-sdk-container{width:100%}#onetrust-banner-sdk .ot-sdk-column,#onetrust-banner-sdk .ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-column,#onetrust-pc-sdk .ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-column,#ot-sdk-cookie-policy .ot-sdk-columns{margin-left:4%}#onetrust-banner-sdk .ot-sdk-column:first-child,#onetrust-banner-sdk .ot-sdk-columns:first-child,#onetrust-pc-sdk .ot-sdk-column:first-child,#onetrust-pc-sdk .ot-sdk-columns:first-child,#ot-sdk-cookie-policy .ot-sdk-column:first-child,#ot-sdk-cookie-policy .ot-sdk-columns:first-child{margin-left:0}#onetrust-banner-sdk .ot-sdk-one.ot-sdk-column,#onetrust-banner-sdk .ot-sdk-one.ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-one.ot-sdk-column,#onetrust-pc-sdk .ot-sdk-one.ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-one.ot-sdk-column,#ot-sdk-cookie-policy .ot-sdk-one.ot-sdk-columns{width:4.66666666667%}#onetrust-banner-sdk .ot-sdk-two.ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-two.ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-two.ot-sdk-columns{width:13.3333333333%}#onetrust-banner-sdk .ot-sdk-three.ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-three.ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-three.ot-sdk-columns{width:22%}#onetrust-banner-sdk .ot-sdk-four.ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-four.ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-four.ot-sdk-columns{width:30.6666666667%}#onetrust-banner-sdk .ot-sdk-five.ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-five.ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-five.ot-sdk-columns{width:39.3333333333%}#onetrust-banner-sdk .ot-sdk-six.ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-six.ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-six.ot-sdk-columns{width:48%}#onetrust-banner-sdk .ot-sdk-seven.ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-seven.ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-seven.ot-sdk-columns{width:56.6666666667%}#onetrust-banner-sdk .ot-sdk-eight.ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-eight.ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-eight.ot-sdk-columns{width:65.3333333333%}#onetrust-banner-sdk .ot-sdk-nine.ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-nine.ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-nine.ot-sdk-columns{width:74%}#onetrust-banner-sdk .ot-sdk-ten.ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-ten.ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-ten.ot-sdk-columns{width:82.6666666667%}#onetrust-banner-sdk .ot-sdk-eleven.ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-eleven.ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-eleven.ot-sdk-columns{width:91.3333333333%}#onetrust-banner-sdk .ot-sdk-twelve.ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-twelve.ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-twelve.ot-sdk-columns{width:100%;margin-left:0}#onetrust-banner-sdk .ot-sdk-one-third.ot-sdk-column,#onetrust-pc-sdk .ot-sdk-one-third.ot-sdk-column,#ot-sdk-cookie-policy .ot-sdk-one-third.ot-sdk-column{width:30.6666666667%}#onetrust-banner-sdk .ot-sdk-two-thirds.ot-sdk-column,#onetrust-pc-sdk .ot-sdk-two-thirds.ot-sdk-column,#ot-sdk-cookie-policy .ot-sdk-two-thirds.ot-sdk-column{width:65.3333333333%}#onetrust-banner-sdk .ot-sdk-one-half.ot-sdk-column,#onetrust-pc-sdk .ot-sdk-one-half.ot-sdk-column,#ot-sdk-cookie-policy .ot-sdk-one-half.ot-sdk-column{width:48%}#onetrust-banner-sdk .ot-sdk-offset-by-one.ot-sdk-column,#onetrust-banner-sdk .ot-sdk-offset-by-one.ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-offset-by-one.ot-sdk-column,#onetrust-pc-sdk .ot-sdk-offset-by-one.ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-offset-by-one.ot-sdk-column,#ot-sdk-cookie-policy .ot-sdk-offset-by-one.ot-sdk-columns{margin-left:8.66666666667%}#onetrust-banner-sdk .ot-sdk-offset-by-two.ot-sdk-column,#onetrust-banner-sdk .ot-sdk-offset-by-two.ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-offset-by-two.ot-sdk-column,#onetrust-pc-sdk .ot-sdk-offset-by-two.ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-offset-by-two.ot-sdk-column,#ot-sdk-cookie-policy .ot-sdk-offset-by-two.ot-sdk-columns{margin-left:17.3333333333%}#onetrust-banner-sdk .ot-sdk-offset-by-three.ot-sdk-column,#onetrust-banner-sdk .ot-sdk-offset-by-three.ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-offset-by-three.ot-sdk-column,#onetrust-pc-sdk .ot-sdk-offset-by-three.ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-offset-by-three.ot-sdk-column,#ot-sdk-cookie-policy .ot-sdk-offset-by-three.ot-sdk-columns{margin-left:26%}#onetrust-banner-sdk .ot-sdk-offset-by-four.ot-sdk-column,#onetrust-banner-sdk .ot-sdk-offset-by-four.ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-offset-by-four.ot-sdk-column,#onetrust-pc-sdk .ot-sdk-offset-by-four.ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-offset-by-four.ot-sdk-column,#ot-sdk-cookie-policy .ot-sdk-offset-by-four.ot-sdk-columns{margin-left:34.6666666667%}#onetrust-banner-sdk .ot-sdk-offset-by-five.ot-sdk-column,#onetrust-banner-sdk .ot-sdk-offset-by-five.ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-offset-by-five.ot-sdk-column,#onetrust-pc-sdk .ot-sdk-offset-by-five.ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-offset-by-five.ot-sdk-column,#ot-sdk-cookie-policy .ot-sdk-offset-by-five.ot-sdk-columns{margin-left:43.3333333333%}#onetrust-banner-sdk .ot-sdk-offset-by-six.ot-sdk-column,#onetrust-banner-sdk .ot-sdk-offset-by-six.ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-offset-by-six.ot-sdk-column,#onetrust-pc-sdk .ot-sdk-offset-by-six.ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-offset-by-six.ot-sdk-column,#ot-sdk-cookie-policy .ot-sdk-offset-by-six.ot-sdk-columns{margin-left:52%}#onetrust-banner-sdk .ot-sdk-offset-by-seven.ot-sdk-column,#onetrust-banner-sdk .ot-sdk-offset-by-seven.ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-offset-by-seven.ot-sdk-column,#onetrust-pc-sdk .ot-sdk-offset-by-seven.ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-offset-by-seven.ot-sdk-column,#ot-sdk-cookie-policy .ot-sdk-offset-by-seven.ot-sdk-columns{margin-left:60.6666666667%}#onetrust-banner-sdk .ot-sdk-offset-by-eight.ot-sdk-column,#onetrust-banner-sdk .ot-sdk-offset-by-eight.ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-offset-by-eight.ot-sdk-column,#onetrust-pc-sdk .ot-sdk-offset-by-eight.ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-offset-by-eight.ot-sdk-column,#ot-sdk-cookie-policy .ot-sdk-offset-by-eight.ot-sdk-columns{margin-left:69.3333333333%}#onetrust-banner-sdk .ot-sdk-offset-by-nine.ot-sdk-column,#onetrust-banner-sdk .ot-sdk-offset-by-nine.ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-offset-by-nine.ot-sdk-column,#onetrust-pc-sdk .ot-sdk-offset-by-nine.ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-offset-by-nine.ot-sdk-column,#ot-sdk-cookie-policy .ot-sdk-offset-by-nine.ot-sdk-columns{margin-left:78%}#onetrust-banner-sdk .ot-sdk-offset-by-ten.ot-sdk-column,#onetrust-banner-sdk .ot-sdk-offset-by-ten.ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-offset-by-ten.ot-sdk-column,#onetrust-pc-sdk .ot-sdk-offset-by-ten.ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-offset-by-ten.ot-sdk-column,#ot-sdk-cookie-policy .ot-sdk-offset-by-ten.ot-sdk-columns{margin-left:86.6666666667%}#onetrust-banner-sdk .ot-sdk-offset-by-eleven.ot-sdk-column,#onetrust-banner-sdk .ot-sdk-offset-by-eleven.ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-offset-by-eleven.ot-sdk-column,#onetrust-pc-sdk .ot-sdk-offset-by-eleven.ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-offset-by-eleven.ot-sdk-column,#ot-sdk-cookie-policy .ot-sdk-offset-by-eleven.ot-sdk-columns{margin-left:95.3333333333%}#onetrust-banner-sdk .ot-sdk-offset-by-one-third.ot-sdk-column,#onetrust-banner-sdk .ot-sdk-offset-by-one-third.ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-offset-by-one-third.ot-sdk-column,#onetrust-pc-sdk .ot-sdk-offset-by-one-third.ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-offset-by-one-third.ot-sdk-column,#ot-sdk-cookie-policy .ot-sdk-offset-by-one-third.ot-sdk-columns{margin-left:34.6666666667%}#onetrust-banner-sdk .ot-sdk-offset-by-two-thirds.ot-sdk-column,#onetrust-banner-sdk .ot-sdk-offset-by-two-thirds.ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-offset-by-two-thirds.ot-sdk-column,#onetrust-pc-sdk .ot-sdk-offset-by-two-thirds.ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-offset-by-two-thirds.ot-sdk-column,#ot-sdk-cookie-policy .ot-sdk-offset-by-two-thirds.ot-sdk-columns{margin-left:69.3333333333%}#onetrust-banner-sdk .ot-sdk-offset-by-one-half.ot-sdk-column,#onetrust-banner-sdk .ot-sdk-offset-by-one-half.ot-sdk-columns,#onetrust-pc-sdk .ot-sdk-offset-by-one-half.ot-sdk-column,#onetrust-pc-sdk .ot-sdk-offset-by-one-half.ot-sdk-columns,#ot-sdk-cookie-policy .ot-sdk-offset-by-one-half.ot-sdk-column,#ot-sdk-cookie-policy .ot-sdk-offset-by-one-half.ot-sdk-columns{margin-left:52%}}#onetrust-banner-sdk h1,#onetrust-banner-sdk h2,#onetrust-banner-sdk h3,#onetrust-banner-sdk h4,#onetrust-banner-sdk h5,#onetrust-banner-sdk h6,#onetrust-pc-sdk h1,#onetrust-pc-sdk h2,#onetrust-pc-sdk h3,#onetrust-pc-sdk h4,#onetrust-pc-sdk h5,#onetrust-pc-sdk h6,#ot-sdk-cookie-policy h1,#ot-sdk-cookie-policy h2,#ot-sdk-cookie-policy h3,#ot-sdk-cookie-policy h4,#ot-sdk-cookie-policy h5,#ot-sdk-cookie-policy h6{margin-top:0;font-weight:600;font-family:inherit}#onetrust-banner-sdk h1,#onetrust-pc-sdk h1,#ot-sdk-cookie-policy h1{font-size:1.5rem;line-height:1.2}#onetrust-banner-sdk h2,#onetrust-pc-sdk h2,#ot-sdk-cookie-policy h2{font-size:1.5rem;line-height:1.25}#onetrust-banner-sdk h3,#onetrust-pc-sdk h3,#ot-sdk-cookie-policy h3{font-size:1.5rem;line-height:1.3}#onetrust-banner-sdk h4,#onetrust-pc-sdk h4,#ot-sdk-cookie-policy h4{font-size:1.5rem;line-height:1.35}#onetrust-banner-sdk h5,#onetrust-pc-sdk h5,#ot-sdk-cookie-policy h5{font-size:1.5rem;line-height:1.5}#onetrust-banner-sdk h6,#onetrust-pc-sdk h6,#ot-sdk-cookie-policy h6{font-size:1.5rem;line-height:1.6}@media (min-width: 550px){#onetrust-banner-sdk h1,#onetrust-pc-sdk h1,#ot-sdk-cookie-policy h1{font-size:1.5rem}#onetrust-banner-sdk h2,#onetrust-pc-sdk h2,#ot-sdk-cookie-policy h2{font-size:1.5rem}#onetrust-banner-sdk h3,#onetrust-pc-sdk h3,#ot-sdk-cookie-policy h3{font-size:1.5rem}#onetrust-banner-sdk h4,#onetrust-pc-sdk h4,#ot-sdk-cookie-policy h4{font-size:1.5rem}#onetrust-banner-sdk h5,#onetrust-pc-sdk h5,#ot-sdk-cookie-policy h5{font-size:1.5rem}#onetrust-banner-sdk h6,#onetrust-pc-sdk h6,#ot-sdk-cookie-policy h6{font-size:1.5rem}}#onetrust-banner-sdk p,#onetrust-pc-sdk p,#ot-sdk-cookie-policy p{margin:0 0 1em 0;font-family:inherit;line-height:normal}#onetrust-banner-sdk a,#onetrust-pc-sdk a,#ot-sdk-cookie-policy a{color:#565656;text-decoration:underline}#onetrust-banner-sdk a:hover,#onetrust-pc-sdk a:hover,#ot-sdk-cookie-policy a:hover{color:#565656;text-decoration:none}#onetrust-banner-sdk .ot-sdk-button,#onetrust-banner-sdk button,#onetrust-pc-sdk .ot-sdk-button,#onetrust-pc-sdk button,#ot-sdk-cookie-policy .ot-sdk-button,#ot-sdk-cookie-policy button{margin-bottom:1rem;font-family:inherit}#onetrust-banner-sdk .ot-sdk-button,#onetrust-banner-sdk button,#onetrust-banner-sdk input[type="submit"],#onetrust-banner-sdk input[type="reset"],#onetrust-banner-sdk input[type="button"],#onetrust-pc-sdk .ot-sdk-button,#onetrust-pc-sdk button,#onetrust-pc-sdk input[type="submit"],#onetrust-pc-sdk input[type="reset"],#onetrust-pc-sdk input[type="button"],#ot-sdk-cookie-policy .ot-sdk-button,#ot-sdk-cookie-policy button,#ot-sdk-cookie-policy input[type="submit"],#ot-sdk-cookie-policy input[type="reset"],#ot-sdk-cookie-policy input[type="button"]{display:inline-block;height:38px;padding:0 30px;color:#555;text-align:center;font-size:0.9em;font-weight:400;line-height:38px;letter-spacing:0.01em;text-decoration:none;white-space:nowrap;background-color:transparent;border-radius:2px;border:1px solid #bbb;cursor:pointer;box-sizing:border-box}#onetrust-banner-sdk .ot-sdk-button:hover,#onetrust-banner-sdk :not(.ot-leg-btn-container)>button:hover,#onetrust-banner-sdk input[type="submit"]:hover,#onetrust-banner-sdk input[type="reset"]:hover,#onetrust-banner-sdk input[type="button"]:hover,#onetrust-banner-sdk .ot-sdk-button:focus,#onetrust-banner-sdk :not(.ot-leg-btn-container)>button:focus,#onetrust-banner-sdk input[type="submit"]:focus,#onetrust-banner-sdk input[type="reset"]:focus,#onetrust-banner-sdk input[type="button"]:focus,#onetrust-pc-sdk .ot-sdk-button:hover,#onetrust-pc-sdk :not(.ot-leg-btn-container)>button:hover,#onetrust-pc-sdk input[type="submit"]:hover,#onetrust-pc-sdk input[type="reset"]:hover,#onetrust-pc-sdk input[type="button"]:hover,#onetrust-pc-sdk .ot-sdk-button:focus,#onetrust-pc-sdk :not(.ot-leg-btn-container)>button:focus,#onetrust-pc-sdk input[type="submit"]:focus,#onetrust-pc-sdk input[type="reset"]:focus,#onetrust-pc-sdk input[type="button"]:focus,#ot-sdk-cookie-policy .ot-sdk-button:hover,#ot-sdk-cookie-policy :not(.ot-leg-btn-container)>button:hover,#ot-sdk-cookie-policy input[type="submit"]:hover,#ot-sdk-cookie-policy input[type="reset"]:hover,#ot-sdk-cookie-policy input[type="button"]:hover,#ot-sdk-cookie-policy .ot-sdk-button:focus,#ot-sdk-cookie-policy :not(.ot-leg-btn-container)>button:focus,#ot-sdk-cookie-policy input[type="submit"]:focus,#ot-sdk-cookie-policy input[type="reset"]:focus,#ot-sdk-cookie-policy input[type="button"]:focus{color:#333;border-color:#888;opacity:0.7}#onetrust-banner-sdk .ot-sdk-button:focus,#onetrust-banner-sdk :not(.ot-leg-btn-container)>button:focus,#onetrust-banner-sdk input[type="submit"]:focus,#onetrust-banner-sdk input[type="reset"]:focus,#onetrust-banner-sdk input[type="button"]:focus,#onetrust-pc-sdk .ot-sdk-button:focus,#onetrust-pc-sdk :not(.ot-leg-btn-container)>button:focus,#onetrust-pc-sdk input[type="submit"]:focus,#onetrust-pc-sdk input[type="reset"]:focus,#onetrust-pc-sdk input[type="button"]:focus,#ot-sdk-cookie-policy .ot-sdk-button:focus,#ot-sdk-cookie-policy :not(.ot-leg-btn-container)>button:focus,#ot-sdk-cookie-policy input[type="submit"]:focus,#ot-sdk-cookie-policy input[type="reset"]:focus,#ot-sdk-cookie-policy input[type="button"]:focus{outline:2px solid #000}#onetrust-banner-sdk .ot-sdk-button.ot-sdk-button-primary,#onetrust-banner-sdk button.ot-sdk-button-primary,#onetrust-banner-sdk input[type="submit"].ot-sdk-button-primary,#onetrust-banner-sdk input[type="reset"].ot-sdk-button-primary,#onetrust-banner-sdk input[type="button"].ot-sdk-button-primary,#onetrust-pc-sdk .ot-sdk-button.ot-sdk-button-primary,#onetrust-pc-sdk button.ot-sdk-button-primary,#onetrust-pc-sdk input[type="submit"].ot-sdk-button-primary,#onetrust-pc-sdk input[type="reset"].ot-sdk-button-primary,#onetrust-pc-sdk input[type="button"].ot-sdk-button-primary,#ot-sdk-cookie-policy .ot-sdk-button.ot-sdk-button-primary,#ot-sdk-cookie-policy button.ot-sdk-button-primary,#ot-sdk-cookie-policy input[type="submit"].ot-sdk-button-primary,#ot-sdk-cookie-policy input[type="reset"].ot-sdk-button-primary,#ot-sdk-cookie-policy input[type="button"].ot-sdk-button-primary{color:#fff;background-color:#33c3f0;border-color:#33c3f0}#onetrust-banner-sdk .ot-sdk-button.ot-sdk-button-primary:hover,#onetrust-banner-sdk button.ot-sdk-button-primary:hover,#onetrust-banner-sdk input[type="submit"].ot-sdk-button-primary:hover,#onetrust-banner-sdk input[type="reset"].ot-sdk-button-primary:hover,#onetrust-banner-sdk input[type="button"].ot-sdk-button-primary:hover,#onetrust-banner-sdk .ot-sdk-button.ot-sdk-button-primary:focus,#onetrust-banner-sdk button.ot-sdk-button-primary:focus,#onetrust-banner-sdk input[type="submit"].ot-sdk-button-primary:focus,#onetrust-banner-sdk input[type="reset"].ot-sdk-button-primary:focus,#onetrust-banner-sdk input[type="button"].ot-sdk-button-primary:focus,#onetrust-pc-sdk .ot-sdk-button.ot-sdk-button-primary:hover,#onetrust-pc-sdk button.ot-sdk-button-primary:hover,#onetrust-pc-sdk input[type="submit"].ot-sdk-button-primary:hover,#onetrust-pc-sdk input[type="reset"].ot-sdk-button-primary:hover,#onetrust-pc-sdk input[type="button"].ot-sdk-button-primary:hover,#onetrust-pc-sdk .ot-sdk-button.ot-sdk-button-primary:focus,#onetrust-pc-sdk button.ot-sdk-button-primary:focus,#onetrust-pc-sdk input[type="submit"].ot-sdk-button-primary:focus,#onetrust-pc-sdk input[type="reset"].ot-sdk-button-primary:focus,#onetrust-pc-sdk input[type="button"].ot-sdk-button-primary:focus,#ot-sdk-cookie-policy .ot-sdk-button.ot-sdk-button-primary:hover,#ot-sdk-cookie-policy button.ot-sdk-button-primary:hover,#ot-sdk-cookie-policy input[type="submit"].ot-sdk-button-primary:hover,#ot-sdk-cookie-policy input[type="reset"].ot-sdk-button-primary:hover,#ot-sdk-cookie-policy input[type="button"].ot-sdk-button-primary:hover,#ot-sdk-cookie-policy .ot-sdk-button.ot-sdk-button-primary:focus,#ot-sdk-cookie-policy button.ot-sdk-button-primary:focus,#ot-sdk-cookie-policy input[type="submit"].ot-sdk-button-primary:focus,#ot-sdk-cookie-policy input[type="reset"].ot-sdk-button-primary:focus,#ot-sdk-cookie-policy input[type="button"].ot-sdk-button-primary:focus{color:#fff;background-color:#1eaedb;border-color:#1eaedb}#onetrust-banner-sdk input[type="email"],#onetrust-banner-sdk input[type="number"],#onetrust-banner-sdk input[type="search"],#onetrust-banner-sdk input[type="text"],#onetrust-banner-sdk input[type="tel"],#onetrust-banner-sdk input[type="url"],#onetrust-banner-sdk input[type="password"],#onetrust-banner-sdk textarea,#onetrust-banner-sdk select,#onetrust-pc-sdk input[type="email"],#onetrust-pc-sdk input[type="number"],#onetrust-pc-sdk input[type="search"],#onetrust-pc-sdk input[type="text"],#onetrust-pc-sdk input[type="tel"],#onetrust-pc-sdk input[type="url"],#onetrust-pc-sdk input[type="password"],#onetrust-pc-sdk textarea,#onetrust-pc-sdk select,#ot-sdk-cookie-policy input[type="email"],#ot-sdk-cookie-policy input[type="number"],#ot-sdk-cookie-policy input[type="search"],#ot-sdk-cookie-policy input[type="text"],#ot-sdk-cookie-policy input[type="tel"],#ot-sdk-cookie-policy input[type="url"],#ot-sdk-cookie-policy input[type="password"],#ot-sdk-cookie-policy textarea,#ot-sdk-cookie-policy select{height:38px;padding:6px 10px;background-color:#fff;border:1px solid #d1d1d1;border-radius:4px;box-shadow:none;box-sizing:border-box}#onetrust-banner-sdk input[type="email"],#onetrust-banner-sdk input[type="number"],#onetrust-banner-sdk input[type="search"],#onetrust-banner-sdk input[type="text"],#onetrust-banner-sdk input[type="tel"],#onetrust-banner-sdk input[type="url"],#onetrust-banner-sdk input[type="password"],#onetrust-banner-sdk textarea,#onetrust-pc-sdk input[type="email"],#onetrust-pc-sdk input[type="number"],#onetrust-pc-sdk input[type="search"],#onetrust-pc-sdk input[type="text"],#onetrust-pc-sdk input[type="tel"],#onetrust-pc-sdk input[type="url"],#onetrust-pc-sdk input[type="password"],#onetrust-pc-sdk textarea,#ot-sdk-cookie-policy input[type="email"],#ot-sdk-cookie-policy input[type="number"],#ot-sdk-cookie-policy input[type="search"],#ot-sdk-cookie-policy input[type="text"],#ot-sdk-cookie-policy input[type="tel"],#ot-sdk-cookie-policy input[type="url"],#ot-sdk-cookie-policy input[type="password"],#ot-sdk-cookie-policy textarea{-webkit-appearance:none;-moz-appearance:none;appearance:none}#onetrust-banner-sdk textarea,#onetrust-pc-sdk textarea,#ot-sdk-cookie-policy textarea{min-height:65px;padding-top:6px;padding-bottom:6px}#onetrust-banner-sdk input[type="email"]:focus,#onetrust-banner-sdk input[type="number"]:focus,#onetrust-banner-sdk input[type="search"]:focus,#onetrust-banner-sdk input[type="text"]:focus,#onetrust-banner-sdk input[type="tel"]:focus,#onetrust-banner-sdk input[type="url"]:focus,#onetrust-banner-sdk input[type="password"]:focus,#onetrust-banner-sdk textarea:focus,#onetrust-banner-sdk select:focus,#onetrust-pc-sdk input[type="email"]:focus,#onetrust-pc-sdk input[type="number"]:focus,#onetrust-pc-sdk input[type="search"]:focus,#onetrust-pc-sdk input[type="text"]:focus,#onetrust-pc-sdk input[type="tel"]:focus,#onetrust-pc-sdk input[type="url"]:focus,#onetrust-pc-sdk input[type="password"]:focus,#onetrust-pc-sdk textarea:focus,#onetrust-pc-sdk select:focus,#ot-sdk-cookie-policy input[type="email"]:focus,#ot-sdk-cookie-policy input[type="number"]:focus,#ot-sdk-cookie-policy input[type="search"]:focus,#ot-sdk-cookie-policy input[type="text"]:focus,#ot-sdk-cookie-policy input[type="tel"]:focus,#ot-sdk-cookie-policy input[type="url"]:focus,#ot-sdk-cookie-policy input[type="password"]:focus,#ot-sdk-cookie-policy textarea:focus,#ot-sdk-cookie-policy select:focus{border:1px solid #000;outline:0}#onetrust-banner-sdk label,#onetrust-banner-sdk legend,#onetrust-pc-sdk label,#onetrust-pc-sdk legend,#ot-sdk-cookie-policy label,#ot-sdk-cookie-policy legend{display:block;margin-bottom:0.5rem;font-weight:600}#onetrust-banner-sdk fieldset,#onetrust-pc-sdk fieldset,#ot-sdk-cookie-policy fieldset{padding:0;border-width:0}#onetrust-banner-sdk input[type="checkbox"],#onetrust-banner-sdk input[type="radio"],#onetrust-pc-sdk input[type="checkbox"],#onetrust-pc-sdk input[type="radio"],#ot-sdk-cookie-policy input[type="checkbox"],#ot-sdk-cookie-policy input[type="radio"]{display:inline}#onetrust-banner-sdk label>.label-body,#onetrust-pc-sdk label>.label-body,#ot-sdk-cookie-policy label>.label-body{display:inline-block;margin-left:0.5rem;font-weight:normal}#onetrust-banner-sdk ul,#onetrust-pc-sdk ul,#ot-sdk-cookie-policy ul{list-style:circle inside}#onetrust-banner-sdk ol,#onetrust-pc-sdk ol,#ot-sdk-cookie-policy ol{list-style:decimal inside}#onetrust-banner-sdk ol,#onetrust-banner-sdk ul,#onetrust-pc-sdk ol,#onetrust-pc-sdk ul,#ot-sdk-cookie-policy ol,#ot-sdk-cookie-policy ul{padding-left:0;margin-top:0}#onetrust-banner-sdk ul ul,#onetrust-banner-sdk ul ol,#onetrust-banner-sdk ol ol,#onetrust-banner-sdk ol ul,#onetrust-pc-sdk ul ul,#onetrust-pc-sdk ul ol,#onetrust-pc-sdk ol ol,#onetrust-pc-sdk ol ul,#ot-sdk-cookie-policy ul ul,#ot-sdk-cookie-policy ul ol,#ot-sdk-cookie-policy ol ol,#ot-sdk-cookie-policy ol ul{margin:1.5rem 0 1.5rem 3rem;font-size:90%}#onetrust-banner-sdk li,#onetrust-pc-sdk li,#ot-sdk-cookie-policy li{margin-bottom:1rem}#onetrust-banner-sdk code,#onetrust-pc-sdk code,#ot-sdk-cookie-policy code{padding:0.2rem 0.5rem;margin:0 0.2rem;font-size:90%;white-space:nowrap;background:#f1f1f1;border:1px solid #e1e1e1;border-radius:4px}#onetrust-banner-sdk pre>code,#onetrust-pc-sdk pre>code,#ot-sdk-cookie-policy pre>code{display:block;padding:1rem 1.5rem;white-space:pre}#onetrust-banner-sdk th,#onetrust-banner-sdk td,#onetrust-pc-sdk th,#onetrust-pc-sdk td,#ot-sdk-cookie-policy th,#ot-sdk-cookie-policy td{padding:12px 15px;text-align:left;border-bottom:1px solid #e1e1e1}#onetrust-banner-sdk .ot-sdk-u-full-width,#onetrust-pc-sdk .ot-sdk-u-full-width,#ot-sdk-cookie-policy .ot-sdk-u-full-width{width:100%;box-sizing:border-box}#onetrust-banner-sdk .ot-sdk-u-max-full-width,#onetrust-pc-sdk .ot-sdk-u-max-full-width,#ot-sdk-cookie-policy .ot-sdk-u-max-full-width{max-width:100%;box-sizing:border-box}#onetrust-banner-sdk .ot-sdk-u-pull-right,#onetrust-pc-sdk .ot-sdk-u-pull-right,#ot-sdk-cookie-policy .ot-sdk-u-pull-right{float:right}#onetrust-banner-sdk .ot-sdk-u-pull-left,#onetrust-pc-sdk .ot-sdk-u-pull-left,#ot-sdk-cookie-policy .ot-sdk-u-pull-left{float:left}#onetrust-banner-sdk hr,#onetrust-pc-sdk hr,#ot-sdk-cookie-policy hr{margin-top:3rem;margin-bottom:3.5rem;border-width:0;border-top:1px solid #e1e1e1}#onetrust-banner-sdk .ot-sdk-container:after,#onetrust-banner-sdk .ot-sdk-row:after,#onetrust-banner-sdk .ot-sdk-u-cf,#onetrust-pc-sdk .ot-sdk-container:after,#onetrust-pc-sdk .ot-sdk-row:after,#onetrust-pc-sdk .ot-sdk-u-cf,#ot-sdk-cookie-policy .ot-sdk-container:after,#ot-sdk-cookie-policy .ot-sdk-row:after,#ot-sdk-cookie-policy .ot-sdk-u-cf{content:"";display:table;clear:both}#onetrust-banner-sdk .ot-sdk-row,#onetrust-pc-sdk .ot-sdk-row,#ot-sdk-cookie-policy .ot-sdk-row{margin:0;max-width:none;display:block}
+#onetrust-banner-sdk{box-shadow:0 0 18px rgba(0,0,0,.2)}#onetrust-banner-sdk.otFlat{position:fixed;z-index:2147483645;bottom:0;right:0;left:0;background-color:#fff;max-height:90%;overflow-x:hidden;overflow-y:auto}#onetrust-banner-sdk.otRelFont{font-size:1rem}#onetrust-banner-sdk>.ot-sdk-container{overflow:hidden}#onetrust-banner-sdk::-webkit-scrollbar{width:11px}#onetrust-banner-sdk::-webkit-scrollbar-thumb{border-radius:10px;background:#c1c1c1}#onetrust-banner-sdk{scrollbar-arrow-color:#c1c1c1;scrollbar-darkshadow-color:#c1c1c1;scrollbar-face-color:#c1c1c1;scrollbar-shadow-color:#c1c1c1}#onetrust-banner-sdk #onetrust-policy{margin:1.25em 0 .625em 2em;overflow:hidden}#onetrust-banner-sdk #onetrust-policy .ot-gv-list-handler{float:left;font-size:.82em;padding:0;margin-bottom:0;border:0;line-height:normal;height:auto;width:auto}#onetrust-banner-sdk #onetrust-policy-title{font-size:1.2em;line-height:1.3;margin-bottom:10px}#onetrust-banner-sdk #onetrust-policy-text{clear:both;text-align:left;font-size:.88em;line-height:1.4}#onetrust-banner-sdk #onetrust-policy-text *{font-size:inherit;line-height:inherit}#onetrust-banner-sdk #onetrust-policy-text a{font-weight:bold;margin-left:5px}#onetrust-banner-sdk #onetrust-policy-title,#onetrust-banner-sdk #onetrust-policy-text{color:dimgray;float:left}#onetrust-banner-sdk #onetrust-button-group-parent{min-height:1px;text-align:center}#onetrust-banner-sdk #onetrust-button-group{display:inline-block}#onetrust-banner-sdk #onetrust-accept-btn-handler,#onetrust-banner-sdk #onetrust-reject-all-handler,#onetrust-banner-sdk #onetrust-pc-btn-handler{background-color:#68b631;color:#fff;border-color:#68b631;margin-right:1em;min-width:125px;height:auto;white-space:normal;word-break:break-word;word-wrap:break-word;padding:12px 10px;line-height:1.2;font-size:.813em;font-weight:600}#onetrust-banner-sdk #onetrust-pc-btn-handler.cookie-setting-link{background-color:#fff;border:none;color:#68b631;text-decoration:underline;padding-left:0;padding-right:0}#onetrust-banner-sdk .onetrust-close-btn-ui{width:44px;height:44px;background-size:12px;border:none;position:relative;margin:auto;padding:0}#onetrust-banner-sdk .banner_logo{display:none}#onetrust-banner-sdk .ot-b-addl-desc{clear:both;float:left;display:block}#onetrust-banner-sdk #banner-options{float:left;display:table;margin-right:0;margin-left:1em;width:calc(100% - 1em)}#onetrust-banner-sdk .banner-option-input{cursor:pointer;width:auto;height:auto;border:none;padding:0;padding-right:3px;margin:0 0 10px;font-size:.82em;line-height:1.4}#onetrust-banner-sdk .banner-option-input *{pointer-events:none;font-size:inherit;line-height:inherit}#onetrust-banner-sdk .banner-option-input[aria-expanded=true]~.banner-option-details{display:block;height:auto}#onetrust-banner-sdk .banner-option-input[aria-expanded=true] .ot-arrow-container{transform:rotate(90deg)}#onetrust-banner-sdk .banner-option{margin-bottom:12px;margin-left:0;border:none;float:left;padding:0}#onetrust-banner-sdk .banner-option:first-child{padding-left:2px}#onetrust-banner-sdk .banner-option:not(:first-child){padding:0;border:none}#onetrust-banner-sdk .banner-option-header{cursor:pointer;display:inline-block}#onetrust-banner-sdk .banner-option-header :first-child{color:dimgray;font-weight:bold;float:left}#onetrust-banner-sdk .banner-option-header .ot-arrow-container{display:inline-block;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:6px solid dimgray;margin-left:10px;vertical-align:middle}#onetrust-banner-sdk .banner-option-details{display:none;font-size:.83em;line-height:1.5;padding:10px 0px 5px 10px;margin-right:10px;height:0px}#onetrust-banner-sdk .banner-option-details *{font-size:inherit;line-height:inherit;color:dimgray}#onetrust-banner-sdk .ot-arrow-container,#onetrust-banner-sdk .banner-option-details{transition:all 300ms ease-in 0s;-webkit-transition:all 300ms ease-in 0s;-moz-transition:all 300ms ease-in 0s;-o-transition:all 300ms ease-in 0s}#onetrust-banner-sdk .ot-dpd-container{float:left}#onetrust-banner-sdk .ot-dpd-title{margin-bottom:10px}#onetrust-banner-sdk .ot-dpd-title,#onetrust-banner-sdk .ot-dpd-desc{font-size:.88em;line-height:1.4;color:dimgray}#onetrust-banner-sdk .ot-dpd-title *,#onetrust-banner-sdk .ot-dpd-desc *{font-size:inherit;line-height:inherit}#onetrust-banner-sdk.ot-iab-2 #onetrust-policy-text *{margin-bottom:0}#onetrust-banner-sdk.ot-iab-2 .onetrust-vendors-list-handler{display:block;margin-left:0;margin-top:5px;clear:both;margin-bottom:0;padding:0;border:0;height:auto;width:auto}#onetrust-banner-sdk.ot-iab-2 #onetrust-button-group button{display:block}#onetrust-banner-sdk.ot-close-btn-link{padding-top:25px}#onetrust-banner-sdk.ot-close-btn-link #onetrust-close-btn-container{top:15px;transform:none;right:15px}#onetrust-banner-sdk.ot-close-btn-link #onetrust-close-btn-container button{padding:0;white-space:pre-wrap;border:none;height:auto;line-height:1.5;text-decoration:underline;font-size:.69em}#onetrust-banner-sdk #onetrust-policy-text,#onetrust-banner-sdk .ot-dpd-desc,#onetrust-banner-sdk .ot-b-addl-desc{font-size:.813em;line-height:1.5}#onetrust-banner-sdk .ot-dpd-desc{margin-bottom:10px}#onetrust-banner-sdk .ot-dpd-desc>.ot-b-addl-desc{margin-top:10px;margin-bottom:10px;font-size:1em}@media only screen and (max-width: 425px){#onetrust-banner-sdk #onetrust-close-btn-container{position:absolute;top:10px;right:10px}#onetrust-banner-sdk #onetrust-policy{margin-left:0}#onetrust-banner-sdk #onetrust-button-group{display:block}#onetrust-banner-sdk #onetrust-accept-btn-handler,#onetrust-banner-sdk #onetrust-reject-all-handler,#onetrust-banner-sdk #onetrust-pc-btn-handler{width:100%}#onetrust-banner-sdk .onetrust-close-btn-ui{top:auto;transform:none}#onetrust-banner-sdk #onetrust-policy-title{display:inline;float:none}#onetrust-banner-sdk #banner-options{margin:0;padding:0;width:100%}}@media only screen and (min-width: 426px)and (max-width: 896px){#onetrust-banner-sdk #onetrust-close-btn-container{position:absolute;top:0;right:0}#onetrust-banner-sdk #onetrust-policy{margin-left:1em;margin-right:1em}#onetrust-banner-sdk .onetrust-close-btn-ui{top:10px;right:10px}#onetrust-banner-sdk:not(.ot-iab-2) #onetrust-group-container{width:95%}#onetrust-banner-sdk.ot-iab-2 #onetrust-group-container{width:100%}#onetrust-banner-sdk #onetrust-button-group-parent{width:100%;position:relative;margin-left:0}#onetrust-banner-sdk #onetrust-button-group button{display:inline-block}#onetrust-banner-sdk #onetrust-button-group{margin-right:0;text-align:center}#onetrust-banner-sdk .has-reject-all-button #onetrust-pc-btn-handler{float:left}#onetrust-banner-sdk .has-reject-all-button #onetrust-reject-all-handler,#onetrust-banner-sdk .has-reject-all-button #onetrust-accept-btn-handler{float:right}#onetrust-banner-sdk .has-reject-all-button #onetrust-button-group{width:calc(100% - 2em);margin-right:0}#onetrust-banner-sdk .has-reject-all-button #onetrust-pc-btn-handler.cookie-setting-link{padding-left:0px;text-align:left}#onetrust-banner-sdk.ot-buttons-fw .ot-sdk-three button{width:100%;text-align:center}#onetrust-banner-sdk.ot-buttons-fw #onetrust-button-group-parent button{float:none}#onetrust-banner-sdk.ot-buttons-fw #onetrust-pc-btn-handler.cookie-setting-link{text-align:center}}@media only screen and (min-width: 550px){#onetrust-banner-sdk .banner-option:not(:first-child){border-left:1px solid #d8d8d8;padding-left:25px}}@media only screen and (min-width: 425px)and (max-width: 550px){#onetrust-banner-sdk.ot-iab-2 #onetrust-button-group,#onetrust-banner-sdk.ot-iab-2 #onetrust-policy,#onetrust-banner-sdk.ot-iab-2 .banner-option{width:100%}}@media only screen and (min-width: 769px){#onetrust-banner-sdk #onetrust-button-group{margin-right:30%}#onetrust-banner-sdk #banner-options{margin-left:2em;margin-right:5em;margin-bottom:1.25em;width:calc(100% - 7em)}}@media only screen and (min-width: 897px)and (max-width: 1023px){#onetrust-banner-sdk.vertical-align-content #onetrust-button-group-parent{position:absolute;top:50%;left:75%;transform:translateY(-50%)}#onetrust-banner-sdk #onetrust-close-btn-container{top:50%;margin:auto;transform:translate(-50%, -50%);position:absolute;padding:0;right:0}#onetrust-banner-sdk #onetrust-close-btn-container button{position:relative;margin:0;right:-22px;top:2px}}@media only screen and (min-width: 1024px){#onetrust-banner-sdk #onetrust-close-btn-container{top:50%;margin:auto;transform:translate(-50%, -50%);position:absolute;right:0}#onetrust-banner-sdk #onetrust-close-btn-container button{right:-12px}#onetrust-banner-sdk #onetrust-policy{margin-left:2em}#onetrust-banner-sdk.vertical-align-content #onetrust-button-group-parent{position:absolute;top:50%;left:60%;transform:translateY(-50%)}#onetrust-banner-sdk.ot-iab-2 #onetrust-policy-title{width:50%}#onetrust-banner-sdk.ot-iab-2 #onetrust-policy-text,#onetrust-banner-sdk.ot-iab-2 :not(.ot-dpd-desc)>.ot-b-addl-desc{margin-bottom:1em;width:50%;border-right:1px solid #d8d8d8;padding-right:1rem}#onetrust-banner-sdk.ot-iab-2 #onetrust-policy-text{margin-bottom:0;padding-bottom:1em}#onetrust-banner-sdk.ot-iab-2 :not(.ot-dpd-desc)>.ot-b-addl-desc{margin-bottom:0;padding-bottom:1em}#onetrust-banner-sdk.ot-iab-2 .ot-dpd-container{width:45%;padding-left:1rem;display:inline-block;float:none}#onetrust-banner-sdk.ot-iab-2 .ot-dpd-title{line-height:1.7}#onetrust-banner-sdk.ot-iab-2 #onetrust-button-group-parent{left:auto;right:4%;margin-left:0}#onetrust-banner-sdk.ot-iab-2 #onetrust-button-group button{display:block}#onetrust-banner-sdk:not(.ot-iab-2) #onetrust-button-group-parent{margin:auto;width:30%}#onetrust-banner-sdk:not(.ot-iab-2) #onetrust-group-container{width:60%}#onetrust-banner-sdk #onetrust-button-group{margin-right:auto}#onetrust-banner-sdk #onetrust-accept-btn-handler,#onetrust-banner-sdk #onetrust-reject-all-handler,#onetrust-banner-sdk #onetrust-pc-btn-handler{margin-top:1em}}@media only screen and (min-width: 890px){#onetrust-banner-sdk.ot-buttons-fw:not(.ot-iab-2) #onetrust-button-group-parent{padding-left:3%;padding-right:4%;margin-left:0}#onetrust-banner-sdk.ot-buttons-fw:not(.ot-iab-2) #onetrust-button-group{margin-right:0;margin-top:1.25em;width:100%}#onetrust-banner-sdk.ot-buttons-fw:not(.ot-iab-2) #onetrust-button-group button{width:100%;margin-bottom:5px;margin-top:5px}#onetrust-banner-sdk.ot-buttons-fw:not(.ot-iab-2) #onetrust-button-group button:last-of-type{margin-bottom:20px}}@media only screen and (min-width: 1280px){#onetrust-banner-sdk:not(.ot-iab-2) #onetrust-group-container{width:55%}#onetrust-banner-sdk:not(.ot-iab-2) #onetrust-button-group-parent{width:44%;padding-left:2%;padding-right:2%}#onetrust-banner-sdk:not(.ot-iab-2).vertical-align-content #onetrust-button-group-parent{position:absolute;left:55%}}
+        #onetrust-consent-sdk #onetrust-banner-sdk {background-color: #172B4D;}
+            #onetrust-consent-sdk #onetrust-policy-title,
+                    #onetrust-consent-sdk #onetrust-policy-text,
+                    #onetrust-consent-sdk .ot-b-addl-desc,
+                    #onetrust-consent-sdk .ot-dpd-desc,
+                    #onetrust-consent-sdk .ot-dpd-title,
+                    #onetrust-consent-sdk #onetrust-policy-text *:not(.onetrust-vendors-list-handler),
+                    #onetrust-consent-sdk .ot-dpd-desc *:not(.onetrust-vendors-list-handler),
+                    #onetrust-consent-sdk #onetrust-banner-sdk #banner-options *,
+                    #onetrust-banner-sdk .ot-cat-header {
+                        color: #FFFFFF;
+                    }
+            #onetrust-consent-sdk #onetrust-banner-sdk .banner-option-details {
+                    background-color: #FFFFFF;}
+             #onetrust-consent-sdk #onetrust-banner-sdk a[href],
+                    #onetrust-consent-sdk #onetrust-banner-sdk a[href] font,
+                    #onetrust-consent-sdk #onetrust-banner-sdk .ot-link-btn
+                        {
+                            color: #FFFFFF;
+                        }#onetrust-consent-sdk #onetrust-accept-btn-handler,
+                         #onetrust-banner-sdk #onetrust-reject-all-handler {
+                            background-color: #FFAB00;border-color: #FFAB00;
+                            color: #FFFFFF;
+                        }
+            #onetrust-consent-sdk #onetrust-pc-btn-handler,
+            #onetrust-consent-sdk #onetrust-pc-btn-handler.cookie-setting-link {
+                color: #FFFFFF; border-color: #FFFFFF;
+                background-color: 
+                #172B4D;
+            }#onetrust-consent-sdk, #onetrust-consent-sdk *, #onetrust-consent-sdk div, #onetrust-consent-sdk span, #onetrust-consent-sdk ul, #onetrust-consent-sdk li, #onetrust-consent-sdk a, #onetrust-consent-sdk p {
+font-family: LLCircularWeb,"Helvetica Neue",Helvetica,sans-serif;
+}
+#onetrust-banner-sdk {
+    margin: 4px;
+    border-radius: 4px;
+    width: 99.5%;
+}
+#onetrust-policy-text .ot-sdk-container  p {
+    color: #ffffff !important; 
+    text-indent: 1;
+   font-weight: bold; 
+   font-size: 11pt;
+   line-height: 16pt;
+   padding-bottom: 5px;
+}
+#onetrust-accept-btn-handler  {
+   border-radius: 4px;
+}
+
+#onetrust-banner-sdk .ot-close-icon {
+background-image: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgdmlld0JveD0iMCAwIDc0IDc0IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA3NCA3NDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4NCgkuc3Qwe2ZpbGw6I0NDQ0NDQzt9DQoJLnN0MXtmaWxsOiNGRkZGRkY7fQ0KCS5zdDJ7ZmlsbDojNjY2NjY2O30NCjwvc3R5bGU+DQo8Zz4NCgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMzcsNzEuNWMtOS42LDAtMTcuOC0zLjQtMjQuNC0xMC4xQzUuOCw1NC40LDIuNSw0Ni41LDIuNSwzN2MwLTkuNiwzLjQtMTcuOCwxMC4xLTI0LjQNCgkJQzE5LjIsNS45LDI3LjQsMi41LDM3LDIuNWM5LjYsMCwxNy44LDMuNCwyNC40LDEwLjFjNi44LDYuOSwxMC4xLDE0LjksMTAuMSwyNC40YzAsOS42LTMuNCwxNy44LTEwLjEsMjQuNA0KCQlDNTQuNCw2OC4yLDQ2LjUsNzEuNSwzNyw3MS41eiIvPg0KCTxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0zNyw1YzguOSwwLDE2LjQsMy4xLDIyLjYsOS40QzY1LjgsMjAuNyw2OSwyOC4xLDY5LDM3cy0zLjEsMTYuNC05LjQsMjIuNkM1My4zLDY1LjgsNDUuOSw2OSwzNyw2OQ0KCQlzLTE2LjQtMy4xLTIyLjYtOS40UzUsNDUuOSw1LDM3czMuMS0xNi40LDkuNC0yMi42QzIwLjYsOC4xLDI4LjEsNSwzNyw1IE0zNywwQzI2LjgsMCwxOCwzLjcsMTAuOSwxMC45QzMuNywxOCwwLDI2LjgsMCwzNw0KCQljMCwxMCwzLjYsMTguOCwxMC44LDI2LjFDMTcuOSw3MC4zLDI2LjgsNzQsMzcsNzRjMTAsMCwxOC44LTMuNiwyNi4xLTEwLjhDNzAuMyw1Ni4xLDc0LDQ3LjIsNzQsMzdjMC0xMC0zLjYtMTguOC0xMC44LTI2LjENCgkJQzU2LjEsMy43LDQ3LjIsMCwzNywwTDM3LDB6Ii8+DQo8L2c+DQo8cGF0aCBjbGFzcz0ic3QyIiBkPSJNNTIuNCw0Ny43TDQxLjcsMzdsMTAuOS0xMC43YzAuNi0wLjYsMC42LTEuMSwwLTEuN2wtMy4xLTNjLTAuMy0wLjMtMC42LTAuNC0wLjktMC40Yy0wLjIsMC0wLjQsMC4xLTAuNywwLjQNCglMMzcsMzIuMUwyNi4xLDIxLjZjLTAuMy0wLjMtMC41LTAuNC0wLjctMC40Yy0wLjMsMC0wLjYsMC4xLTAuOSwwLjRsLTMsM2MtMC42LDAuNi0wLjYsMS4xLDAsMS43TDMyLjQsMzdMMjEuNiw0Ny45DQoJYy0wLjIsMC4xLTAuMywwLjMtMC4zLDAuN3MwLjEsMC43LDAuMywwLjlsMywzLjFjMC4yLDAuMiwwLjUsMC4zLDAuOSwwLjNzMC43LTAuMSwwLjktMC4zTDM3LDQxLjdsMTAuOSwxMC43DQoJYzAuMywwLjMsMC41LDAuNCwwLjcsMC40YzAuMywwLDAuNi0wLjEsMC45LTAuNGwzLTNjMC4zLTAuMiwwLjQtMC41LDAuNC0wLjlDNTIuOSw0OC4zLDUyLjcsNDgsNTIuNCw0Ny43eiIvPg0KPC9zdmc+);
+   background-size: 20px;
+}
+
+#onetrust-accept-btn-handler a:before {
+    content: '';
+}
+@media only screen and (max-width: 47em) {
+ .ot-sdk-container .hide-cookie-setting-link #onetrust-policy {
+    margin-right: auto;
+    padding-right: 5px;
+}
+}.ot-sdk-cookie-policy{font-family:inherit;font-size:16px}.ot-sdk-cookie-policy.otRelFont{font-size:1rem}.ot-sdk-cookie-policy h3,.ot-sdk-cookie-policy h4,.ot-sdk-cookie-policy h6,.ot-sdk-cookie-policy p,.ot-sdk-cookie-policy li,.ot-sdk-cookie-policy a,.ot-sdk-cookie-policy th,.ot-sdk-cookie-policy #cookie-policy-description,.ot-sdk-cookie-policy .ot-sdk-cookie-policy-group,.ot-sdk-cookie-policy #cookie-policy-title{color:dimgray}.ot-sdk-cookie-policy #cookie-policy-description{margin-bottom:1em}.ot-sdk-cookie-policy h4{font-size:1.2em}.ot-sdk-cookie-policy h6{font-size:1em;margin-top:2em}.ot-sdk-cookie-policy th{min-width:75px}.ot-sdk-cookie-policy a,.ot-sdk-cookie-policy a:hover{background:#fff}.ot-sdk-cookie-policy thead{background-color:#f6f6f4;font-weight:bold}.ot-sdk-cookie-policy .ot-mobile-border{display:none}.ot-sdk-cookie-policy section{margin-bottom:2em}.ot-sdk-cookie-policy table{border-collapse:inherit}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy{font-family:inherit;font-size:1rem}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy h3,#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy h4,#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy h6,#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy p,#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy li,#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy a,#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy th,#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy #cookie-policy-description,#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy .ot-sdk-cookie-policy-group,#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy #cookie-policy-title{color:dimgray}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy #cookie-policy-description{margin-bottom:1em}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy .ot-sdk-subgroup{margin-left:1.5em}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy #cookie-policy-description,#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy .ot-sdk-cookie-policy-group-desc,#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy .ot-table-header,#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy a,#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy span,#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy td{font-size:.9em}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy td span,#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy td a{font-size:inherit}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy .ot-sdk-cookie-policy-group{font-size:1em;margin-bottom:.6em}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy .ot-sdk-cookie-policy-title{margin-bottom:1.2em}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy>section{margin-bottom:1em}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy th{min-width:75px}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy a,#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy a:hover{background:#fff}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy thead{background-color:#f6f6f4;font-weight:bold}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy .ot-mobile-border{display:none}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy section{margin-bottom:2em}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy .ot-sdk-subgroup ul li{list-style:disc;margin-left:1.5em}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy .ot-sdk-subgroup ul li h4{display:inline-block}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy table{border-collapse:inherit;margin:auto;border:1px solid #d7d7d7;border-radius:5px;border-spacing:initial;width:100%;overflow:hidden}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy table th,#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy table td{border-bottom:1px solid #d7d7d7;border-right:1px solid #d7d7d7}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy table tr:last-child td{border-bottom:0px}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy table tr th:last-child,#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy table tr td:last-child{border-right:0px}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy table .ot-host,#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy table .ot-cookies-type{width:25%}.ot-sdk-cookie-policy[dir=rtl]{text-align:left}#ot-sdk-cookie-policy h3{font-size:1.5em}@media only screen and (max-width: 530px){.ot-sdk-cookie-policy:not(#ot-sdk-cookie-policy-v2) table,.ot-sdk-cookie-policy:not(#ot-sdk-cookie-policy-v2) thead,.ot-sdk-cookie-policy:not(#ot-sdk-cookie-policy-v2) tbody,.ot-sdk-cookie-policy:not(#ot-sdk-cookie-policy-v2) th,.ot-sdk-cookie-policy:not(#ot-sdk-cookie-policy-v2) td,.ot-sdk-cookie-policy:not(#ot-sdk-cookie-policy-v2) tr{display:block}.ot-sdk-cookie-policy:not(#ot-sdk-cookie-policy-v2) thead tr{position:absolute;top:-9999px;left:-9999px}.ot-sdk-cookie-policy:not(#ot-sdk-cookie-policy-v2) tr{margin:0 0 1em 0}.ot-sdk-cookie-policy:not(#ot-sdk-cookie-policy-v2) tr:nth-child(odd),.ot-sdk-cookie-policy:not(#ot-sdk-cookie-policy-v2) tr:nth-child(odd) a{background:#f6f6f4}.ot-sdk-cookie-policy:not(#ot-sdk-cookie-policy-v2) td{border:none;border-bottom:1px solid #eee;position:relative;padding-left:50%}.ot-sdk-cookie-policy:not(#ot-sdk-cookie-policy-v2) td:before{position:absolute;height:100%;left:6px;width:40%;padding-right:10px}.ot-sdk-cookie-policy:not(#ot-sdk-cookie-policy-v2) .ot-mobile-border{display:inline-block;background-color:#e4e4e4;position:absolute;height:100%;top:0;left:45%;width:2px}.ot-sdk-cookie-policy:not(#ot-sdk-cookie-policy-v2) td:before{content:attr(data-label);font-weight:bold}.ot-sdk-cookie-policy:not(#ot-sdk-cookie-policy-v2) li{word-break:break-word;word-wrap:break-word}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy table{overflow:hidden}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy table td{border:none;border-bottom:1px solid #d7d7d7}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy table,#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy thead,#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy tbody,#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy th,#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy td,#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy tr{display:block}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy table .ot-host,#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy table .ot-cookies-type{width:auto}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy tr{margin:0 0 1em 0}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy td:before{height:100%;width:40%;padding-right:10px}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy td:before{content:attr(data-label);font-weight:bold}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy li{word-break:break-word;word-wrap:break-word}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy thead tr{position:absolute;top:-9999px;left:-9999px;z-index:-9999}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy table tr:last-child td{border-bottom:1px solid #d7d7d7;border-right:0px}#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy table tr:last-child td:last-child{border-bottom:0px}}
+                
+                    #ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy h5,
+                    #ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy h6,
+                    #ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy li,
+                    #ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy p,
+                    #ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy a,
+                    #ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy span,
+                    #ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy td,
+                    #ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy #cookie-policy-description {
+                        color: #696969;
+                    }
+                    #ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy th {
+                        color: #696969;
+                    }
+                    #ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy .ot-sdk-cookie-policy-group {
+                        color: #696969;
+                    }
+                    
+                    #ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy #cookie-policy-title {
+                            color: #696969;
+                        }
+                    
+            
+                    #ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy table th {
+                            background-color: #F8F8F8;
+                        }
+                    
+            
+                      @keyframes slide-down-custom {
+                          0% {
+                              bottom: 722px !important;
+                          }
+                          100% {
+                              bottom: 0px;
+                          }
+                      }
+                      @-webkit-keyframes slide-down-custom {
+                          0% {
+                              bottom: 722px !important;
+                          }
+                          100% {
+                              bottom: 0px;
+                          }
+                      }
+                      @-moz-keyframes slide-down-custom {
+                          0% {
+                              bottom: 722px !important;
+                          }
+                          100% {
+                              bottom: 0px;
+                          }
+                      }
+                      </style><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="xid/atl-xid" src="./Git revert _ Atlassian Git Tutorial_files/atl-xid.js.téléchargement"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="ld/ldclient.min" src="./Git revert _ Atlassian Git Tutorial_files/ldclient.min.js.téléchargement"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="ld/ldclient-common.min" src="./Git revert _ Atlassian Git Tutorial_files/ldclient-common.min.js.téléchargement"></script><script src="./Git revert _ Atlassian Git Tutorial_files/atl-global-2.115.0.min.js.téléchargement"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="gasv3/analytics-web-client.with-deps.amd.min" src="./Git revert _ Atlassian Git Tutorial_files/analytics-web-client.with-deps.amd.min.js.téléchargement"></script><script async="" crossorigin="anonymous" type="text/javascript" src="./Git revert _ Atlassian Git Tutorial_files/ef81b94c-8498-4f12-b358-eb76a000a247.js.téléchargement"></script></head>
+<body id="git-revert" class="wac git tutorials undoing-changes git-revert">
+<div id="header">
+<div class="tutorial-sidebar is-active">
+<div class="_bumper"></div>
+<div class="_wrap">
+<ol>
+<div class="_group">
+<a href="https://www.atlassian.com/fr/git/tutorials/learn-git-with-bitbucket-cloud" class="cms-link cms-link--text group-link">Découvrez Git</a>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/learn-git-with-bitbucket-cloud" class="cms-link cms-link--text tutorial-link">Découvrir Git avec Bitbucket Cloud</a>
+<div class="_toc">
+<a href="https://www.atlassian.com/fr/git/tutorials/learn-git-with-bitbucket-cloud#create-the-repository" class="cms-link cms-link--text section-link">Créer un dépôt Git</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/learn-git-with-bitbucket-cloud#copy-and-add-files" class="cms-link cms-link--text section-link">Copier votre dépôt Git et ajouter des fichiers</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/learn-git-with-bitbucket-cloud#pull-changes" class="cms-link cms-link--text section-link">Faites un 'pull' des changements de vôtre dépot Git sur Bitbucket Cloud</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/learn-git-with-bitbucket-cloud#git-branch-to-merge" class="cms-link cms-link--text section-link">Utilisation d'une branche Git pour merger un fichier</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/learn-about-code-review-in-bitbucket-cloud" class="cms-link cms-link--text tutorial-link">Découvrir la revue du code dans Bitbucket Cloud</a>
+<div class="_toc">
+<a href="https://www.atlassian.com/fr/git/tutorials/learn-about-code-review-in-bitbucket-cloud#create-repository" class="cms-link cms-link--text section-link">Créer un dépôt</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/learn-about-code-review-in-bitbucket-cloud#clone-branch" class="cms-link cms-link--text section-link">Clonez une branche et apportez un changement sur la nouvelle branche</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/learn-about-code-review-in-bitbucket-cloud#im-using-git" class="cms-link cms-link--text section-link">Si vous utilisez la ligne de commande</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/learn-about-code-review-in-bitbucket-cloud#im-using-sourcetree" class="cms-link cms-link--text section-link">Si vous utilisez Sourcetree</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/learn-about-code-review-in-bitbucket-cloud#create-a-pull-request-to-merge-your-change" class="cms-link cms-link--text section-link">Création d'une pull request pour merger votre changement</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/learn-branching-with-bitbucket-cloud" class="cms-link cms-link--text tutorial-link">Découvrez le branching dans Bitbucket&nbsp;Cloud</a>
+<div class="_toc">
+<a href="https://www.atlassian.com/fr/git/tutorials/learn-branching-with-bitbucket-cloud#create-the-repository" class="cms-link cms-link--text section-link">Préparez-vous</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/learn-branching-with-bitbucket-cloud#review-branching-workflow" class="cms-link cms-link--text section-link">Examiner le workflow de branching</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/learn-undoing-changes-with-bitbucket" class="cms-link cms-link--text tutorial-link">Découvrez comment annuler des changements avec Bitbucket&nbsp;Cloud</a>
+<div class="_toc">
+<a href="https://www.atlassian.com/fr/git/tutorials/learn-undoing-changes-with-bitbucket#git-status" class="cms-link cms-link--text section-link">git status</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/learn-undoing-changes-with-bitbucket#git-log" class="cms-link cms-link--text section-link">Git log</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/learn-undoing-changes-with-bitbucket#git-reset" class="cms-link cms-link--text section-link">git reset</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/learn-undoing-changes-with-bitbucket#git-revert" class="cms-link cms-link--text section-link">Git revert</a>
+</div>
+</div>
+</div>
+<div class="_group">
+<a href="https://www.atlassian.com/fr/git/tutorials/what-is-version-control" class="cms-link cms-link--text group-link">Débutant</a>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/what-is-version-control" class="cms-link cms-link--text tutorial-link">Qu'est-ce que le contrôle de version&nbsp;?</a>
+<div class="_toc">
+<a href="https://www.atlassian.com/fr/git/tutorials/what-is-version-control#benefits-of-version-control" class="cms-link cms-link--text section-link">Avantages du contrôle de version</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/source-code-management" class="cms-link cms-link--text tutorial-link">Gestion du code source</a>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/what-is-git" class="cms-link cms-link--text tutorial-link">Qu'est-ce que Git&nbsp;?</a>
+<div class="_toc">
+<a href="https://www.atlassian.com/fr/git/tutorials/what-is-git#performance" class="cms-link cms-link--text section-link">Performances</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/what-is-git#security" class="cms-link cms-link--text section-link">Sécurité</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/what-is-git#flexibility" class="cms-link cms-link--text section-link">Flexibilité</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/what-is-git#version-control-with-git" class="cms-link cms-link--text section-link">Contrôle de version avec Git</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/why-git" class="cms-link cms-link--text tutorial-link">Pourquoi Git pour votre entreprise&nbsp;?</a>
+<div class="_toc">
+<a href="https://www.atlassian.com/fr/git/tutorials/why-git#git-for-developers" class="cms-link cms-link--text section-link">Git pour les développeurs</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/why-git#git-for-marketing" class="cms-link cms-link--text section-link">Git pour le marketing</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/why-git#git-for-product-management" class="cms-link cms-link--text section-link">Git pour la gestion de produits</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/why-git#git-for-designers" class="cms-link cms-link--text section-link">Git pour les concepteurs</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/why-git#git-for-customer-support" class="cms-link cms-link--text section-link">Git pour le support client</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/why-git#git-for-human-resources" class="cms-link cms-link--text section-link">Git pour les ressources humaines</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/why-git#git-for-anyone-managing-budget" class="cms-link cms-link--text section-link">Git pour tout gestionnaire de budget</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/install-git" class="cms-link cms-link--text tutorial-link">Installation de Git</a>
+<div class="_toc">
+<a href="https://www.atlassian.com/fr/git/tutorials/install-git#mac-os-x" class="cms-link cms-link--text section-link">Installer Git sur Mac OS&nbsp;X</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/install-git#windows" class="cms-link cms-link--text section-link">Installer Git sur Windows</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/install-git#linux" class="cms-link cms-link--text section-link">Installer Git sur Linux</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/git-ssh" class="cms-link cms-link--text tutorial-link">SSH Git</a>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/export-git-archive" class="cms-link cms-link--text tutorial-link">Archive Git</a>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/gitops" class="cms-link cms-link--text tutorial-link">GitOps</a>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/atlassian-git-cheatsheet" class="cms-link cms-link--text tutorial-link">Fiche de révision sur Git</a>
+</div>
+</div>
+<div class="_group">
+<a href="https://www.atlassian.com/fr/git/tutorials/setting-up-a-repository" class="cms-link cms-link--text group-link is-active">Introduction</a>
+<div class="_group-wrap is-active">
+<a href="https://www.atlassian.com/fr/git/tutorials/setting-up-a-repository" class="cms-link cms-link--text tutorial-link">Créer un dépôt</a>
+<div class="_toc">
+<a href="https://www.atlassian.com/fr/git/tutorials/setting-up-a-repository/git-init" class="cms-link cms-link--text section-link">git init</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/setting-up-a-repository/git-clone" class="cms-link cms-link--text section-link">git clone</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/setting-up-a-repository/git-config" class="cms-link cms-link--text section-link">git config</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/git-alias" class="cms-link cms-link--text section-link">git alias</a>
+</div>
+</div>
+<div class="_group-wrap is-active">
+<a href="https://www.atlassian.com/fr/git/tutorials/saving-changes" class="cms-link cms-link--text tutorial-link">Enregistrer des changements</a>
+<div class="_toc">
+<a href="https://www.atlassian.com/fr/git/tutorials/saving-changes" class="cms-link cms-link--text section-link">git add</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/saving-changes/git-commit" class="cms-link cms-link--text section-link">git commit</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/saving-changes/git-diff" class="cms-link cms-link--text section-link">git diff</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/saving-changes/git-stash" class="cms-link cms-link--text section-link">Git Stash</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/saving-changes/gitignore" class="cms-link cms-link--text section-link">.gitignore</a>
+</div>
+</div>
+<div class="_group-wrap is-active">
+<a href="https://www.atlassian.com/fr/git/tutorials/inspecting-a-repository" class="cms-link cms-link--text tutorial-link">Inspecter un dépôt</a>
+<div class="_toc">
+<a href="https://www.atlassian.com/fr/git/tutorials/inspecting-a-repository" class="cms-link cms-link--text section-link">git status</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/inspecting-a-repository/git-tag" class="cms-link cms-link--text section-link">git tag</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/inspecting-a-repository/git-blame" class="cms-link cms-link--text section-link">git blame</a>
+</div>
+</div>
+<div class="_group-wrap is-active">
+<a href="https://www.atlassian.com/fr/git/tutorials/undoing-changes" class="cms-link cms-link--text tutorial-link is-active">Annuler des changements</a>
+<div class="_toc is-active">
+<a href="https://www.atlassian.com/fr/git/tutorials/undoing-changes" class="cms-link cms-link--text section-link is-active">Git checkout</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/undoing-changes/git-clean" class="cms-link cms-link--text section-link is-active">git clean</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/undoing-changes/git-revert" class="cms-link cms-link--text section-link active-current-page-link active is-active">Git revert</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/undoing-changes/git-reset" class="cms-link cms-link--text section-link is-active">git reset</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/undoing-changes/git-rm" class="cms-link cms-link--text section-link is-active">git rm</a>
+</div>
+</div>
+<div class="_group-wrap is-active">
+<a href="https://www.atlassian.com/fr/git/tutorials/rewriting-history" class="cms-link cms-link--text tutorial-link">Réécrire l'historique</a>
+<div class="_toc">
+<a href="https://www.atlassian.com/fr/git/tutorials/rewriting-history#git-commit--amend" class="cms-link cms-link--text section-link">Git commit --amend</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/rewriting-history/git-rebase" class="cms-link cms-link--text section-link">Git rebase</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/rewriting-history#git-rebase-i" class="cms-link cms-link--text section-link">Git rebase -i</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/rewriting-history/git-reflog" class="cms-link cms-link--text section-link">git reflog</a>
+</div>
+</div>
+</div>
+<div class="_group">
+<a href="https://www.atlassian.com/fr/git/tutorials/syncing" class="cms-link cms-link--text group-link">Collaborer</a>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/syncing" class="cms-link cms-link--text tutorial-link">Synchroniser</a>
+<div class="_toc">
+<a href="https://www.atlassian.com/fr/git/tutorials/syncing" class="cms-link cms-link--text section-link">git remote</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/syncing/git-fetch" class="cms-link cms-link--text section-link">git fetch</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/syncing/git-push" class="cms-link cms-link--text section-link">git push</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/syncing/git-pull" class="cms-link cms-link--text section-link">git pull</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/making-a-pull-request" class="cms-link cms-link--text tutorial-link">Faire une pull request</a>
+<div class="_toc">
+<a href="https://www.atlassian.com/fr/git/tutorials/making-a-pull-request#how-it-works" class="cms-link cms-link--text section-link">Fonctionnement</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/making-a-pull-request#example" class="cms-link cms-link--text section-link">Exemple</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/making-a-pull-request#where-to-go" class="cms-link cms-link--text section-link">Marche à suivre</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/using-branches" class="cms-link cms-link--text tutorial-link">Utiliser des branches</a>
+<div class="_toc">
+<a href="https://www.atlassian.com/fr/git/tutorials/using-branches" class="cms-link cms-link--text section-link">branche git</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/using-branches/git-checkout" class="cms-link cms-link--text section-link">Git checkout</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/using-branches/git-merge" class="cms-link cms-link--text section-link">git merge</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/using-branches/merge-conflicts" class="cms-link cms-link--text section-link">Fusionnez les conflits</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/using-branches/merge-strategy" class="cms-link cms-link--text section-link">Stratégies de merge</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/comparing-workflows" class="cms-link cms-link--text tutorial-link">Comparaison de workflows</a>
+<div class="_toc">
+<a href="https://www.atlassian.com/fr/git/tutorials/comparing-workflows#centralized-workflow" class="cms-link cms-link--text section-link">Workflow centralisé</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/comparing-workflows/feature-branch-workflow" class="cms-link cms-link--text section-link">Workflow de branche par fonctionnalité</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/comparing-workflows/gitflow-workflow" class="cms-link cms-link--text section-link">Workflow Gitflow</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/comparing-workflows/forking-workflow" class="cms-link cms-link--text section-link">Workflow de duplication (fork)</a>
+</div>
+</div>
+</div>
+<div class="_group">
+<a href="https://www.atlassian.com/fr/git/tutorials/svn-to-git-prepping-your-team-migration" class="cms-link cms-link--text group-link">Migrer vers Git</a>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/svn-to-git-prepping-your-team-migration" class="cms-link cms-link--text tutorial-link">De SVN à Git&nbsp;– Préparation de la migration</a>
+<div class="_toc">
+<a href="https://www.atlassian.com/fr/git/tutorials/svn-to-git-prepping-your-team-migration#for-administrators" class="cms-link cms-link--text section-link">Pour les administrateurs</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/svn-to-git-prepping-your-team-migration#basic-git-commands" class="cms-link cms-link--text section-link">Commandes Git de base</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/svn-to-git-prepping-your-team-migration#git-migration-tools" class="cms-link cms-link--text section-link">Outils de migration Git</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/svn-to-git-prepping-your-team-migration#for-developers" class="cms-link cms-link--text section-link">Pour les développeurs</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/migrating-overview" class="cms-link cms-link--text tutorial-link">Migrer de SVN vers Git</a>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/migrating-prepare" class="cms-link cms-link--text tutorial-link">Préparer</a>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/migrating-convert" class="cms-link cms-link--text tutorial-link">Convertir</a>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/migrating-synchronize" class="cms-link cms-link--text tutorial-link">Synchroniser</a>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/migrating-share" class="cms-link cms-link--text tutorial-link">Partagez</a>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/migrating-migrate" class="cms-link cms-link--text tutorial-link">Migrer</a>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/perforce-git" class="cms-link cms-link--text tutorial-link">De Perforce vers Git&nbsp;– Pourquoi migrer&nbsp;?</a>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/perforce-git-migration" class="cms-link cms-link--text tutorial-link">Migration de Perforce vers Git</a>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/git-move-repository" class="cms-link cms-link--text tutorial-link">Comment déplacer un dépôt&nbsp;Git avec un historique</a>
+</div>
+</div>
+<div class="_group">
+<a href="https://www.atlassian.com/fr/git/tutorials/advanced-overview" class="cms-link cms-link--text group-link">Conseils avancés</a>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/advanced-overview" class="cms-link cms-link--text tutorial-link">Tutoriels Git avancés</a>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/merging-vs-rebasing" class="cms-link cms-link--text tutorial-link">Comparaison entre un merge et un rebase</a>
+<div class="_toc">
+<a href="https://www.atlassian.com/fr/git/tutorials/merging-vs-rebasing#conceptual-overview" class="cms-link cms-link--text section-link">Présentation des concepts</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/merging-vs-rebasing#the-golden-rule-of-rebasing" class="cms-link cms-link--text section-link">Règle d'or du rebase</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/merging-vs-rebasing#workflow-walkthrough" class="cms-link cms-link--text section-link">Description du workflow</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/merging-vs-rebasing#summary" class="cms-link cms-link--text section-link">Résumé</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/resetting-checking-out-and-reverting" class="cms-link cms-link--text tutorial-link">Reset, checkout et revert</a>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/git-log" class="cms-link cms-link--text tutorial-link">Commande git log avancée</a>
+<div class="_toc">
+<a href="https://www.atlassian.com/fr/git/tutorials/git-log#formatting-log-output" class="cms-link cms-link--text section-link">Formater la sortie du journal</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/git-log#filtering-the-commit-history" class="cms-link cms-link--text section-link">Filtrer l'historique des commits</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/git-log#summary" class="cms-link cms-link--text section-link">Résumé</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/git-hooks" class="cms-link cms-link--text tutorial-link">Hooks Git</a>
+<div class="_toc">
+<a href="https://www.atlassian.com/fr/git/tutorials/git-hooks#conceptual-overview" class="cms-link cms-link--text section-link">Présentation des concepts</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/git-hooks#local-hooks" class="cms-link cms-link--text section-link">Hooks locaux</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/git-hooks#server-side-hooks" class="cms-link cms-link--text section-link">Hooks côté serveur</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/git-hooks#summary" class="cms-link cms-link--text section-link">Résumé</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/refs-and-the-reflog" class="cms-link cms-link--text tutorial-link">Réfs et Reflog</a>
+<div class="_toc">
+<a href="https://www.atlassian.com/fr/git/tutorials/refs-and-the-reflog#hashes" class="cms-link cms-link--text section-link">Empreintes</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/refs-and-the-reflog#refs" class="cms-link cms-link--text section-link">Réfs</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/refs-and-the-reflog#packed-refs" class="cms-link cms-link--text section-link">Réfs compressées</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/refs-and-the-reflog#special-refs" class="cms-link cms-link--text section-link">Réfs spéciales</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/refs-and-the-reflog#refspecs" class="cms-link cms-link--text section-link">Refspecs</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/refs-and-the-reflog#relative-refs" class="cms-link cms-link--text section-link">Réfs relatives</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/refs-and-the-reflog#the-reflog" class="cms-link cms-link--text section-link">Reflog</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/refs-and-the-reflog#summary" class="cms-link cms-link--text section-link">Résumé</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/git-submodule" class="cms-link cms-link--text tutorial-link">Sous-modules&nbsp;Git</a>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/git-subtree" class="cms-link cms-link--text tutorial-link">Git subtree</a>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/big-repositories" class="cms-link cms-link--text tutorial-link">Grands dépôts dans Git</a>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/git-lfs" class="cms-link cms-link--text tutorial-link">Stockage de fichiers volumineux Git (LFS)</a>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/git-gc" class="cms-link cms-link--text tutorial-link">git gc</a>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/git-prune" class="cms-link cms-link--text tutorial-link">Git prune</a>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/git-bash" class="cms-link cms-link--text tutorial-link">Git Bash</a>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/dotfiles" class="cms-link cms-link--text tutorial-link">Comment stocker des dotfiles</a>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/cherry-pick" class="cms-link cms-link--text tutorial-link">Git cherry-pick</a>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/gitk" class="cms-link cms-link--text tutorial-link">GitK</a>
+</div>
+<div class="_group-wrap">
+<a href="https://www.atlassian.com/fr/git/tutorials/git-show" class="cms-link cms-link--text tutorial-link">Git-show</a>
+</div>
+</div>
+</ol>
+</div>
+</div>
+<div class="hamburger ">
+<div class="_layer -top"></div>
+<div class="_layer -mid"></div>
+<div class="_layer -bottom"></div>
+</div>
+<div class="primary-nav">
+<div class="_wrapper">
+<ul class="_nav-list">
+<div>
+<li>
+<a href="https://www.atlassian.com/fr/git" class="cms-link cms-link--text _nav-item -home">Accueil</a>
+</li>
+</div>
+<div>
+<li class="tutorials-nav" id="tutorials-nav-mobile">
+<h4 class="_nav-item -tutorials">Tutorials</h4>
+<div class="_sublist"></div>
+</li>
+<li>
+<a href="https://www.atlassian.com/fr/git/tutorials" class="cms-link cms-link--text _nav-item -tutorials">Tutoriels</a>
+</li>
+</div>
+<div>
+<li>
+<a href="https://www.atlassian.com/fr/git/articles" class="cms-link cms-link--text _nav-item -articles">Articles</a>
+</li>
+</div>
+<div>
+<li>
+<a href="https://www.atlassian.com/fr/git/glossary" class="cms-link cms-link--text _nav-item -glossary">Glossaire</a>
+</li>
+</div>
+</ul>
+</div>
+</div>
+<div class="topbar is-tutorial">
+<div class="_header -is-tutorial">
+<a href="https://www.atlassian.com/fr/git/tutorials" class="active">Tutorials</a>
+</div>
+</div>
+<form class="newsletter">
+<input class="is-empty _input" type="email" placeholder="Enter Your Email For Git News">
+<button type="submit" class="_status icon-email-submit">Submit</button>
+</form>
+<a href="https://www.atlassian.com/fr/git/tutorials/undoing-changes/git-revert#footer" class="button green-hollow secondary newsletter-cta">Inscrivez-vous</a>
+<a href="https://www.atlassian.com/fr/git/search" class="search-button search-open ">
+<span class="_link icon-search">Search</span>
+</a>
+<a href="https://www.atlassian.com/fr/git" class="search-button search-close -in-page hidden">
+<span class="_link icon-search-close -close">Search</span>
+</a>
+</div>
+<div class="page-wrap is-active -gray-bg tutorial-detail">
+<div id="content" class="_content">
+<div class="tutorial-hero">
+<div class="g-column g-12-12 text-center">
+<img src="./Git revert _ Atlassian Git Tutorial_files/hero.svg" loading="lazy" alt="git revert – Tutoriel sur l&#39;annulation de changements dans Git">
+<h1> Git revert
+</h1>
+<div class="g-column g-12-12 t-12-12 m-12-12 breadcrumbs">
+<a href="https://www.atlassian.com/fr/git/tutorials/undoing-changes/git-revert" class="cms-link cms-link--text xx-active-parent-page-link">Git checkout</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/undoing-changes/git-revert" class="cms-link cms-link--text xx-active-parent-page-link">git clean</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/undoing-changes/git-revert" class="cms-link cms-link--text xx-active-parent-page-link">Git revert</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/undoing-changes/git-revert" class="cms-link cms-link--text xx-active-parent-page-link">git reset</a>
+<a href="https://www.atlassian.com/fr/git/tutorials/undoing-changes/git-revert" class="cms-link cms-link--text xx-active-parent-page-link">git rm</a>
+</div></div></div>
+<div class="g-row">
+<div class="g-column g-12-12 t-12-12 m-12-12">
+<p> </p> <p>La commande <code>git revert</code> peut être considérée comme une commande de type « undo », mais il ne s'agit pas d'une opération d'annulation classique. Au lieu de supprimer le commit de l'historique du projet, elle détermine comment annuler les changements introduits par le commit et ajoute un nouveau commit avec le contenu ainsi obtenu. Ainsi, Git ne perd pas l'historique, lequel est important pour l'intégrité de votre historique de révision et pour une collaboration fiable.</p> <p>L'opération de revert ne doit être utilisée que lorsque vous souhaitez appliquer l'inverse d'un commit à partir de votre historique de projet. Cela peut être utile, par exemple, si vous suivez un bug et que vous découvrez qu'il a été introduit par un commit unique. Au lieu d'accéder manuellement à un nouvel instantané, de le corriger et de le commiter, vous pouvez utiliser <code>git revert</code> qui le fera automatiquement pour vous.</p>
+<img src="./Git revert _ Atlassian Git Tutorial_files/03 (7).svg" loading="lazy" alt="git revert – Tutoriel Git d&#39;Atlassian">
+<h2> Fonctionnement
+</h2>
+<p>La commande <code>git revert</code> est utilisée pour annuler des changements apportés à l'historique de commits d'un dépôt. D'autres commandes « d'annulation », comme <code><a href="https://www.atlassian.com/fr/git/tutorials/using-branches/git-checkout" data-event="clicked" data-uuid="5d4c42a1-e9" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket">git checkout</a></code> et <code><a href="https://www.atlassian.com/fr/git/tutorials/undoing-changes/git-reset" data-event="clicked" data-uuid="5d4c42a1-e9" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket">git reset</a></code>, déplacent les pointeurs de réf <code>HEAD</code> et les branches vers un commit spécifié. <code>git revert</code> prend également un commit spécifié. Toutefois, <code>git revert</code> ne déplace pas les pointeurs de réf vers ce commit. Une opération de revert prend le commit spécifié, inverse les changements introduits par le commit, puis crée un « commit de revert ». Les pointeurs de réf sont ensuite mis à jour pour pointer vers le nouveau commit de revert constituant la pointe de la branche.<br> <br> Pour illustrer ceci, créons un exemple de dépôt à l'aide des lignes de commande ci-dessous :</p>
+<div class="component component--codeblock">
+<pre><code class="hljs sql">$&nbsp;mkdir&nbsp;git_revert_test<br>$&nbsp;cd&nbsp;git_revert_test/<br>$&nbsp;git&nbsp;init&nbsp;.<br>Initialized&nbsp;empty&nbsp;Git&nbsp;repository&nbsp;in&nbsp;/git_revert_test/.git/<br>$&nbsp;touch&nbsp;demo_file<br>$&nbsp;git&nbsp;add&nbsp;demo_file<br>$&nbsp;git&nbsp;<span class="hljs-keyword">commit</span>&nbsp;-am<span class="hljs-string">"initial&nbsp;commit"</span><br>[<span class="hljs-keyword">main</span>&nbsp;(root-<span class="hljs-keyword">commit</span>)&nbsp;<span class="hljs-number">299</span>b15f]&nbsp;<span class="hljs-keyword">initial</span>&nbsp;<span class="hljs-keyword">commit</span><br>&nbsp;<span class="hljs-number">1</span>&nbsp;<span class="hljs-keyword">file</span>&nbsp;<span class="hljs-keyword">changed</span>,&nbsp;<span class="hljs-number">0</span>&nbsp;insertions(+),&nbsp;<span class="hljs-number">0</span>&nbsp;deletions(-)<br>&nbsp;<span class="hljs-keyword">create</span>&nbsp;<span class="hljs-keyword">mode</span>&nbsp;<span class="hljs-number">100644</span>&nbsp;demo_file<br>$&nbsp;echo&nbsp;<span class="hljs-string">"initial&nbsp;content"</span>&nbsp;&gt;&gt;&nbsp;demo_file<br>$&nbsp;git&nbsp;<span class="hljs-keyword">commit</span>&nbsp;-am<span class="hljs-string">"add&nbsp;new&nbsp;content&nbsp;to&nbsp;demo&nbsp;file"</span><br>[<span class="hljs-keyword">main</span>&nbsp;<span class="hljs-number">3602</span>d88]&nbsp;<span class="hljs-keyword">add</span>&nbsp;<span class="hljs-keyword">new</span>&nbsp;<span class="hljs-keyword">content</span>&nbsp;<span class="hljs-keyword">to</span>&nbsp;demo&nbsp;file<br>n&nbsp;<span class="hljs-number">1</span>&nbsp;<span class="hljs-keyword">file</span>&nbsp;<span class="hljs-keyword">changed</span>,&nbsp;<span class="hljs-number">1</span>&nbsp;insertion(+)<br>$&nbsp;echo&nbsp;<span class="hljs-string">"prepended&nbsp;line&nbsp;content"</span>&nbsp;&gt;&gt;&nbsp;demo_file<br>$&nbsp;git&nbsp;<span class="hljs-keyword">commit</span>&nbsp;-am<span class="hljs-string">"prepend&nbsp;content&nbsp;to&nbsp;demo&nbsp;file"</span><br>[<span class="hljs-keyword">main</span>&nbsp;<span class="hljs-number">86</span>bb32e]&nbsp;prepend&nbsp;<span class="hljs-keyword">content</span>&nbsp;<span class="hljs-keyword">to</span>&nbsp;demo&nbsp;<span class="hljs-keyword">file</span><br>&nbsp;<span class="hljs-number">1</span>&nbsp;<span class="hljs-keyword">file</span>&nbsp;<span class="hljs-keyword">changed</span>,&nbsp;<span class="hljs-number">1</span>&nbsp;insertion(+)<br>$&nbsp;git&nbsp;<span class="hljs-keyword">log</span>&nbsp;<span class="hljs-comment">--oneline</span><br><span class="hljs-comment">86bb32e&nbsp;prepend&nbsp;content&nbsp;to&nbsp;demo&nbsp;file</span><br><span class="hljs-comment">3602d88&nbsp;add&nbsp;new&nbsp;content&nbsp;to&nbsp;demo&nbsp;file</span><br><span class="hljs-comment">299b15f&nbsp;initial&nbsp;commit</span></code></pre>
+</div>
+<script type="text/x-component">
+{
+"type":"imkt.wpl.CodeBlock",
+"params": {
+}
+}
+</script>
+<p>Nous avons initialisé un dépôt dans un répertoire nouvellement créé appelé <code>git_revert_test</code>. Nous avons fait trois commits dans le dépôt dans lequel nous avons ajouté un fichier <code>demo_file</code> et modifié son contenu à deux reprises. À la fin de la procédure de configuration du dépôt, nous appelons <code>git log</code> pour consulter l'historique du commit, affichant un total de trois commits. Lorsque le dépôt est à cet état, nous sommes prêts à initier <code>git revert</code>.</p>
+<div class="component component--codeblock">
+<pre><code class="hljs armasm">$&nbsp;git&nbsp;<span class="hljs-keyword">revert&nbsp;</span>HEAD&nbsp;[main&nbsp;<span class="hljs-keyword">b9cd081]&nbsp;</span><span class="hljs-keyword">Revert&nbsp;</span><span class="hljs-string">"prepend&nbsp;content&nbsp;to&nbsp;demo&nbsp;file"</span>&nbsp;<span class="hljs-number">1</span>&nbsp;file&nbsp;changed,&nbsp;<span class="hljs-number">1</span>&nbsp;deletion(-)</code></pre>
+</div>
+<script type="text/x-component">
+{
+"type":"imkt.wpl.CodeBlock",
+"params": {
+}
+}
+</script>
+<p>La commande <code>git revert</code> attend la transmission d'une réf de commit et ne s'exécutera pas sans. Dans cet exemple, nous avons transmis la réf <code>HEAD</code> ; le dernier commit est restauré. Il s'agit du même comportement que si nous restaurions le commit <code>3602d8815dbfa78cd37cd4d189552764b5e96c58</code>. À l'instar d'un merge, une restauration (revert) crée un commit qui ouvre l'éditeur du système configuré et demande un nouveau message de commit. Git reprend ses opérations lorsqu'un message de commit a été saisi et enregistré. Nous pouvons à présent examiner l'état du dépôt grâce à <code>git log</code> et voir qu'un nouveau commit a été ajouté au journal précédent :</p>
+<div class="component component--codeblock">
+<pre><code class="hljs vim">$&nbsp;git&nbsp;<span class="hljs-built_in">log</span>&nbsp;--oneline&nbsp;<span class="hljs-number">1061</span>e79&nbsp;Revert&nbsp;<span class="hljs-string">"prepend&nbsp;content&nbsp;to&nbsp;demo&nbsp;file"</span>&nbsp;<span class="hljs-number">86</span>bb32e&nbsp;prepend&nbsp;content&nbsp;<span class="hljs-keyword">to</span>&nbsp;demo&nbsp;<span class="hljs-keyword">file</span>&nbsp;<span class="hljs-number">3602</span>d88&nbsp;<span class="hljs-built_in">add</span>&nbsp;<span class="hljs-keyword">new</span>&nbsp;content&nbsp;<span class="hljs-keyword">to</span>&nbsp;demo&nbsp;<span class="hljs-keyword">file</span>&nbsp;<span class="hljs-number">299</span>b15f&nbsp;initial&nbsp;commit<br></code></pre>
+</div>
+<script type="text/x-component">
+{
+"type":"imkt.wpl.CodeBlock",
+"params": {
+}
+}
+</script>
+<p>Notez que le troisième commit se trouve toujours dans l'historique du projet après le revert. Au lieu de le supprimer, <code>git revert</code> a ajouté un nouveau commit pour annuler les changements. Par conséquent, les 2e et 4e commits représentent exactement la même base de code, et le 3e commit est toujours dans notre historique juste au cas où nous voudrions revenir en arrière en cours de route.</p>
+<h2> Options communes
+</h2>
+<div class="component component--codeblock">
+<pre><code class="hljs ada">-e<br><span class="hljs-comment">--edit</span></code></pre>
+</div>
+<script type="text/x-component">
+{
+"type":"imkt.wpl.CodeBlock",
+"params": {
+}
+}
+</script>
+<p>Il s'agit d'une option par défaut qui ne doit pas être spécifiée. Cette option ouvrira l'éditeur du système configuré et vous invitera à éditer le message de commit avant de commiter le revert.</p>
+<div class="component component--codeblock">
+<pre><code class="hljs stata">--<span class="hljs-keyword">no</span>-<span class="hljs-keyword">edit</span></code></pre>
+</div>
+<script type="text/x-component">
+{
+"type":"imkt.wpl.CodeBlock",
+"params": {
+}
+}
+</script>
+<p>Il s'agit de l'inverse de l'option <code>-e</code>. Le revert n'ouvrira pas l'éditeur.</p>
+<div class="component component--codeblock">
+<pre><code class="hljs ada">-n<br><span class="hljs-comment">--no-commit</span></code></pre>
+</div>
+<script type="text/x-component">
+{
+"type":"imkt.wpl.CodeBlock",
+"params": {
+}
+}
+</script>
+<p>En transmettant cette option, vous empêchez <code>git revert</code> de créer un commit inversant le commit cible. Au lieu de créer le commit, cette option ajoutera les changements inverses à l'index de staging et au répertoire de travail. Voici les autres arborescences que Git utilise pour gérer l'état du dépôt. Pour en savoir plus, consultez la page <code><a href="https://www.atlassian.com/fr/git/tutorials/undoing-changes/git-reset" data-event="clicked" data-uuid="1e50c0e7-9c" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket">git reset</a></code>.</p>
+<h2> Reset et revert
+</h2>
+<p>Il est essentiel de comprendre que la commande <code>git revert</code> annule un commit unique. Elle ne permet pas de « revenir » à l'état précédent d'un projet en supprimant tous les commits suivants. Dans Git, cette commande est nommée reset, et non revert.</p>
+<img src="./Git revert _ Atlassian Git Tutorial_files/04 (2).svg" loading="lazy" alt="git revert et git reset – Tutoriels Git d&#39;Atlassian">
+<p>La commande revert présente deux avantages par rapport à la commande reset. D'abord, elle ne change pas l'historique du projet, ce qui en fait une opération « sûre » pour les commits déjà publiés dans un dépôt partagé. Pour en savoir plus sur les raisons pour lesquelles l'altération de l'historique est dangereuse, consultez la page <a href="https://www.atlassian.com/fr/git/tutorials/undoing-changes/git-reset" data-event="clicked" data-uuid="c15a517f-54" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket">git reset</a>.<br> <br> Ensuite, <code>git revert</code> peut cibler un commit individuel à un point arbitraire de l'historique, tandis que <code>git reset</code> permet seulement de revenir en arrière à partir du commit actuel. Par exemple, si vous souhaitez annuler un ancien commit grâce à <code>git reset</code>, vous devez supprimer tous les commits postérieurs au commit cible, le supprimer, puis commiter à nouveau tous les commits ultérieurs. Inutile de dire que cette solution d'annulation n'est pas très raffinée. Pour une discussion plus approfondie sur les différences entre <code>git revert</code> et d'autres commandes « d'annulation », consultez la page dédiée aux commandes <a href="https://www.atlassian.com/fr/git/tutorials/resetting-checking-out-and-reverting" data-event="clicked" data-uuid="c15a517f-54" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket">reset, check-out et revert.</a> </p> <h2>Résumé</h2> <p>La commande <code>git revert</code> est une opération d'annulation vers l'avant qui fournit un moyen sûr d'annuler les changements. Au lieu de supprimer des commits ou les rendre orphelins dans l'historique des commits, un revert créera un nouveau commit qui inverse les changements spécifiés. <code>git revert</code> est plus sûre que <code>git reset</code> pour éviter les pertes de travail. Pour démontrer les effets de <code>git revert</code>, nous avons exploité d'autres commandes qui présentent une documentation plus détaillée sur leurs pages : <code><a href="https://www.atlassian.com/fr/git/tutorials/git-log" data-event="clicked" data-uuid="c15a517f-54" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket">git log</a></code>, <code><a href="https://www.atlassian.com/fr/git/tutorials/saving-changes/git-commit" data-event="clicked" data-uuid="c15a517f-54" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket">git commit</a> et</code> <code><a href="https://www.atlassian.com/fr/git/tutorials/undoing-changes/git-reset" data-event="clicked" data-uuid="c15a517f-54" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket">git reset</a>.</code></p>
+</div></div>
+<div id="related-post-sidebar" class="related-post">
+<div class="related-post--text">
+<p>Prêt à découvrir git revert ?</p> <p>Essayez ce tutoriel interactif.</p>
+</div>
+<a href="https://www.atlassian.com/fr/git/tutorials/learn-undoing-changes-with-bitbucket" class="button green-solid standard related-post--link">Démarrer maintenant</a>
+</div>
+<div class="_footer">
+<div class="g-column g-6-12 g-centered">
+<div class="_hero">
+<img src="./Git revert _ Atlassian Git Tutorial_files/hero(1).svg" loading="lazy" alt="Réécrire l&#39;historique">
+</div>
+<h5> À suivre :
+</h5>
+<h4> git reset
+</h4>
+<a href="https://www.atlassian.com/fr/git/tutorials/undoing-changes/git-reset" class="cms-link cms-link--text">Démarrer le tutoriel suivant</a>
+</div></div>
+</div>
+</div>
+<div id="footer" class="footer is-tutorial ">
+<div class="g-row _atlassian-logo">
+<div class="g-column g-12-12">
+<h5> Optimisé par
+</h5>
+<a href="https://bitbucket.org/" class="cms-link cms-link--image"><img src="./Git revert _ Atlassian Git Tutorial_files/Bitbucket-white.svg" loading="lazy" alt="Atlassian"></a>
+</div></div>
+<div class="g-row">
+<div class="g-column g-4-12 t-12-12 m-12-12 t-gutterless">
+<h6> Recommander
+</h6>
+<a href="https://twitter.com/home?status=Switching%20to%20%23Git?%20Use%20the%20Atlassian%20Git%20tutorials%20to%20jumpstart%20your%20training%20in%20Git%20commands%20and%20workflows.%20https://www.atlassian.com/git" class="cms-link cms-link--image social-code"><img src="./Git revert _ Atlassian Git Tutorial_files/icon-twitter.svg" loading="lazy" alt="Twitter"></a>
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://www.atlassian.com/git" class="cms-link cms-link--image social-code"><img src="./Git revert _ Atlassian Git Tutorial_files/icon-facebook.svg" loading="lazy" alt="Facebook"></a>
+<a href="https://plus.google.com/share?url=https://www.atlassian.com/git" class="cms-link cms-link--image social-code"><img src="./Git revert _ Atlassian Git Tutorial_files/icon-gplus.svg" loading="lazy" alt="Google Plus"></a>
+</div><div class="g-column g-4-12 t-12-12 m-12-12 t-gutterless">
+<h6> Vous souhaitez recevoir les prochains articles ?
+</h6>
+<form class="newsletter">
+<input class="is-empty _input" type="email" placeholder="Enter Your Email For Git News">
+<button type="submit" class="_status icon-email-submit">Submit</button>
+</form>
+</div><div class="g-column g-4-12 t-12-12 m-12-12 t-gutterless">
+<h6> Site hébergé par
+</h6>
+<a href="https://www.atlassian.com/fr/" class="cms-link cms-link--image"><img src="./Git revert _ Atlassian Git Tutorial_files/Atlassian-horizontal-white-rgb.svg" loading="lazy" alt="Bitbucket" class="_bitbucket-logo"></a>
+</div></div>
+<div class="g-row">
+<div class="g-column g-12-12 t-12-12 m-12-12">
+<p class="license"><a class="icon-global-cclicense" href="http://creativecommons.org/licenses/by/2.5/au/" data-event="clicked" data-uuid="028d468a-75" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket" rel="nofollow">creativecommons.org</a>Sauf indication contraire, l'ensemble du contenu est couvert par une licence australienne <a href="http://creativecommons.org/licenses/by/2.5/au/" data-event="clicked" data-uuid="028d468a-75" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket" rel="nofollow">Creative Commons Attribution 2.5</a>.</p> <style type="text/css">.tutorial-sidebar ._group > a:hover { color: #ccc !important; } .tutorial-sidebar ._group-wrap > a:hover, .tutorial-sidebar ._toc > a:hover { color: #fff; } </style>
+</div></div>
+</div>
+<script type="text/javascript">
+var HTTP_PREFIX = "";
+var FEATURE_FLAG_USE_GDPR = true;
+</script>
+<script type="text/javascript" src="./Git revert _ Atlassian Git Tutorial_files/git-app-lite.js.téléchargement"></script>
+<link rel="stylesheet" href="./Git revert _ Atlassian Git Tutorial_files/site.css">
+<script type="text/javascript">
+(function(){
+var imkt = window.imkt || (window.imkt = {});
+imkt.isEditMode = false;
+imkt.isProduction = true;
+imkt.constants = imkt.constants || {};
+imkt.constants.rootPath = "/";
+imkt.constants.assetPath = "https://wac-cdn.atlassian.com/static/master/707" + "/assets/";
+imkt.constants.libPath = imkt.constants.assetPath + "bower_components/";
+imkt.constants.cdnVersionQuery = "?cdnVersion=80";
+imkt.constants.isDevUser = false;
+imkt.constants.isFreeEnabled = true;
+imkt.constants.getUserAccounts = false;
+imkt.constants.headerLoginMenu = true;
+imkt.constants.public = true;
+imkt.constants.mobileBreakpoint = 640;
+})();
+</script>
+<script type="text/x-component">
+{
+"type":"imkt.pages.WACPage",
+"params": {
+}
+}
+</script>
+<script>
+function initializeATLAnalytics() {
+var pageViewProperties = { contentSite: 'Git Microsite', contentType: 'Microsite', contentProduct: 'Bitbucket' };
+/* get url path, convert to dash format and add it to page view properties. */
+var originProduct = window.location.pathname;
+pageViewProperties.originProduct = "wac" + (originProduct === '/' ? "" : originProduct.replace(new RegExp('/', 'g'),"-"));
+if (typeof ace !== 'undefined') {
+ace.analytics.Initializer.initWithPageAnalytics('kiv6wyh2nw', pageViewProperties, null, null, window.atlGlobalLoadStart);
+}
+}
+</script>
+<script type="text/javascript">
+/**
+* function to load external js through javascript.
+*
+* @param url - javascript url
+* @param location - location of the dom (e.g. document.head)
+*/
+var loadExternalJS = function(url, location, callback){
+var scriptTag = document.createElement('script');
+scriptTag.src = url;
+scriptTag.type = 'text/javascript';
+/* Then bind the event to the callback function.
+There are several events for cross browser compatibility. */
+scriptTag.onreadystatechange = callback;
+scriptTag.onload = callback;
+window.atlGlobalLoadStart = new Date();
+/* Fire the loading */
+location.appendChild(scriptTag);
+};
+</script>
+
+
+<!-- LastRendered: 12 nov. 2021 01:21:32 -->
+
+<script type="text/javascript" class="optanon-category-2">
+loadExternalJS("https://atl-global.atlassian.com/js/atl-global.min.js", document.body, initializeATLAnalytics);
+</script><script src="./Git revert _ Atlassian Git Tutorial_files/atl-global.min.js.téléchargement" type="text/javascript"></script><div id="onetrust-consent-sdk"><div class="onetrust-pc-dark-filter ot-hide ot-fade-in"></div><div id="onetrust-banner-sdk" class="otFlat bottom ot-wo-title vertical-align-content" style="bottom: 0px; visibility: hidden; opacity: 0; transition: visibility 0s ease 400ms, opacity 400ms linear 0s; display: none;"><div role="dialog" aria-describedby="onetrust-policy-text"><div class="ot-sdk-container"><div class="ot-sdk-row"><div id="onetrust-group-container" class="ot-sdk-eight ot-sdk-columns"><div class="banner_logo"></div><div id="onetrust-policy"><p id="onetrust-policy-text">This site uses cookies to improve your browsing experience, perform analytics and research, and conduct advertising. To change your preferences, click Cookie Settings. Otherwise, clicking Accept all Cookies indicates you agree to our use of cookies on your device.<a href="https://www.atlassian.com/legal/cookies">Atlassian Cookies and Tracking Notice</a></p></div></div><div id="onetrust-button-group-parent" class="ot-sdk-three ot-sdk-columns"><div id="onetrust-button-group"><button id="onetrust-pc-btn-handler" class="cookie-setting-link">&gt; Cookie Settings</button>  <button id="onetrust-accept-btn-handler">Accept All Cookies</button></div></div></div></div><!-- Close Button --><div id="onetrust-close-btn-container"><button class="onetrust-close-btn-handler onetrust-close-btn-ui banner-close-button ot-close-icon" aria-label="Close"></button></div><!-- Close Button END--></div></div></div><script type="text/javascript" id="">(function(a,b){"function"!=typeof a.ClickTaleCreateDOMElement&&(a.ClickTaleCreateDOMElement=function(c){return b.createElementNS?b.createElementNS("http://www.w3.org/1999/xhtml",c):b.createElement(c)});a.WRInitTime=(new Date).getTime();a=ClickTaleCreateDOMElement("script");a.type="text/javascript";var d="https:"==b.location.protocol?"https://cdnssl.clicktale.net/":"http://cdn.clicktale.net/";d+="www33/ptc/ef81b94c-8498-4f12-b358-eb76a000a247.js";a.src=d;b.getElementsByTagName("body")[0].appendChild(a)})(window,
+document);</script><script type="text/javascript" src="./Git revert _ Atlassian Git Tutorial_files/ef81b94c-8498-4f12-b358-eb76a000a247.js(1).téléchargement"></script><cs-native-frame-holder hidden=""><iframe id="cs-native-frame" hidden="" title="Intentionally blank" src="./Git revert _ Atlassian Git Tutorial_files/saved_resource.html"></iframe></cs-native-frame-holder><script type="text/javascript" crossorigin="anonymous" async="" src="./Git revert _ Atlassian Git Tutorial_files/ef81b94c-8498-4f12-b358-eb76a000a247.js(2).téléchargement"></script><div id="ClickTaleDiv" style="display: none;"></div><script crossorigin="anonymous" type="text/javascript" async="" src="./Git revert _ Atlassian Git Tutorial_files/bridge-WR110.js.téléchargement"></script></body></html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="../asset/add_class.css">
+    <script src="../asset/jquery.3.6.0.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+           
+            $("#b1").click(function () {
+                $("#p1").addClass("intro"); 
+            });
+            
+            $("#b2").click(function(){ 
+            $("#p2").removeClass("intro");
+            });
+        });
+    </script>
+
+</head>
+
+<body>
+
+    <h1>This is a heading</h1>
+
+    <p id="p1">This is a paragraph.</p>
+    <p id="p2">This is another paragraph.</p>
+
+    <button id="b1">Add a class</button>
+    <button id="b2">remove a Class</button>
+</body>
+
+</html>

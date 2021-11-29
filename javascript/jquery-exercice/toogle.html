@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../asset/jquery.3.6.0.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#b1").click(function () {
+                var div = $("div");
+                div.animate({
+                    height: '300px',
+                    opacity: '0.4'
+                }, "slow");
+                div.animate({
+                    width: '300px',
+                    opacity: '0.8'
+                }, "slow");
+                div.animate({
+                    height: '100px',
+                    opacity: '0.4'
+                }, "slow");
+                div.animate({
+                    width: '100px',
+                    opacity: '0.8'
+                }, "slow");
+            });
+            $("#b2").click(function () {
+                $("#cube").toggle("slow");
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+    <button id="b1">Start animation</button>
+    <button id="b2">Toggle</button>
+    <p>To manipulate the position, remember to first set the CSS position property of the element to relative, fixed or
+        absolute!</p>
+    <div style="background: #98bf21; height:100px;width:100px; position:absolue" id="cube"></div>
+</body>
+
+</html>

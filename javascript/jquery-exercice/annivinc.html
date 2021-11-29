@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Joyeux anniversaire</title>
+    <style>
+        #carte {
+            width: 600px;
+            height: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 30px;
+            border-radius: 10px;
+            background-color: rgb(245, 222, 49);
+            Background-image: url("_assets/img/jQueryAnimationAniversaire01.jpg");
+        }
+        #bandeau01{
+            width: 400px;
+            height: 80px;
+            float: left;
+            margin-left: 100px;
+            margin-top: 40px;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            background-color: #fe9902;
+            font-family: verdana;
+            border: 0px;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            font-size: 30px;
+            line-height: 76px;
+        }
+        #b01,#b02,#b03 {
+            width: 300px;
+            height: 40px;
+            float: left;
+            margin-left: 150px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            background-color: #fe9902;
+            font-family: verdana;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            font-size: 24px;
+            border: 0px;
+            line-height: 26px;
+        }
+        #bulle01 {
+            height:100px;
+            width:100px;
+            float: left;
+            position: relative;
+            /* background-color: blue; */
+            Background-image: url("_assets/img/jQueryAnimationAniversaire01.gif");
+            opacity: 0;
+            left: 0px;
+            top:400px;
+        }       
+    </style>
+</head>
+
+<body>
+	<div id="carte" >
+		<button id="bandeau01">Joyeux anniversaire ! </button>
+        <button id="b01" hidden>message 1 </button>
+		<button id="b02" hidden>message 2 </button>
+        <button id="b03" hidden> Champagne ! </button>
+        <div id="bulle01"> </div>
+    </div>
+    <script src="../asset/jquery.3.6.0.js"></script>
+    
+    <script>
+        $('#bandeau01').on('click', function(event){
+            $('#b01').fadeIn();
+        });
+        $('#b01').on('click', function(){
+            $('#b02').fadeIn();
+        });
+        $('#b02').on('click', function(){
+            $('#b03').fadeIn();
+        });
+        $('#b03').on('click', function(){
+        //
+        $("#bulle01").animate({opacity:'0.5',top: '150px',left: '-400px'});
+        $("#bulle01").animate({opacity:'0.5',top: '-100px',left: '-350px'});
+        $("#bulle01").animate({opacity:'0.5',top: '-200px',left: '-400px'});
+        $("#bulle01").animate({opacity:'0.5',top: '-300px',left: '-350px'});
+        $("#bulle01").animate({opacity:'0.5',top: '-400px',left: '-400px'});
+        $("#bulle01").animate({opacity:'0',top: '-400px',left: '-400px'});
+        $("#bulle01").animate({opacity:'0',top: '150px',left: '-400px'});
+        //
+        });
+        // Objet Son ou vidéo
+        $(document).ready(function(){
+            var obj = document.createElement("audio");
+            obj.src = "_assets/son/jQueryAnimationAniversaire01.mp3";
+            obj.volume = 1;
+            obj.autoplay = false;
+            obj.preLoad = true;
+            obj.control = false;
+            $('#b03').on('click', function(){
+                obj.play();
+            })
+        });    
+        //
+    </script>
+</body>
+</html>

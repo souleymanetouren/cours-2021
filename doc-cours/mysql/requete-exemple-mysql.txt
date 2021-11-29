@@ -1,0 +1,32 @@
+
+
+
+
+1 - modéliser Merise , DBDESIGNER => generer sql.
+
+- injecter PHPMYADMIN sql 
+
+- commander pc
+- terminal mac
+- shell linux
+
+resultat bd ok!
+
+
+2 -  interroger, lire, modifier, ajouter, supprimer => cRUD
+
+select ___valeurs__ from table __01_  UNION _02__ where ____conditions__
+
+
+
+exemple librairie :
+
+1 - select titre, date_achat, description from livres  where id_auteur=2456
+
+2 - select titre, date_achat, description, nom_auteur, bio, xyz, etc from livres UNION auteurs where Auteur.livres=id.auteurs
+
+3 - select * from livres UNION auteurs where auteur.livres=id.auteurs
+
+
+
+

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+//le hoisting ou hissage
+
+var prenom = "toto";
+var iAge = 33;
+
+console.log("bonjour" + prenom);
+
+var nom ="delavega";
+
+bonjour(nom);
+
+
+function bonjour (nom){
+    document.write("Ca va "+ nom + " ?");
+}
+
+/* Exécution du code */
+document.write("Bonjour "+ prenom);
+
+bonjour(nom);
+
+var iAge = prompt("Quel est ton âge ?");
+
+document.write( iAge);
+
+
+
+    </script>
+</body>
+</html>

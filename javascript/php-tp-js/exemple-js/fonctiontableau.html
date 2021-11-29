@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>tableau suite .. .</title>
+    </head>
+    <body>
+        <script>
+            let student = [
+                "Marcelline",
+                "Hamza",
+                "Vincent",
+                "Jimmy",
+                "Kevin",
+                "Alex",
+                "Souleymane"
+            ];
+            var fruits = [
+                "pomme",
+                "poire",
+                "mangue",
+                "fraise",
+                "banane",
+                "mandarine",
+                "banane",
+                "cerise"
+            ];
+            // on cancaténe 2 tableaux
+            var concatenation = student.concat(fruits);
+            document.write(concatenation);
+            //on indique le premier index de l'element choisi du tableau.
+            let result = fruits.indexOf('banane');
+            document.write("<br>" + result);
+            //on indique le dernier index de l'element choisi du tableau.
+            let resultat = fruits.lastIndexOf("cerise");
+            document.write("<br>" + resultat);
+            //on supprime le last element du tableau.
+            last = fruits.pop();
+            document.write("<br> je pop supprime le dernier element  " + last);
+            document.write("<br>" + fruits);
+            //on ajoute des element du tableau.
+            var nb = fruits.push('mangue', 'prune');
+            document.write("<br>" + fruits);
+            //on supprime le premier element du tableau.
+            fruits.shift();
+            document.write("<br> shift " + fruits);
+            //classement alphabetique
+            fruits.sort();
+            document.write("<br>" + fruits);
+            //split
+            var ladate= '15/05/2018';
+            var myTableau = ladate.split('/');
+            document.write("<br> le split extrait un caractère.      >> ici on a extrait le '/' ' " + myTableau);
+            // tableau multidimensionnel
+             let tab1 = ["poireau", "tomate", "carotte", "celeri"];
+            let tab2 = ["pomme", "poire", "banane", tab1 ];
+            console.log(tab2[3]);
+            //acceder a celeri
+            console.log(tab2[3][3]);
+            // tableau a plusieurs dimensions
+            tab1[0] = ["poireau", "tomate", "carotte"];
+            tab1[1] = ["pomme", "poire", "banane"];
+            tab1[2] = ["poireau", "raisin secs","tomate", "carotte"];
+            tab1[3] = ["pomme", "banane", "ananas"];
+            tab1[4] = ["poireau", "tomate", "carotte"];
+            tab1[5] = ["pomme", "poire", "banane", "kiwi","pomme de terres"];
+            tab1[6] = ["poireau", "tomate", "laitue","carotte"];
+            tab1[7] = ["pomme", "poire", "banane","datte"];
+            tab1[8] = ["poireau", "tomate", "carotte", "epinard"];
+            tab1[9] = ["pomme", "banane", "ananas","figues"];
+            tab1[10] = ["poireau", "tomate", "carotte"];
+            tab1[11] = ["pomme", "poire", "banane", "kiwi","pomme de terre","courgette"];
+            tab2 = ["pomme", "poire", "banane", tab1 ];
+            
+            console.log(tab2[3][8][3]);
+            // tableau objet ARRAY
+
+            // affichage
+            console.log(tab1[5][4]);
+             // pomme de terre
+            console.log(tab1[7][3]);
+            
+
+        </script>
+    </body>
+</html>
+
+
+        </script>
+    </body>
+</html>

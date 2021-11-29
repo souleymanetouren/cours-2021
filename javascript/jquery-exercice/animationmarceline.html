@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation</title>
+
+    <style>
+        h1{
+            color: red;
+        }
+        .p1{
+            color: blue;
+            border: 5px solid brown;
+            background-color:yellowgreen ;
+            font-style:bold ;
+        }
+        .p2{
+            color:green ;
+            border: 8px solid brown ;
+            background-color:pink ;
+        }
+    </style>
+</head>
+<body>
+    <h1>la méthode show et la méthode hide</h1>
+
+    <p class='p1'>la méthode show est utilisée pour montrer un champ quand l'utilisateur clique sur la souris</p>
+    <p class='p2'><img src="../asset/img/afro.jpg" alt="coiffure d'afrique">la méthode hide est utilisée pour cacher un champ quand l'utilisateur click sur la souris</p>
+
+    <script src="../asset/jquery.3.6.0.js"></script>
+
+    <script>
+        $(document).ready(function(){
+
+           
+            $('.p1').mouseenter(function(){
+                /* $(".p2").hide(); */
+                $(".p2").fadeOut();
+            });
+            $('.p1').mouseleave(function(){
+               /*  $(".p2").show(); */
+                $(".p2").fadeIn();
+            });
+        });
+    </script>
+</body>
+
+</html>

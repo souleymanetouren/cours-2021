@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>manipulation du dom</title>
+<style>
+table {border-collapse: collapse; }
+th,td {border: solid 1px;}
+    
+    
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li>element 1 de ma liste</li>
+        <li>element 2 de ma liste</li>
+        <li>element 3 de ma liste</li>
+        <li>element 4 de ma liste</li>
+    </ul>
+
+<table>
+<tr><th>prénom</th><th>nom</th></tr>
+<tr><td>pierre</td><td>giraud</td></tr>
+<tr><td>pierre</td><td>giraud</td></tr>
+<tr><td>pierre</td><td>giraud</td></tr>
+<tr><td>pierre</td><td>giraud</td></tr>
+</table>
+
+<script src="../asset/jquery.3.6.0.js"></script>
+<script>
+$(document).ready (function(){
+    // ici jquery nous permet de filtrer ou selectionner en l'occurence une ligne 
+    // ou une rangée de tableau (pair ou impair) et de lui appliquer un css
+    $('li').filter(':nth-child(even)').css('color','blue');
+    $('tr').filter(':nth-child(odd)').css('color','purple');
+})
+
+
+
+</script>
+</body>
+
+</html>

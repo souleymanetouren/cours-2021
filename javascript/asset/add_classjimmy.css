@@ -1,0 +1,10 @@
+.intro {
+    font-size: 150%;
+    color: red;
+}
+
+td,
+tr {
+    padding: 10px;
+    border: solid black 1px;
+}

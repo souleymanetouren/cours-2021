@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>manipulation du DOM</h1>
+    <p>un premier paragraphe en html</p>
+    <p>un deuxieme paragraphe</p>
+    <p>un troisieme paragraphe</p>
+    <p>un dernier paragraphe</p>
+
+    <script src="../asset/jquery.3.6.0.js"></script>
+    <!-- ici jquery nous permet (entre autres)de jouer sur le css  -->
+    <script>$(document).ready (function(){
+        $('p').first().css('color','red');
+        $('p').last().css('color','blue');
+        $('p').eq(1).css('color','green');
+        $('p').eq(-2).css('color','yellow');
+        $('h1').css('color','purple');
+        $('body').css('background-color','pink');
+    });
+</script>
+</body>
+
+</html>

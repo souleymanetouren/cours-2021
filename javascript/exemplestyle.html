@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>javascript-style</title>    
+<meta name="keywords" content="fontsize,color,fontstyle">
+<meta name="description" content="javascript peut changer le style d'un document">
+<!-- cette methode permet de changer le contenu -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Praise&display=swap');
+    </style>
+<!-- importation de la police de caractère depuis l'API de googlefont -->
+</head>
+<body>
+
+<h2>What Can JavaScript Do?</h2>
+
+<p id="demo" name="toto">JavaScript peut changer le style de l'&eacute;l&eacute;ment html.</p>
+
+<button onclick="document.getElementById('demo').style.fontSize='50px'">taille</button>
+<!-- cette methode permet de changer la taille du texte-->
+<button onclick="document.getElementById('demo').style.color='red'">couleur</button>
+<!-- cette methode permet de changer la couleur du texte -->
+<button onclick="document.getElementById('demo').style.fontStyle='italic'">en italique</button>
+<!-- cette methode permet de changer le texte en italique -->
+<button onclick="document.getElementById('demo').style.fontFamily='Praise'">googlefont</button>
+<!-- font-family: 'Praise', cursive; -->
+<button onclick="document.getElementById('demo').innerHTML = 'toto'">changer le contenu</button>
+<!-- cette methode permet de changer le contenu -->
+</body>
+</html>

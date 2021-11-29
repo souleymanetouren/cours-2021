@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<p id="affichage">date du jour</p>    
+<p id="dateToday"></p>
+<script>
+// on instancie l'objet Date()
+var maintenant=new Date();
+// on recupere heure minutes sec objet date()
+var heure=maintenant.getHours();
+var minute=maintenant.getMinutes();
+var seconde=maintenant.getSeconds();
+// on recupere la date dans l'objet
+var jour=maintenant.getDate();
+var mois=maintenant.getMonth()+1;
+var an=maintenant.getFullYear();
+// il faut rajouter+1 au mois, car c'est le mois échu.
+document.write("nous sommes le",jour,"/",mois,"/",an,".");
+document.write("il est ",heure, "heure",minute,"minute",seconde,"seconde" )
+
+</script>
+
+
+</body>
+</html>

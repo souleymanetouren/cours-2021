@@ -1,0 +1,47 @@
+<!-- https://fr.flossmanuals.net/initiation-a-javascript/les-variables/ -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Récupérer la valeur d'un input texte</title>
+    <style>
+    #champ {
+      color:blueviolet;
+    }
+    #recuperer{
+      background-color: rgb(41, 138, 218);
+      border: 3 px ;
+    }
+  </style>
+  </head>
+  <body>
+    <!-- debut code html -->
+    <!--  Création du champ -->
+    <input type="text" placeholder="Entrez votre nom ici" id="champ">
+    <!-- Création du bouton -->
+    <button id="recuperer" onclick="maValeur();"> Récupérer la valeur </button>
+    <!-- Emplacement "affichage" -->
+    <br>
+    <!-- affichage de la zone de saisie au dessus-->
+    <p id="affichage"> paragraphe </p>
+<!-- javascript -->
+    <script>
+      // une fonction JS
+        function maValeur() {
+          // travailler en objet
+          // console.log(today);
+          // afficher la date sans click bouton
+            // Sélectionner l'élément input et récupérer sa valeur
+            var maVariable = document.getElementById("champ").value;
+            // Afficher la valeur
+            //document.write(maVariable);
+            // Ecrit a la place de "resultat" 
+            document.getElementById('affichage').innerHTML = maVariable;
+            // Ou alerte
+            //alert(maVariable);
+        }
+    </script>
+    <!-- fin du js -->
+  </body>
+</html>

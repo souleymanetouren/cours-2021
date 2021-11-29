@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="../asset/jquery.3.6.0.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("button").click(function () {
+                var div = $('div');
+                var p = $('p');
+                $('div').toggle('fast');
+                $('p').slideToggle('slow');
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <button> Apparition disparition</button>
+    <p>methode slideToggle jquery</p>
+    <div style="background:#98bf21; height:100px; width:100px; position:absolute;">
+        apparition </div>
+</body>
+
+</html>

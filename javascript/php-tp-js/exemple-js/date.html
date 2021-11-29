@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+	<label for="annee"> Année </label>
+	<input type="text" id="annee" name="annee" required minlength="1" maxlength="5" size="10">
+	<label for="mois"> mois </label>
+	<input type="text" id="mois" name="mois" required minlength="1" maxlength="5" size="10">
+	<label for="jour"> Jour </label>
+	<input type="text" id="jour" name="jour" required minlength="1" maxlength="5" size="10">
+	
+	<script>
+        function anneesMoisJoursDepuisNaissance(theyear,themonth,theday){
+			var maxDaysByMonthArray=new Array(31,28,31,30,31,30,31,31,30,31,30,31);
+			var ay=theyear;
+			var am=themonth;
+			var ad=theday;
+			var today=new Date();
+			var ty=today.getYear();
+			ty+=1900;
+			var tm=today.getMonth()+1;
+			var td=today.getDate();
+			var dy=0;
+			var dm=0;
+			var dd=0;
+			var text="";
+			var joursDepuisMoisAvant=0;
+			var joursDuMoisAvant=0;
+			var moisPrescedent=0;
+			var moisAnneeAvant=0;
+			//text="</br></br></br>Naissance "+theyear+" "+themonth+" "+theday+".</br>Auj ty"+ty+"tm"+tm+"td"+td+"</br>";
+			// différence d'année
+			dy=ty-ay;
+			if(tm<=am)//mois et jour pas arrivés
+			{
+			if(td<ad){ dy=ty-ay-1;}//on enlève un an
+			}
+//différence de mois
+
+if(tm>am)//mois annif passé
+{
+	dm=tm-am;
+	if(td<ad)//jour pas arrivé
+	{
+		dm=tm-am-1;
+	}
+}
+else //mois annif pas arrivé
+{
+	moisAnneeAvant=12-am; //on ajoute les mois de l'année d'avant
+	dm=tm+moisAnneeAvant;
+
+	
+}
+if(tm==am) //mois de l'annif en cours
+	{
+		if(td<ad)//jour pas arrivé
+		{ 
+			moisAnneeAvant=12-am;
+			dm=tm+moisAnneeAvant-1;
+		}
+		else
+		{
+			dm=tm-am;//0
+		}
+	}
+//différence de jour
+dd=td-ad;
+if(td<ad)//jour pas arrivé
+{	if(tm==1){moisPrescedent=12;}
+	else {moisPrescedent=tm-1;}
+	joursDuMoisAvant=maxDaysByMonthArray[moisPrescedent-1];
+	joursDepuisMoisAvant=joursDuMoisAvant-ad;
+	
+	if(joursDepuisMoisAvant<0){joursDepuisMoisAvant=0;}//ex:si on est né le 30 mais qu'il y a 28jours le mois avant
+	dd=td+joursDepuisMoisAvant;
+}
+//text+="</br> ca donne "+dy+" ans "+dm+" mois "+dd+" jours </br>";
+//ecriture
+if(dy>=1){
+  text+=dy + " an"
+  if(dy>1){
+    text+="s";
+  }
+}
+if(dm>=1){
+  text+= " " + dm + " mois";
+}
+if((dd==0)&&(dm==0)){
+  text+= " aujourd'hui"
+}
+if(dd>=1){
+  text+= " " + dd + " jour"
+  if(dd>1){
+    text+="s"
+  	}
+	}
+	return text;
+}
+// var maVariableA = document.getElementById("annee").value;
+// var maVariableM = document.getElementById("mois").value;
+// var maVariableJ = document.getElementById("jour").value;
+// document.write(anneesMoisJoursDepuisNaissance(maVariableA,maVariableM,maVariableJ));
+document.write(anneesMoisJoursDepuisNaissance(1950,11,14));
+//console.log(Object.values(object1));
+
+    </script>
+	
+</body>
+</html>
+

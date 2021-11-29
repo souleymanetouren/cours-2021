@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="../asset/add_classjimmy.css">
+    <script src="../asset/jquery.3.6.0.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#b1").click(function () {
+                $("p:first").addClass("intro");
+            });
+            $("#b2").click(function () {
+                $("p:first").removeClass("intro");
+            });
+            $("#b3").click(function () {
+                var htmlString = $("div").html();
+                $("div").text(htmlString);
+            });
+            $("#b4").click(function () {
+                var str = $("p").first().text();
+                $("p").last().html(str);
+            });
+            $("#b5").click(function () {
+                $("h1").replaceWith("<h2>I changed the content. </h2>");
+            });
+            $("#b6").click(function () {
+                $("p").remove();
+            });
+            $("#b7").click(function () {
+                $("h2").before("<h1>I can add a title</h1>");
+            });
+            $("#b8").click(function () {
+                $("h2").after("<p> Or more texte </p>");
+            });
+            $("#b9").click(function () {
+                $("p").find("strong").css("color", "red");
+                $("h1").find("span").css("color", "blue");
+                $("p").find("span").css("color", "green");
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+    <h1><span>This is a heading</span></h1>
+
+    <p>This is a <strong> paragraph.</strong></p>
+    <p id="text"><span>This is another paragraph.</span></p>
+
+
+    <div class="demo-container">
+        <div class="demo-box">Demonstration Box</div>
+    </div>
+
+    <table>
+        <tr>
+            <td>
+                <button id="b1">Add a class name to the first p element</button>
+            </td>
+            <td>
+                <button id="b2">Remove a class name to the first p element</button>
+            </td>
+            <td>
+                <button id="b3">Return the HTML content of the element</button>
+            </td>
+            <td>
+                <button id="b4">Change the text of the element to the designated text</button>
+
+            </td>
+            <td>
+                <button id="b9">Find an element</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button id="b5">Replace the element by the new content</button>
+            </td>
+            <td>
+                <button id="b6">Remove an element from the page</button>
+            </td>
+            <td>
+                <button id="b7">Add an element before the page</button>
+            </td>
+            <td>
+                <button id="b8">Add an element after the page</button>
+            </td>
+            
+        </tr>
+    </table>
+
+</body>
+
+</html>

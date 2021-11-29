@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="../asset/jquery.3.6.0.js"></script>
+        <script>
+            $(document).ready(function () {
+                $("button").click(function () {
+                    var div = $("div");
+                    div.animate({
+                        height: '300px',
+                        opacity: '0.4'
+                    }, "fast");
+                    div.animate({
+                        width: '300px',
+                        opacity: '0.8'
+                    }, "fast");
+                    div.animate({
+                        height: '100px',
+                        opacity: '0.4'
+                    }, "fast");
+                    div.animate({
+                        width: '100px',
+                        opacity: '0.8'
+                    }, "fast");
+                });
+            });
+
+            // $(document).ready(function () { // ici on apelle les methodes jquery });
+
+        </script>
+    </head>
+    <body>
+        <button>Start Animation</button>
+        <p>To manipulate the position, remember to first set the CSS position property
+            of the element to relative, fixed, or absolute!</p>
+        <div style="background:#98bf21; height:100px; width:100px; position:absolute;">
+            ici ça bouge </div>
+    </body>
+</html>
